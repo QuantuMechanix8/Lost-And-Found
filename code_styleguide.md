@@ -28,7 +28,7 @@ Generally `snake_case` is the preferred as the words appear the most separated (
 - Try to stick to 92 char line limit - not necessarily a hard limit but still - for readability especially on split or smaller (such as laptop) screens
 - Standard indentation of 4 spaces, spaces around operators, separate functions with 2 blank lines, sparing line separation all as defined in [Pep8](https://peps.python.org/pep-0008/#blank-lines)
 - Don't overuse try-catch blocks, it is better to avoid errors than rely on catching them
-
+- Always add (descriptive messages) with git commits, generally a title and then description i.e. `git commit -m "[COMMIT_TITLE]" -m "[COMMIT_DESCRIPTION]"` but can just be title if sufficient
 
 ### Imports:
 - All imports are to be at the top of a file, with each import on their own line (as in [Pep8](https://peps.python.org/pep-0008/#imports))
@@ -47,4 +47,4 @@ Generally `snake_case` is the preferred as the words appear the most separated (
 - For more complex functions/classes you can include:
     - a signature in documentation e.g. `in_mandel(c::Complex, iterations::Int)::Bool`
     - Examples e.g. `extrema([1,2,3,4]) -> (1,4)`
-    - Longer description of how it works (high level)
+    - Longer description of how the function works (high level)
