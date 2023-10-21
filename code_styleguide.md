@@ -2,18 +2,18 @@
 
 
 ## Naming conventions:
-
 - Stick to American spellings, since programming languages and their libraries use these as standard.
 - Avoid abbreviations unless they are incredibly obvious e.g. `rand_arr, num_dict` are fine - otherwise they necessitate context that can make reading the code much harder
-- Try to keep function names shorter by putting some of the info into the type signature e.g. Instead of `submit_bid(maximum)` we could just have `submit(maximum::bid)` just ensure it is still sufficiently self describing
-    - For languages without types or cases where this is difficult, we can embed type info in the variable name i.e. `execute(delay_seconds)` instead of `execute(delay)` is far clearer what the input represents
+- We can shorten function names by putting some of the info into the type signature e.g. Instead of `submit_bid(maximum)` we could just have `submit(maximum::bid)` just ensure it is still sufficiently self describing
+    - For languages without types or cases where this is difficult, we can embed type info in the variable name i.e. `execute(delay_seconds)` instead of `execute(delay)` which clarifies what the input represents
 - append `!` to functions which modify their arguments i.e `sort!(arr)` modifies the input array whereas `sort(arr)` returns a new sorted array
+(would be nice to have some equivalent of this ! mutating function convention in python and other languages)
 
 
 ### Casing:
 Generally `snake_case` is the preferred as the words appear the most separated (closest to actual spaces), followed by `kebab-case` and then the others (Prefer the consistency of `PascalCase` over `camelCase)`
 
-- Variables should use `snake_case` although sometimes it is permissible to omit the underscore, when word separation is not visually needed (use judgement) e.g. `isequal` is fine without `_` separator
+- Variables should use `snake_case` although sometimes it is permissible to omit the underscore when word separation is not visually needed (use judgement) e.g. `isequal` is fine without `_` separator
     - Constants & globals - only used when _absolutely necessary_ - are to written using `ALL_CAPS` snake case
 - functions should also use `snake_case`
 - modules should use `PascalCase`
@@ -30,6 +30,7 @@ Generally `snake_case` is the preferred as the words appear the most separated (
 - Don't overuse try-catch blocks, it is better to avoid errors than rely on catching them
 - Always add (descriptive messages) with git commits, generally a title and then description i.e. `git commit -m "[COMMIT_TITLE]" -m "[COMMIT_DESCRIPTION]"` but can just be title if sufficient
 
+
 ### Imports:
 - All imports are to be at the top of a file, with each import on their own line (as in [Pep8](https://peps.python.org/pep-0008/#imports))
 - Avoid importing the module into the local namespace i.e. `Import *` in python or `using` in Julia, instead call functions from the module name as it makes code much clearer, reduces namespace clutter and reduces need for context.
@@ -43,7 +44,7 @@ Generally `snake_case` is the preferred as the words appear the most separated (
 
 
 ### Documentation:
-- Document all functions/classes with a simple explanatory docstring of what it does - use imperative "do this", "return that" rather than "returns the ..."
+- Document all functions/classes with (atleast) a simple explanatory docstring of what it does - use imperative "do this", "return that" rather than "returns the ..."
 - For more complex functions/classes you can include:
     - a signature in documentation e.g. `in_mandel(c::Complex, iterations::Int)::Bool`
     - Examples e.g. `extrema([1,2,3,4]) -> (1,4)`
