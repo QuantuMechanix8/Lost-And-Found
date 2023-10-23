@@ -1,9 +1,12 @@
 # Code Styleguide:
+Largely based on python conventions laid out in [Pep8](https://peps.python.org/pep-0008/#blank-lines)
+, but also inspired by [Julia's Styleguide](https://docs.julialang.org/en/v1/manual/style-guide/) and various other conventions - mentioned when relevant
 
+When in conflict, default to the styling for the language you are using over this styleguide e.g. `camelCasing` variables in `javaScript`
 
 ## Naming conventions:
-- Stick to American spellings, since programming languages and their libraries use these as standard.
-- Avoid abbreviations unless they are incredibly obvious e.g. `rand_arr, num_dict` are fine - otherwise they necessitate context that can make reading the code much harder
+- Stick to American spellings, since programming languages and their libraries use these as standard i.e. "color" rather than "colour"
+- Avoid abbreviations unless they are incredibly obvious e.g. `rand_arr, num_dict, x_pos` are fine - otherwise they necessitate context that can make reading the code much harder
 - We can shorten function names by putting some of the info into the type signature e.g. Instead of `submit_bid(maximum)` we could just have `submit(maximum::bid)` just ensure it is still sufficiently self describing
     - For languages without types or cases where this is difficult, we can embed type info in the variable name i.e. `execute(delay_seconds)` instead of `execute(delay)` which clarifies what the input represents
 - append `!` to functions which modify their arguments i.e `sort!(arr)` modifies the input array whereas `sort(arr)` returns a new sorted array
@@ -25,8 +28,13 @@ Generally `snake_case` is the preferred as the words appear the most separated (
 
 
 ## General:
-- Try to stick to 92 char line limit - not necessarily a hard limit but still - for readability especially on split or smaller (such as laptop) screens
-- Standard indentation of 4 spaces, spaces around operators, separate functions with 2 blank lines, sparing line separation all as defined in [Pep8](https://peps.python.org/pep-0008/#blank-lines)
+- Soft line limit of 80 characters, with a hard limit of 120 characters
+	- meaning you should try to ensure lines of code are within 80 characters, and never exceed 120
+	- The reasoning behind this is that very long lines of code are hard to read, don't fit on smaller screens (such as laptops)/side-by-side editing, rest of the program to have alot of empty space
+
+	- That said, 80 characters can be overly restrictive (especially after several indents) given most have wide screen monitors, so a hard limit at 120 is more reasonable (120 is the default line length for github tools)
+
+- Standard indentation of 4 spaces, spaces around operators, separate functions with 2 blank lines, occasional blank lines to group code, etc, all as defined in [Pep8](https://peps.python.org/pep-0008/#blank-lines)
 - Don't overuse try-catch blocks, it is better to avoid errors than rely on catching them
 - Always add (descriptive messages) with git commits, generally a title and then description i.e. `git commit -m "[COMMIT_TITLE]" -m "[COMMIT_DESCRIPTION]"` but can just be title if sufficient
 
