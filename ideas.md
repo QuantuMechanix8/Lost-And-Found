@@ -1,6 +1,7 @@
 # IDEAS FOR PROJECT
 
 ## Supermarket Stock finder
+Show which local supermarkets a user can find a given item in stock (w prices etc) 
 
 ### Main points:
  - ask local supermarkets for stock inventory login
@@ -12,10 +13,11 @@
 ### Cons:
  - supermarkets might not let us have access :(
 
+
 ## MMO club penguin style
+club penguin/bin weevils/moshi monsters style game
 
 ### Main points:
- - basically club penguin/bin weevils/moshi monsters
  - we have a room per player (big database vibes icl) + friends + pets/furniture etc
 
 ### Pros:
