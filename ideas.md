@@ -52,7 +52,8 @@ Students' shared calender which helps people find timeslots where their friends 
 ### Main points:
 - Group calendar where student's upload their calendars (mostly university calendar but extends to personal too) and then can co-ordinate when they are free
 - Project would recommend timings to schedule events (not just when both are free but perhaps take into consideration early mornings etc)
-
+- Project could have 'soc accounts' which could see data about a large number of users (members of the soc) and could get large samples of when people were free
+- Could potentially link to users' apple/google calendars automatically (There must be a way to do that right?) which is bonus data handling
 
 ### Pros:
 - Algorithmically complex/interesting, lots of opportunity to flex computer skillz 
@@ -64,3 +65,4 @@ Students' shared calender which helps people find timeslots where their friends 
 - Not particularly novel idea
 - May be difficult to get calendar data from users
 - Base app might be too narrow as it is only a single feature of scheduling for multiple users
+- Not much application outside of this project - we probably couldn't turn it into a whole product afterwards (if we wanted to do that)
