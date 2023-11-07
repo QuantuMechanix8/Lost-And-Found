@@ -66,3 +66,9 @@ Students' shared calender which helps people find timeslots where their friends 
 - May be difficult to get calendar data from users
 - Base app might be too narrow as it is only a single feature of scheduling for multiple users
 - Not much application outside of this project - we probably couldn't turn it into a whole product afterwards (if we wanted to do that)
+
+### API Usage:
+- Google Calendar (free) https://developers.google.com/calendar/api/concepts
+- Outlook Calendar (free but doesn't work for personal calendars) https://learn.microsoft.com/en-us/graph/outlook-calendar-meeting-proposals
+- Apple Calendar - may not be workable (apple moment)
+- .ics format? requires users to do a lot of work tho
