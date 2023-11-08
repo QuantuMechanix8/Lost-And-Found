@@ -44,7 +44,7 @@ Sleep data for users is uploaded and cohort can compare their sleep to others
 
 
 ## Geographical Data visualiser
-Website with a map of globe (or other submaps) and then options of different metrics to be visualised 
+map of globe (or other submaps) and then options of different metrics to be visualised 
 e.g. colouring/sizing/ordering countries by population, wealth, gender split, etc
 
 ### Main Points:
@@ -60,6 +60,29 @@ e.g. colouring/sizing/ordering countries by population, wealth, gender split, et
 - Would require ALOT of data, and perhaps much of the project would be loading and cleaning of this data
 - Data is quite static, without the need for a _proper_ database, as we would't be uploading any data during execution of program, only loading it
 - Some limitations for how it can be extended
+
+
+## Travel map/planner:
+map where users submit places worth travelling to in an area to help people plan their trips
+
+(Something I really could have used when travelling myself, or when friends went interrailing over reading week etc, to consolidate planning itinerary to one place)
+
+### Main Points:
+- Would be a more social extension of [google my_maps](https://www.google.com/maps/about/mymaps/), but specifically for travel, with one large map that everyone contributes to
+- Could then be integrated with google maps or [rome2rio](https://www.rome2rio.com/) apis to allow route planning between pins
+- Ratings (from google maps and also from users) would be accounted for in recommending travel routes, aswell as prices, categories (nature, landmarks, experiences etc)
+
+### Pros:
+- Very databasy, with the need to store, update and add new pins for each location, plus ratings for places (and hence presumably accounts for people)
+- Loads of APIs to use, (especially google maps) for rendering maps, getting ratings, routing, etc
+- Plenty of opportunities for extending, around budgets, flights, packing help etc - so many travel assistant things we could add
+
+
+### Cons:
+- Base idea is probably quite hard
+- Requires quite a bit of data to "get rolling" so we'd have to find decently large list of travel places to add to it first (hopefully we would do this programmatically)
+
+
 
 
 
