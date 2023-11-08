@@ -43,6 +43,26 @@ Sleep data for users is uploaded and cohort can compare their sleep to others
 - Some ethical concerns about advising sleep practices e.g. if the average A student goes to bed a 3am should we advertise that?
 
 
+## Geographical Data visualiser
+Website with a map of globe (or other submaps) and then options of different metrics to be visualised 
+e.g. colouring/sizing/ordering countries by population, wealth, gender split, etc
+
+### Main Points:
+- Users would have a wide range of metrics which they could have visualised
+- Perhaps metrics could be combined to make more interesting visuals
+	e.g. combined visual for distance from equator and wealth, 
+
+### Pros:
+- IMO very fun and interesting to build, very interactive and pretty novel, with zoomable maps, pulldown menus etc
+- Sufficient complexity for the project, with lots to write about in report
+
+### Cons:
+- Would require ALOT of data, and perhaps much of the project would be loading and cleaning of this data
+- Data is quite static, without the need for a _proper_ database, as we would't be uploading any data during execution of program, only loading it
+- Some limitations for how it can be extended
+
+
+
 ## Shared Timetable scheduler:
 Students' shared calender which helps people find timeslots where their friends are all available
 
