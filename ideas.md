@@ -82,7 +82,8 @@ map where users submit places worth travelling to in an area to help people plan
 - Base idea is probably quite hard
 - Requires quite a bit of data to "get rolling" so we'd have to find decently large list of travel places to add to it first (hopefully we would do this programmatically)
 
-
+#### note from Sam:
+- have found this database http://www.geonames.org/ which might have some good data on POI globally
 
 
 
