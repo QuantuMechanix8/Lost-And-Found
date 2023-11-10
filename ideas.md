@@ -82,8 +82,13 @@ map where users submit places worth travelling to in an area to help people plan
 - Base idea is probably quite hard
 - Requires quite a bit of data to "get rolling" so we'd have to find decently large list of travel places to add to it first (hopefully we would do this programmatically)
 
-#### note from Sam:
+### Implementation/Api Details 
 - have found this database http://www.geonames.org/ which might have some good data on POI globally
+- Can use (free - unlimited) embed google maps for main map of frontend, and simply add our own pins (using builtin functions of the api) which saves big headache
+> - For other google maps api uses we get $200 monthly credit, so essentially a couple thousand requests (we can set a daily limit so any dodgy code doesn't immediately cause charges), which may be useful for loading data but ideally we don't want our app to depend on fitting within this low usage
+- Would be nice to preload a small dataset of initial tourist spots (to get "up and running" and for testing), I've struggled to find good sources
+> - [1000 Places to See before you die](https://www.listchallenges.com/print-list/45341) text list of the places in the book - **check IP around this**
+> - [500 Lonely Planet Top Destinations](https://www.listchallenges.com/print-list/43150), similar text list from (very reliable imo) Lonely planet book - **check IP around this**
 
 
 
