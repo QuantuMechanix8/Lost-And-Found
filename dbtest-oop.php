@@ -13,12 +13,12 @@ if (!$conn) {
 
 echo ("Connected Successfully<br>");
 
-$sql = "SELECT PlaceID, PlaceName, PlaceDesc, UserID, DateCreated FROM Place";
+$sql = "SELECT PlaceID, PlaceName, PlaceDesc, Location, UserID, DateCreated FROM Place";
 $result = $conn->query($sql);
 
 if (mysqli_num_rows($result) > 0) {
   while($row = $result->fetch_assoc()) {
-    echo "PlaceID: " . $row["PlaceID"]. " - PlaceName: " . $row["PlaceName"]. " - PlaceDesc: " . $row["PlaceDesc"]. " - UserID: " . $row["UserID"]. " - DateCreated: " . $row["DateCreated"]. " " . "<br>";
+    echo "PlaceID: " . $row["PlaceID"]. " - PlaceName: " . $row["PlaceName"]. " - PlaceDesc: " . $row["PlaceDesc"]. " - Location: " . $row["Location"]. " - UserID: " . $row["UserID"]. " - DateCreated: " . $row["DateCreated"]. " " . "<br>";
   }
 } else {
   echo "0 Results";
