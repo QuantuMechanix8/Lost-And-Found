@@ -14,7 +14,7 @@ echo ("Connected Successfully<br>");
 
 $data = json_decode(file_get_contents("php://input"), true);
 $sql = "INSERT INTO User (Username, PasswordHash, Email, UserID, Salt)
-VALUES ('" . $data['Username'] . "', '" . $data['PasswordHash'] . "', '" . $data['Email'] . "', " . $data['UserID'] . ", '" . $data['Salt'] . "')";
+VALUES ('" . $data['username'] . "', '" . $data['passwordHash'] . "', '" . $data['email'] . "', " . $data['userID'] . ", '" . $data['salt'] . "')";
 $result = $conn->query($sql);
 
 if ($result == TRUE) {
