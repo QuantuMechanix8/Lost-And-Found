@@ -14,6 +14,7 @@
     if($conn->connect_error){
         die("Connection failed ".$conn->connect_error);
     }
+    echo "Connection Successful<br>";
 
     $sql = "INSERT INTO Users VALUES ('$usr_username','$usr_password','$usr_email')";
 
