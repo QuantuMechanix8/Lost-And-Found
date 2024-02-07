@@ -1,4 +1,130 @@
+## Travel map/planner:
+map where users submit places worth travelling to in an area to help people plan their trips
+
+(Something I really could have used when travelling myself, or when friends went interrailing over reading week etc, to consolidate planning itinerary to one place)
+
+### Main Points:
+- Would be a more social extension of [google my_maps](https://www.google.com/maps/about/mymaps/), but specifically for travel, with one large map that everyone contributes to
+- Could then be integrated with google maps or [rome2rio](https://www.rome2rio.com/) apis to allow route planning between pins
+- Ratings (from google maps and also from users) would be accounted for in recommending travel routes, aswell as prices, categories (nature, landmarks, experiences etc)
+
+### Pros:
+- Very databasy, with the need to store, update and add new pins for each location, plus ratings for places (and hence presumably accounts for people)
+- Loads of APIs to use, (especially google maps) for rendering maps, getting ratings, routing, etc
+- Plenty of opportunities for extending, around budgets, flights, packing help etc - so many travel assistant things we could add
+
+
+### Cons:
+- Base idea is probably quite hard
+- Requires quite a bit of data to "get rolling" so we'd have to find decently large list of travel places to add to it first (hopefully we would do this programmatically)
+
+### Implementation/Api Details 
+- have found this database http://www.geonames.org/ which might have some good data on POI globally
+- Can use (free - unlimited) embed google maps for main map of frontend, and simply add our own pins (using builtin functions of the api) which saves big headache
+> - For other google maps api uses we get $200 monthly credit, so essentially a couple thousand requests (we can set a daily limit so any dodgy code doesn't immediately cause charges), which may be useful for loading data but ideally we don't want our app to depend on fitting within this low usage
+- Would be nice to preload a small dataset of initial tourist spots (to get "up and running" and for testing), I've struggled to find good sources
+> - [1000 Places to See before you die](https://www.listchallenges.com/print-list/45341) text list of the places in the book - **check IP around this**
+> - [500 Lonely Planet Top Destinations](https://www.listchallenges.com/print-list/43150), similar text list from (very reliable imo) Lonely planet book - **check IP around this**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # IDEAS FOR PROJECT
+
+## Shared Timetable scheduler:
+Students' shared calender which helps people find timeslots where their friends are all available
+
+**May have already been done in a previous project so will need to investigate how we can do it** 
+ 
+
+### Main points:
+- Group calendar where student's upload their calendars (mostly university calendar but extends to personal too) and then can co-ordinate when they are free
+- Project would recommend timings to schedule events (not just when both are free but perhaps take into consideration early mornings etc)
+- Project could have 'soc accounts' which could see data about a large number of users (members of the soc) and could get large samples of when people were free
+- Could potentially link to users' apple/google calendars automatically (There must be a way to do that right?) which is bonus data handling
+
+### Pros:
+- Algorithmically complex/interesting, lots of opportunity to flex computer skillz 
+- Genuinely very useful 
+- Some interesting ethics about data privacy etc which we will need to consider and write about in report 
+- largely extendable (such as with scheduling for collections of people - like societies and groups)
+
+### Cons:
+- Not particularly novel idea
+- May be difficult to get calendar data from users
+- Base app might be too narrow as it is only a single feature of scheduling for multiple users
+- Not much application outside of this project - we probably couldn't turn it into a whole product afterwards (if we wanted to do that)
+
+### API Usage:
+- Google Calendar (free) https://developers.google.com/calendar/api/concepts
+- Outlook Calendar (free but doesn't work for personal calendars) https://learn.microsoft.com/en-us/graph/outlook-calendar-meeting-proposals
+- Apple Calendar - may not be workable (apple moment)
+- .ics format? requires users to do a lot of work tho
 
 ## Supermarket Stock finder
 Show which local supermarkets a user can find a given item in stock (w prices etc) 
@@ -60,64 +186,3 @@ e.g. colouring/sizing/ordering countries by population, wealth, gender split, et
 - Would require ALOT of data, and perhaps much of the project would be loading and cleaning of this data
 - Data is quite static, without the need for a _proper_ database, as we would't be uploading any data during execution of program, only loading it
 - Some limitations for how it can be extended
-
-
-## Travel map/planner:
-map where users submit places worth travelling to in an area to help people plan their trips
-
-(Something I really could have used when travelling myself, or when friends went interrailing over reading week etc, to consolidate planning itinerary to one place)
-
-### Main Points:
-- Would be a more social extension of [google my_maps](https://www.google.com/maps/about/mymaps/), but specifically for travel, with one large map that everyone contributes to
-- Could then be integrated with google maps or [rome2rio](https://www.rome2rio.com/) apis to allow route planning between pins
-- Ratings (from google maps and also from users) would be accounted for in recommending travel routes, aswell as prices, categories (nature, landmarks, experiences etc)
-
-### Pros:
-- Very databasy, with the need to store, update and add new pins for each location, plus ratings for places (and hence presumably accounts for people)
-- Loads of APIs to use, (especially google maps) for rendering maps, getting ratings, routing, etc
-- Plenty of opportunities for extending, around budgets, flights, packing help etc - so many travel assistant things we could add
-
-
-### Cons:
-- Base idea is probably quite hard
-- Requires quite a bit of data to "get rolling" so we'd have to find decently large list of travel places to add to it first (hopefully we would do this programmatically)
-
-### Implementation/Api Details 
-- have found this database http://www.geonames.org/ which might have some good data on POI globally
-- Can use (free - unlimited) embed google maps for main map of frontend, and simply add our own pins (using builtin functions of the api) which saves big headache
-> - For other google maps api uses we get $200 monthly credit, so essentially a couple thousand requests (we can set a daily limit so any dodgy code doesn't immediately cause charges), which may be useful for loading data but ideally we don't want our app to depend on fitting within this low usage
-- Would be nice to preload a small dataset of initial tourist spots (to get "up and running" and for testing), I've struggled to find good sources
-> - [1000 Places to See before you die](https://www.listchallenges.com/print-list/45341) text list of the places in the book - **check IP around this**
-> - [500 Lonely Planet Top Destinations](https://www.listchallenges.com/print-list/43150), similar text list from (very reliable imo) Lonely planet book - **check IP around this**
-
-
-
-## Shared Timetable scheduler:
-Students' shared calender which helps people find timeslots where their friends are all available
-
-**May have already been done in a previous project so will need to investigate how we can do it** 
- 
-
-### Main points:
-- Group calendar where student's upload their calendars (mostly university calendar but extends to personal too) and then can co-ordinate when they are free
-- Project would recommend timings to schedule events (not just when both are free but perhaps take into consideration early mornings etc)
-- Project could have 'soc accounts' which could see data about a large number of users (members of the soc) and could get large samples of when people were free
-- Could potentially link to users' apple/google calendars automatically (There must be a way to do that right?) which is bonus data handling
-
-### Pros:
-- Algorithmically complex/interesting, lots of opportunity to flex computer skillz 
-- Genuinely very useful 
-- Some interesting ethics about data privacy etc which we will need to consider and write about in report 
-- largely extendable (such as with scheduling for collections of people - like societies and groups)
-
-### Cons:
-- Not particularly novel idea
-- May be difficult to get calendar data from users
-- Base app might be too narrow as it is only a single feature of scheduling for multiple users
-- Not much application outside of this project - we probably couldn't turn it into a whole product afterwards (if we wanted to do that)
-
-### API Usage:
-- Google Calendar (free) https://developers.google.com/calendar/api/concepts
-- Outlook Calendar (free but doesn't work for personal calendars) https://learn.microsoft.com/en-us/graph/outlook-calendar-meeting-proposals
-- Apple Calendar - may not be workable (apple moment)
-- .ics format? requires users to do a lot of work tho
