@@ -26,6 +26,7 @@ function login() {
 
 function createNewUserID() {
     // Return Sam's code
+    return 3;
 }
 
 function createSalt() {
@@ -41,5 +42,18 @@ async function hashPassword(password, salt) {
 }
 
 function createNewUser(username, passwordHash, email, userID, salt) {
-    
+    const userInfo = {
+        username: username,
+        passwordHash: passwordHash,
+        email: email,
+        userID: userID,
+        salt: salt
+    };
+    fetch('createNewUser.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userInfo)
+      })
 }
