@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #000000;
     margin: 0;
     padding: 0;
     display: flex;
@@ -8,13 +8,19 @@ body {
     align-items: center;
     height: 100vh;
 }
-
+.h1{
+    color: white;
+}
 .container1 {
     text-align: center;
 }
 .container2{
     text-align: center;
     color: red;
+}
+.container3{
+    text-align: center;
+    color: green;
 }
 .input_box {
     background-color: #fff;

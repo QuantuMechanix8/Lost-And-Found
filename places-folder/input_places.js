@@ -3,25 +3,33 @@ function SubmitPlace() {
     button.textContent = "Submitting...";
     setTimeout(function() {button.textContent = "Submit";}, 500);
 
+    setTimeout(function() {document.getElementById("responseContainer").innerHTML = "";}, 5000);
+
     const PLACE_NAME = document.getElementById("place_name").value;
     const LOCATION = document.getElementById("location").value;
     const PLACE_DESCRIPTION = document.getElementById("place_description").value;
 
     // Check if any of the fields are empty
     if (PLACE_NAME.trim() === "" || LOCATION.trim() === "" || PLACE_DESCRIPTION.trim() === "") {
-        // Display an error message
         var errorMessage = document.getElementById("errorMessage");
-        errorMessage.textContent = "Please fill all fields";
+        errorMessage.textContent = "Please fill all fields.";
         errorMessage.style.display = "block";
-
-        // Hide the error message after 10 seconds
+        
         setTimeout(function() {
-            errorMessage.textContent = ""; // Clear the message
+            errorMessage.textContent = "";
             errorMessage.style.display = "none";
         }, 10000);
 
-        return; // Stop further execution
+        document.getElementById('responseContainer').textContent="";
+
+        return;
     }
+
+    document.getElementById("place_name").value = "";
+    document.getElementById("location").value = "";
+    document.getElementById("place_description").value = "";
+    document.getElementById("errorMessage").textContent="";
+    document.getElementById('responseContainer').textContent="";
     //The below accesses the database by calling the store_place.php script
 
     xhr = new XMLHttpRequest();
