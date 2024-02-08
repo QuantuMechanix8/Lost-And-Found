@@ -9,10 +9,13 @@ body {
     height: 100vh;
 }
 
-.container {
+.container1 {
     text-align: center;
 }
-
+.container2{
+    text-align: center;
+    color: red;
+}
 .input_box {
     background-color: #fff;
     border-radius: 8px;
