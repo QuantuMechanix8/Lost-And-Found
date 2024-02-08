@@ -119,12 +119,6 @@ function FindLocation(){
             map.setCenter({ lat: latitude, lng: longitude });
             map.setZoom(15)
 
-        } else if (status == 'ZERO_RESULTS'){
-            alert('There were no results matching that search.');
-        }
-        else
-        {
-            alert('Geocode was not successful for the following reason: ' + status);
         }
     });
 

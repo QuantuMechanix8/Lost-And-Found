@@ -27,9 +27,9 @@ else {
 
 $next_id = $max_id + 1;
 $today = date("Y-m-d");
-
+$user_id = 0; //I'm assuming that the id of the user can be accessed once this is combined with the login system. Will just leave it as 0 for now
 $sql = "INSERT INTO Place (PlaceID, Location, PlaceDesc, UserID, DateCreated, PlaceName)
-        VALUES ($next_id, POINT(" . $location . "), '$place_description', 1, '$today', '$place_name')";
+        VALUES ($next_id, POINT(" . $location . "), '$place_description', $user_id, '$today', '$place_name')";
 
 if ($conn->query($sql) === TRUE) {
     echo "Place Successfully Submitted!";
