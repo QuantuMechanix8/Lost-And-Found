@@ -117,12 +117,29 @@ function FindLocation(){
 
             
             map.setCenter({ lat: latitude, lng: longitude });
-            map.setZoom(15)
+            map.setZoom(15);
 
         }
     });
 
     
+}
+
+function LocationInputChanged(){
+    var coordinates = document.getElementById("location").value;
+    coordinates = coordinates.trim().replace(/\s/g, '');
+    numbersArray = coordinates.split(",");
+    var latitude = parseFloat(numbersArray[0]);
+    var longitude = parseFloat(numbersArray[1]);
+    if (containsOnlyNumbers(latitude) && containsOnlyNumbers(longitude)){
+        map.setCenter({ lat: latitude, lng: longitude });
+    }
+}
+
+function containsOnlyNumbers(input_string){
+
+    var regex = /^\s*-?\d+(\.\d+)?\s*$/;
+    return regex.test(input_string);
 }
 
 //Capitalise the first letter of each word in a string
