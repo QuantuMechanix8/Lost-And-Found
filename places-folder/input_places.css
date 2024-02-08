@@ -69,10 +69,10 @@ textarea {
 }
 .map-container {
     text-align: center;
-    height: 400px; /* Specify a height for the map container */
-    width: 100%; /* Ensure map container takes full width */
+    height: 300px;
+    width: 100%;
     margin-bottom: 5px;
-    border: 2px solid #ccc; /* Border around the map */
+    border: 2px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
 

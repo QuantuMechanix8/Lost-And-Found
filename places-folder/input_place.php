@@ -6,22 +6,26 @@
 </head>
 <body>
     <div class="container1">
-        <h1 class="h1">Enter Place of Interest</h1>
+        <h1 class="h1">Submission of Place of Interest</h1>
         <div class="input_box">
             <div class="container3" id="responseContainer"></div>
             <h2>Place Details</h2>
+            <input type="text" id="search" placeholder="Search for a location">
+            <button type="button" onclick="FindLocation()">Search</button>
+            <hr>
             <div class="container">
                 <!-- Google Maps container -->
                 <div id="map" class="map-container"></div>
             </div>
             <form id="place_form">
                 <input type="text" placeholder="Place Name" id="place_name"><br>
-                <input type="text" placeholder="Location - (Latitude, Longitude)" id="location" readonly><br>
-                <textarea placeholder="Please describe the place. Include anything you think is important to travellers. You can expand this text area using the icon in the bottom right of the box." id="place_description"></textarea><br>
-                <button type="button" onclick="SubmitPlace()">Submit</button>
+                <input type="text" placeholder="Location - Latitude, Longitude" id="location" readonly><br>
+                <textarea placeholder="Please give any extra information on the place, that one might find useful." id="place_description"></textarea><br>
+                <button type="button" class = "submission_button" onclick="SubmitPlace()">Submit</button>
             </form>
             <div class="container2" id="errorMessage"></div>
-            <input type="text" id="autocomplete" placeholder="Search for a location">
+            <hr>
+            
         </div>
     </div>
 

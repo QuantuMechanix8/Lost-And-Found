@@ -1,5 +1,5 @@
 function SubmitPlace() {
-    var button = document.querySelector("button");
+    var button = document.querySelector(".submission_button");
     button.textContent = "Submitting...";
     setTimeout(function() {button.textContent = "Submit";}, 500);
 
@@ -52,26 +52,73 @@ function SubmitPlace() {
     xhr.send("place_name=" + PLACE_NAME + "&location=" + LOCATION + "&place_description=" + PLACE_DESCRIPTION);
 }
 
-
+var map;
 
 // Initialize Google Maps
 function initMap() {
     // Create map object
-    var map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: 0, lng: 0 },
-        zoom: 2
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
+        zoom: 10,
     });
-
-        var input = document.getElementById('autocomplete');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // Add click event listener to map
     map.addListener('click', function(event) {
-        
         var latitude = event.latLng.lat();
         var longitude = event.latLng.lng();
 
         document.getElementById('location').value = latitude + ', ' + longitude;
     });
+}
+
+function FindLocation(){
+    var geocoder = new google.maps.Geocoder();
+
+    //Retreive inputted address
+    var address = document.getElementById("search").value;
+    
+    // Geocode the address
+    geocoder.geocode({ 'address': address }, function(results, status) {
+        if (status === 'OK') {
+
+            var google_address = "";
+            //Get a more accurate address from google and display it in info box
+            if (results[0]){
+                google_address = results[0].formatted_address;
+                document.getElementById("place_description").value = google_address
+            }
+
+            var location = results[0].geometry.location;
+            var latitude = location.lat();
+            var longitude = location.lng();
+    
+            document.getElementById('location').value = latitude + ', ' + longitude;
+            document.getElementById("place_name").value = capitalizeWords(address);
+
+            
+            map.setCenter({ lat: latitude, lng: longitude });
+            map.setZoom(15)
+
+        } else if (status == 'ZERO_RESULTS'){
+            alert('There were no results matching that search.');
+        }
+        else
+        {
+            alert('Geocode was not successful for the following reason: ' + status);
+        }
+    });
+
+    
+}
+
+//Capitalise the first letter of each word in a string
+function capitalizeWords(inputString) {
+    var excludedWords = ["of", "the", "as", "and", "or"]; // List of excluded words
+    var words = inputString.toLowerCase().split(" ");
+    for (var i = 0; i < words.length; i++) {
+        if (i === 0 || !excludedWords.includes(words[i])) {
+            words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+        }
+    }
+    return words.join(" ");
 }

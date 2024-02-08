@@ -32,7 +32,7 @@ $sql = "INSERT INTO Place (PlaceID, Location, PlaceDesc, UserID, DateCreated, Pl
         VALUES ($next_id, POINT(" . $location . "), '$place_description', 1, '$today', '$place_name')";
 
 if ($conn->query($sql) === TRUE) {
-    echo "New record created successfully!";
+    echo "Place Successfully Submitted!";
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
