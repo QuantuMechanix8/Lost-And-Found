@@ -51,3 +51,27 @@ function SubmitPlace() {
 
     xhr.send("place_name=" + PLACE_NAME + "&location=" + LOCATION + "&place_description=" + PLACE_DESCRIPTION);
 }
+
+
+
+// Initialize Google Maps
+function initMap() {
+    // Create map object
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: { lat: 0, lng: 0 },
+        zoom: 2
+    });
+
+        var input = document.getElementById('autocomplete');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    // Add click event listener to map
+    map.addListener('click', function(event) {
+        
+        var latitude = event.latLng.lat();
+        var longitude = event.latLng.lng();
+
+        document.getElementById('location').value = latitude + ', ' + longitude;
+    });
+}

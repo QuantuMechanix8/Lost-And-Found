@@ -27,8 +27,9 @@ else {
 
 $next_id = $max_id + 1;
 $today = date("Y-m-d");
+
 $sql = "INSERT INTO Place (PlaceID, Location, PlaceDesc, UserID, DateCreated, PlaceName)
-        VALUES ($next_id, POINT" . $location . ", '$place_description', 1, '$today', 'test')";
+        VALUES ($next_id, POINT(" . $location . "), '$place_description', 1, '$today', '$place_name')";
 
 if ($conn->query($sql) === TRUE) {
     echo "New record created successfully!";
