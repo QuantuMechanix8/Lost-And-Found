@@ -13,7 +13,7 @@
             <div class="formdiv"><label for="search" class="formlbl">Search</label><br></div>
             <input type="text" id="search" oninput="FindLocation()" placeholder="You can search for a location below. This will autofill the entries">
             <div class="container">
-                <!-- Google Maps container -->
+                <!-- Google Maps container will be placed as the div below (see js function initMap()) -->
                 <div id="map" class="map-container"></div>
             </div>
             <hr>

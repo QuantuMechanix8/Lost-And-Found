@@ -30,7 +30,7 @@ else {
 
 $next_id = $max_id + 1;
 $today = date("Y-m-d");
-$user_id = 0; //I'm assuming that the id of the user can be accessed once this is combined with the login system and so will just leave it as 0 for now
+$user_id = 3; //I'm assuming that the id of the user can be accessed once this is combined with the login system and so will just leave it as 3 for now since that is my ID
 
 //Stores record in the database
 $sql = "INSERT INTO Place (PlaceID, Location, PlaceDesc, UserID, DateCreated, PlaceName)

@@ -128,8 +128,6 @@ function FindLocation(){
 
         }
     });
-
-    
 }
 
 //Changes the map location each time they manually enter a valid latitude and longitude
