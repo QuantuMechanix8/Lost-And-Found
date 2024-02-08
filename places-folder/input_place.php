@@ -19,8 +19,8 @@
             </div>
             <form id="place_form">
                 <input type="text" placeholder="Place Name" id="place_name"><br>
-                <input type="text" placeholder="Location - Latitude, Longitude" id="location" readonly><br>
-                <textarea placeholder="Please give any extra information on the place, that one might find useful." id="place_description"></textarea><br>
+                <input type="text" placeholder="Location - Latitude, Longitude" id="location"><br>
+                <textarea placeholder="Please give any extra information on the place that others might find useful." id="place_description"></textarea><br>
                 <button type="button" class = "submission_button" onclick="SubmitPlace()">Submit</button>
             </form>
             <div class="container2" id="errorMessage"></div>

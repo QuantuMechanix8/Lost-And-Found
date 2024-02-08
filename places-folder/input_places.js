@@ -1,29 +1,49 @@
+var timeouts = [];
+
+function SetDelayedFunction(callback, delay){
+    var timer = setTimeout(callback, delay);
+    timeouts.push(timer)
+    return timer;
+}
+
+function ClearAllTimeouts(){
+    for (let i = 0; i < timeouts.length; i++){
+        clearTimeout(timeouts[i])
+    }
+    timeouts = []
+}
+
 function SubmitPlace() {
+    ClearAllTimeouts()
     var button = document.querySelector(".submission_button");
     button.textContent = "Submitting...";
-    setTimeout(function() {button.textContent = "Submit";}, 500);
 
-    setTimeout(function() {document.getElementById("responseContainer").innerHTML = "";}, 5000);
+    SetDelayedFunction(function() {button.textContent = "Submit";}, 500)
+    SetDelayedFunction(function() {document.getElementById("responseContainer").innerHTML = "";}, 5000)
 
     const PLACE_NAME = document.getElementById("place_name").value;
     const LOCATION = document.getElementById("location").value;
     const PLACE_DESCRIPTION = document.getElementById("place_description").value;
-
+ 
     // Check if any of the fields are empty
     if (PLACE_NAME.trim() === "" || LOCATION.trim() === "" || PLACE_DESCRIPTION.trim() === "") {
         var errorMessage = document.getElementById("errorMessage");
         errorMessage.textContent = "Please fill all fields.";
         errorMessage.style.display = "block";
-        
-        setTimeout(function() {
-            errorMessage.textContent = "";
-            errorMessage.style.display = "none";
-        }, 10000);
-
+        SetDelayedFunction(function() {errorMessage.textContent = ""; errorMessage.style.display = "none";}, 10000)
         document.getElementById('responseContainer').textContent="";
-
         return;
     }
+
+    //check if the location is valid
+    if (!isValidLocation(LOCATION)){
+        var errorMessage = document.getElementById("errorMessage");
+        errorMessage.textContent = "Invalid location. Please try again.";
+        errorMessage.style.display = "block";
+        SetDelayedFunction(function() {errorMessage.textContent = ""; errorMessage.style.display = "none";}, 10000)
+        return;
+    }
+
 
     document.getElementById("place_name").value = "";
     document.getElementById("location").value = "";
@@ -121,4 +141,9 @@ function capitalizeWords(inputString) {
         }
     }
     return words.join(" ");
+}
+
+function isValidLocation(location){
+    var regex = /^\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*$/
+    return regex.test(location)
 }
