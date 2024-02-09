@@ -3,21 +3,21 @@ var timeouts = [];
 //Calls the function 'callback' after a certain amount of time 'delay'
 function SetDelayedFunction(callback, delay){
     var timer = setTimeout(callback, delay);
-    timeouts.push(timer)
+    timeouts.push(timer);
     return timer;
 }
 
 //cancels any DelayedFunctions waiting to happen
 function ClearAllTimeouts(){
     for (let i = 0; i < timeouts.length; i++){
-        clearTimeout(timeouts[i])
+        clearTimeout(timeouts[i]);
     }
-    timeouts = []
+    timeouts = [];
 }
 
 //Adds a place to the database once the user clicks submit
 function SubmitPlace() {
-    ClearAllTimeouts()
+    ClearAllTimeouts();
 
     //Retrieve the inputted data
     const PLACE_NAME = document.getElementById("place_name").value;
@@ -28,15 +28,15 @@ function SubmitPlace() {
     button.textContent = "Submitting...";
 
     //Puts the word 'Submit' back in the button after 500 milliseconds
-    SetDelayedFunction(function() {button.textContent = "Submit";}, 500)
-    SetDelayedFunction(function() {document.getElementById("responseContainer").innerHTML = "";}, 5000)
+    SetDelayedFunction(function() {button.textContent = "Submit";}, 500);
+    SetDelayedFunction(function() {document.getElementById("responseContainer").innerHTML = "";}, 5000);
 
     //Checks and alerts if any of the fields are empty
     if (PLACE_NAME.trim() === "" || LOCATION.trim() === "" || PLACE_DESCRIPTION.trim() === "") {
         var errorMessage = document.getElementById("errorMessage");
         errorMessage.textContent = "Please fill all fields.";
         errorMessage.style.display = "block";
-        SetDelayedFunction(function() {errorMessage.textContent = ""; errorMessage.style.display = "none";}, 10000)
+        SetDelayedFunction(function() {errorMessage.textContent = ""; errorMessage.style.display = "none";}, 10000);
         document.getElementById('responseContainer').textContent="";
         return;
     }
@@ -46,7 +46,7 @@ function SubmitPlace() {
         var errorMessage = document.getElementById("errorMessage");
         errorMessage.textContent = "Invalid location. Please try again.";
         errorMessage.style.display = "block";
-        SetDelayedFunction(function() {errorMessage.textContent = ""; errorMessage.style.display = "none";}, 10000)
+        SetDelayedFunction(function() {errorMessage.textContent = ""; errorMessage.style.display = "none";}, 10000);
         return;
     }
 
@@ -130,7 +130,7 @@ function FindLocation(){
             var google_address = "";
             if (results[0]){
                 google_address = results[0].formatted_address;
-                document.getElementById("place_description").value = google_address
+                document.getElementById("place_description").value = google_address;
             }
             
             var location = results[0].geometry.location;
@@ -178,6 +178,6 @@ function capitalizeWords(inputString) {
 
 //Checks that the location in the text box is a valid Latitude, Longitude
 function isValidLocation(location){
-    var regex = /^\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*$/
-    return regex.test(location)
+    var regex = /^\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*$/;
+    return regex.test(location);
 }
