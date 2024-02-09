@@ -82,19 +82,35 @@ var map;
 
 //Initialises Google Maps API
 function initMap() {
-
-    //Creates Map Object with preset location at the University of Manchester 
     map = new google.maps.Map(document.getElementById('map'), {
         center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
         zoom: 10,
     });
 
-    //Adds click event listener to map object and displays latitude and longitude
+   
+
+    //Add an event listener for map clicks
     map.addListener('click', function(event) {
+        var geocoder = new google.maps.Geocoder();
+        var location = event.latLng;
         var latitude = event.latLng.lat();
         var longitude = event.latLng.lng();
-
         document.getElementById('location').value = latitude + ', ' + longitude;
+
+        //Get the clicked location's details
+        geocoder.geocode({ 'location': location }, function(results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                    var placeName = results[0].name || '';
+                    var formattedAddress = results[0].formatted_address || '';
+
+                    document.getElementById('place_name').value = placeName;
+                    document.getElementById('place_description').value = formattedAddress;
+                }
+            } else {
+                console.error('Geocoder failed due to: ' + status);
+            }
+        });
     });
 }
 
@@ -102,6 +118,7 @@ function initMap() {
 function FindLocation(){
     var geocoder = new google.maps.Geocoder();
     var address = document.getElementById("search").value;
+    document.getElementById("place_name").value = capitalizeWords(address);
     
     //Geocodes the address
     geocoder.geocode({ 'address': address }, function(results, status) {
@@ -121,7 +138,6 @@ function FindLocation(){
             var longitude = location.lng();
     
             document.getElementById('location').value = latitude + ', ' + longitude;
-            document.getElementById("place_name").value = capitalizeWords(address);
  
             map.setCenter({ lat: latitude, lng: longitude });
             map.setZoom(15);
