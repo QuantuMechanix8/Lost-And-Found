@@ -8,7 +8,7 @@
     <div class="container1">
         <h1 class="h1">Submission of Place of Interest</h1>
         <div class="input_box">
-            <div class="container3" id="responseContainer"></div>
+            <div class="container2" id="responseContainer"></div>
             <h2>Place Details</h2>
             <div class="formdiv"><label for="search" class="formlbl">Search</label><br></div>
             <input type="text" id="search" oninput="FindLocation()" placeholder="You can search for a location below. This will autofill the entries">
@@ -28,7 +28,7 @@
                 <button type="button" class = "submission_button" onclick="SubmitPlace()">Submit</button><br>
             </form>
             </div>
-            <div class="container2" id="errorMessage"></div>
+            <div class="container3" id="errorMessage"></div>
         </div>
     </div>
 
