@@ -33,20 +33,20 @@ function SubmitPlace() {
 
     //Checks and alerts if any of the fields are empty
     if (PLACE_NAME.trim() === "" || LOCATION.trim() === "" || PLACE_DESCRIPTION.trim() === "") {
-        var errorMessage = document.getElementById("errorMessage");
-        errorMessage.textContent = "Please fill all fields.";
-        errorMessage.style.display = "block";
-        SetDelayedFunction(function() {errorMessage.textContent = ""; errorMessage.style.display = "none";}, 10000);
+        var error_message = document.getElementById("errorMessage");
+        error_message.textContent = "Please fill all fields.";
+        error_message.style.display = "block";
+        SetDelayedFunction(function() {error_message.textContent = ""; error_message.style.display = "none";}, 10000);
         document.getElementById('responseContainer').textContent="";
         return;
     }
 
     //Checks and alerts if the location is not valid
     if (!isValidLocation(LOCATION)){
-        var errorMessage = document.getElementById("errorMessage");
-        errorMessage.textContent = "Invalid location. Please try again.";
-        errorMessage.style.display = "block";
-        SetDelayedFunction(function() {errorMessage.textContent = ""; errorMessage.style.display = "none";}, 10000);
+        var error_message = document.getElementById("errorMessage");
+        error_message.textContent = "Invalid location. Please try again.";
+        error_message.style.display = "block";
+        SetDelayedFunction(function() {error_message.textContent = ""; error_message.style.display = "none";}, 10000);
         return;
     }
 
@@ -80,14 +80,14 @@ function SubmitPlace() {
 //We only want one map, so declare it here
 var map;
 
-//Initialises Google Maps API
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
+//Initialises Google Maps API. Async keyword means it runs without freezing the entire program
+async function initMap() {
+    const {Map} = await google.maps.importLibrary("maps");
+
+    map = new Map(document.getElementById('map'), {
         center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
         zoom: 10,
-    });
-
-   
+    }); 
 
     //Add an event listener for map clicks
     map.addListener('click', function(event) {
