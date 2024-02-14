@@ -1,5 +1,6 @@
-# Web App Repo
+to be deleted - hopefully sorts merge req
 
+<<<<<<< HEAD:other-stuff/README.md
 
 GitLab Repo for our _CM7_ Web application
 
@@ -10,3 +11,5 @@ We are (probably) going to follow the [ACM ethics/code of conduct](https://www.a
 
 ### Other
 You can use this template style if you want, just looks good to me (Samar)- [LaTeX Template](https://github.com/GRAMOLY-ORG/old-style)
+=======
+>>>>>>> Samar-Branch:README.md
