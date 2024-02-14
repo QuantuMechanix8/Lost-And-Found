@@ -1,8 +1,8 @@
 <?php
 
 $database_host = "dbhost.cs.man.ac.uk";
-$database_user = "j35393lo"; // use own username
-$database_pass = "filmclub"; // use own password
+$database_user = "s89990lo"; // use own username
+$database_pass = "Immortal1"; // use own password
 $database_name = "2023_comp10120_cm7";
 
 $conn = mysqli_connect($database_host, $database_user, $database_pass, $database_name);
