@@ -5,6 +5,12 @@ $database_user = "j35393lo";
 $database_pass = "filmclub";
 $database_name = "2023_comp10120_cm7";
 
+$username = $_POST["username"];
+$passwordHash = $_POST["passwordHash"];
+$email = $_POST["email"];
+$userID = $_POST["userID"];
+$salt = $_POST["salt"];
+
 $conn = new mysqli($database_host, $database_user, $database_pass, $database_name);
 
 if (!$conn) {
@@ -12,9 +18,8 @@ if (!$conn) {
 }
 echo ("Connected Successfully<br>");
 
-$data = json_decode(file_get_contents("php://input"), true);
 $sql = "INSERT INTO User (Username, PasswordHash, Email, UserID, Salt)
-VALUES ('" . $data['username'] . "', '" . $data['passwordHash'] . "', '" . $data['email'] . "', " . $data['userID'] . ", '" . $data['salt'] . "')";
+VALUES ('" . $username . "', '" . $passwordHash . "', '" . $email . "', " . $userID . ", '" . $salt . "')";
 $result = $conn->query($sql);
 
 if ($result == TRUE) {

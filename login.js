@@ -42,18 +42,20 @@ async function hashPassword(password, salt) {
 }
 
 function createNewUser(username, passwordHash, email, userID, salt) {
-    const userInfo = {
-        username: username,
-        passwordHash: passwordHash,
-        email: email,
-        userID: userID,
-        salt: salt
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", "createNewUser.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const response_text = xhr.responseText;
+                document.getElementById("responseContainer").innerHTML = response_text;
+            }
+            else {
+                console.error('Error occurred: ' + xhr.status);
+            }
+        }
     };
-    fetch('createNewUser.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(userInfo)
-      })
+    xhr.send("username=" + username + "&passwordHash=" + passwordHash + "&email=" + email + "&userID=" + userID + "&salt=" + salt);
 }
