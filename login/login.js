@@ -11,10 +11,9 @@ function login() {
         alert("Password must be at least 8 characters long")
     } else {
         // generate user ID, create new user in database, give user confirmation of created account, redirect to index
-        let userID = createNewUserID();
         let salt = createSalt();
         let passwordHash = hashPassword(password, salt);
-        createNewUser(username, passwordHash, email, userID, salt);
+        createNewUser(username, passwordHash, email, salt);
     }
 
     // Example of printing the values entered
@@ -22,11 +21,6 @@ function login() {
     console.log("Email ID: " + email);
     console.log("Password: " + password);
     console.log("Confirm Password: " + confirmPassword);
-}
-
-function createNewUserID() {
-    // Return Sam's code
-    return 3;
 }
 
 function createSalt() {
@@ -41,7 +35,7 @@ async function hashPassword(password, salt) {
     return hashHex;
 }
 
-function createNewUser(username, passwordHash, email, userID, salt) {
+function createNewUser(username, passwordHash, email, salt) {
     xhr = new XMLHttpRequest();
     xhr.open("POST", "createNewUser.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -57,5 +51,5 @@ function createNewUser(username, passwordHash, email, userID, salt) {
             }
         }
     };
-    xhr.send("username=" + username + "&passwordHash=" + passwordHash + "&email=" + email + "&userID=" + userID + "&salt=" + salt);
+    xhr.send("username=" + username + "&passwordHash=" + passwordHash + "&email=" + email + "&salt=" + salt);
 }
