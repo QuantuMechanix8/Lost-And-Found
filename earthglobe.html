@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Three.js Earth Globe</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+
+    <div class="header">Lost and Found</div>
+    
+
+    <button class="menu-button" onclick="toggleMenu()">Menu</button>
+    <div class="menu">
+        <a href="#">Login</a>
+        <a href="sign_up.html">Sign Up</a>
+    </div>
+
+    <div class="content">
+        
+    </div>
+
+
+    <script>
+
+        function toggleMenu() {
+            var menu = document.querySelector('.menu');
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        // Set up the scene
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Create a sphere (Earth globe)
+        const geometry = new THREE.SphereGeometry(5, 32, 32);
+        const textureLoader = new THREE.TextureLoader();
+        const texture = textureLoader.load('https://i.imgur.com/BvnfHq9.jpeg'); // Three.js Earth texture
+        const material = new THREE.MeshBasicMaterial({ map: texture });
+        const globe = new THREE.Mesh(geometry, material);
+        scene.add(globe);
+
+        // Position the camera
+        camera.position.z = 15;
+
+        // Add animation
+        const animate = function () {
+            requestAnimationFrame(animate);
+
+            // Rotate the globe
+            globe.rotation.y += 0.005;
+
+            renderer.render(scene, camera);
+        };
+
+        // Handle window resize
+        window.addEventListener('resize', function () {
+            const newWidth = window.innerWidth;
+            const newHeight = window.innerHeight;
+
+            camera.aspect = newWidth / newHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(newWidth, newHeight);
+        });
+
+        // Start the animation
+        animate();
+    </script>
+</body>
+</html>
