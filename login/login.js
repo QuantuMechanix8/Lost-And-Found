@@ -8,16 +8,15 @@ function login() {
     } else if (password.length < 8) {
         alert("Password must be at least 8 characters long")
     } else {
-        // generate user ID, create new user in database, give user confirmation of created account, redirect to index
+        // generate user ID, create new user in database, give user confirmation of created account, redirect to index page TODO
         let salt = createSalt();
 
+        // This code is commented out for testing storeData function.
         //let passwordHash = hashPassword(password, salt);
+        //let hashedPassword = hashPassword(password, salt);
+        //createNewUser(username, hashedPassword, email, salt);
 
         storeData(username, password, email, salt);
-
-        //hashPassword(password, salt).then((hashedPassword) => {
-        //    createNewUser(username, hashedPassword, email, salt);
-        //});
     }
 
     // Example of printing the values entered
@@ -57,12 +56,14 @@ async function createNewUser(username, passwordHash, email, salt) {
     xhr.send("username=" + username + "&passwordHash=" + passwordHash + "&email=" + email + "&salt=" + salt);
 }
 
+// this does not work yet but im trying to do what chat gpt thinks I should try... Use createNewUser function to send to database.
+// note the database entry file currently uses a temporary placeholder salt, 'salt' to see if hashing algo is working as expcted.
 async function storeData(username, password, email, salt) {
     try {
         var hashedPassword = await hashPassword(passowrd, salt);
         await createNewUser(username, hashedPassowrd, email, salt);
         return "user created";
     } catch (error) {
-        retunr "error creating user";
+        return "error creating user";
     }
 }
