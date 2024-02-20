@@ -1,7 +1,3 @@
-to be deleted - hopefully sorts merge req
-
-<<<<<<< HEAD:other-stuff/README.md
-
 GitLab Repo for our _CM7_ Web application
 
 Code in this project will follow the conventions set out in our styleguide - [`code_styleguide.md`](https://gitlab.cs.man.ac.uk/comp101-cm7/web-app/-/blob/2c8ca088dc88feffdd3b6055215c15f0d2358c43/code_styleguide.md)
