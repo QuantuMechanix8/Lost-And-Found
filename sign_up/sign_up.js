@@ -25,10 +25,15 @@ function login() {
 
 /* creates random (base64) string for the salt */
 function createSalt() {
-    const SALT_LENGTH = 5;
+    return Math.random().toString(36).substring(2, 7);
+
+    // below attenot to make this more cryptographically secure , but couldn't get it to work
+    /*const SALT_LENGTH = 5;
     let neededBytes = Math.ceil(SALT_LENGTH * 3 / 4); // Base64 uses 4 characters for every 3 bytes
     let randStr = crypto.randomBytes(neededBytes).toString("base64");
-    return randStr.substring(0, SALT_LENGTH);
+    return randStr.substring(0, SALT_LENGTH);*/
+
+
 }
 
 async function hashPassword(password, salt) {
@@ -45,7 +50,7 @@ function createNewUser(username, passwordHash, email, salt) {
     xhr.open("POST", "create_new_user.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 const response_text = xhr.responseText;
