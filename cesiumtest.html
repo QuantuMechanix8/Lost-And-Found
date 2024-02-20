@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cesium.js 3D Globe</title>
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.85/Build/Cesium/Cesium.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+    <div id="cesiumContainer" style="width: 100v; height: 100vh;"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiZjk1MTU4ZS1kMDdlLTRkNTQtYmQzZC01NDFmZmQ4ODc2NWUiLCJpZCI6MTk2NTY2LCJpYXQiOjE3MDgzODc3MzB9.1J5o-XbQ6zcoRIodUb9JSbQRbehu9YZmm4yq2z2aNS0";
+
+            const widget = new Cesium.CesiumWidget("cesiumContainer");
+
+            (async () => {
+                try {
+                    const tileset = await Cesium.Cesium3DTileset.fromIonAssetId(2275207);
+                    widget.scene.primitives.add(tileset);
+
+                    // Request fullscreen after loading the tileset
+                    Cesium.Fullscreen.requestFullscreen(widget.scene.canvas);
+                } catch (error) {
+                    console.log(error);
+                }
+            })();
+        });
+    </script>
+</body>
+</html>
