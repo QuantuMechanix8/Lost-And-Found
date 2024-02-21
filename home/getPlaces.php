@@ -1,10 +1,5 @@
 <?php
 
-
-
-
-
-
 function getPlaces() {
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "j22352sa";
@@ -17,9 +12,7 @@ function getPlaces() {
 
     $sqlGetPlaces = "SELECT Name,Location FROM Place";
     $result = $conn->query($sqlGetPlaces);
-
+    return $result;
 }
-
-
 
 ?>
