@@ -123,7 +123,7 @@ async function initMap() {
 //Called each time the Search Location bar is changed, and tries to find the input location.
 function FindLocation(){
     var geocoder = new google.maps.Geocoder();
-    var address = document.getElementById("search").value;
+    var address = document.getElementById("searchbar").value;
     document.getElementById("place_name").value = capitalizeWords(address);
     
     //Geocodes the address

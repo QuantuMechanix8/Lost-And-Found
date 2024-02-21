@@ -7,18 +7,18 @@
 <body>
     <div id="map" class="map-container"></div>
 
-        <div class="container1">
+        <div class="transparent-container">
 
             <nav id="navbar">
 
-                <div id="searchbar">
+                <div id="searchbar-container">
 
-                    <label for="search" class="formlbl">Search</label><br>
-                    <input type="text" id="search" oninput="FindLocation()" placeholder="You can search for a location below. This will autofill the entries">
+                    <label for="searchbar" class="formlbl">Search</label><br>
+                    <input type="text" id="searchbar" oninput="FindLocation()" placeholder="You can search for a location below. This will autofill the entries">
 
                 </div>
 
-                <div id="buttons">
+                <div id="buttons-container">
 
                     <button>Add Markers</button>
                     <button>Add Route</button>
@@ -31,9 +31,9 @@
 
         <div class="form-container">
             
-            <div class="input_box">
+            <div class="Add-Marker-input-box">
 
-                <div class="container2" id="responseContainer">
+                <div class="response-container" id="responseContainer">
 
                 </div>
 
