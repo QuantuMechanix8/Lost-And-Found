@@ -1,4 +1,4 @@
-function login() {
+async function login() {
     var username = document.getElementById("username").value;
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
@@ -12,13 +12,8 @@ function login() {
     } else {
         // generate user ID, create new user in database, give user confirmation of created account, redirect to index page TODO
         let salt = createSalt();
-
-        // This code is commented out for testing storeData function.
-        //let passwordHash = hashPassword(password, salt);
-        //let hashedPassword = hashPassword(password, salt);
-        //createNewUser(username, hashedPassword, email, salt);
-
-        storeData(username, password, email, salt);
+        let hashedPassword = await hashPassword(password, salt);
+        createNewUser(username, hashedPassword, email, salt);
     }
 
     // Example of printing the values entered
@@ -35,11 +30,12 @@ async function hashPassword(password, salt) {
     var msgBuffer = new TextEncoder().encode(password + salt);
     var hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
     var hashArray = Array.from(new Uint8Array(hashBuffer));
+    alert (hashArray);
     var hashHex = hashArray.map(byte => ('00' + byte.toString(16)).slice(-2)).join('');
     return hashHex;
 }
 
-async function createNewUser(username, passwordHash, email, salt) {
+function createNewUser(username, passwordHash, email, salt) {
     xhr = new XMLHttpRequest();
     xhr.open("POST", "createNewUser.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -56,16 +52,4 @@ async function createNewUser(username, passwordHash, email, salt) {
         }
     };
     xhr.send("username=" + username + "&passwordHash=" + passwordHash + "&email=" + email + "&salt=" + salt);
-}
-
-// this does not work yet but im trying to do what chat gpt thinks I should try... Use createNewUser function to send to database.
-// note the database entry file currently uses a temporary placeholder salt, 'salt' to see if hashing algo is working as expcted.
-async function storeData(username, password, email, salt) {
-    try {
-        var hashedPassword = await hashPassword(passowrd, salt);
-        await createNewUser(username, hashedPassowrd, email, salt);
-        return "user created";
-    } catch (error) {
-        return "error creating user";
-    }
 }
