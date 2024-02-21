@@ -1,6 +1,8 @@
 function login() {
     var username = document.getElementById("username").value;
+    var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
 
     // Perform login validation and other actions here
     if (password != confirmPassword) {
