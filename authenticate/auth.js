@@ -1,4 +1,5 @@
-
+// input username & password -> send username to server & return user salt 
+// -> hash password with salt -> check if password hashes match 
 
 function login() {
     var username = document.getElementById("username").value;
@@ -25,19 +26,6 @@ function login() {
     console.log("Confirm Password: " + confirmPassword);
 }
 
-/* creates random (base64) string for the salt */
-function createSalt() {
-    return Math.random().toString(36).substring(2, 7);
-
-    // below attenot to make this more cryptographically secure , but couldn't get it to work
-    /*const SALT_LENGTH = 5;
-    let neededBytes = Math.ceil(SALT_LENGTH * 3 / 4); // Base64 uses 4 characters for every 3 bytes
-    let randStr = crypto.randomBytes(neededBytes).toString("base64");
-    return randStr.substring(0, SALT_LENGTH);*/
-
-
-}
-
 async function hashPassword(password, salt) {
     const msgBuffer = new TextEncoder().encode(password + salt);
     // Should we use argon2id instead of SHA-256 - more secure (good for write up)
@@ -45,6 +33,13 @@ async function hashPassword(password, salt) {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(byte => ('00' + byte.toString(16)).slice(-2)).join('');
     return hashHex;
+}
+
+function verifyUser(username, password) {
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", "verify_user.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.send("username=" + username);
 }
 
 function createNewUser(username, passwordHash, email, salt) {
