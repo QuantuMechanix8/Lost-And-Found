@@ -88,7 +88,8 @@ async function initMap() {
         center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
         zoom: 10,
         draggableCursor: 'auto',
-        draggingCursor: 'move'
+        draggingCursor: 'move',
+        mapTypeControl: false
     }); 
 
     map.setOptions({draggableCursor:'auto'});
