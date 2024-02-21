@@ -86,5 +86,6 @@ textarea {
     border: 2px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
-
+    cursor: grab;
 }
+

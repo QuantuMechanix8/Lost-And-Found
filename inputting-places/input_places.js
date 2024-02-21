@@ -87,7 +87,11 @@ async function initMap() {
     map = new Map(document.getElementById('map'), {
         center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
         zoom: 10,
+        draggableCursor: 'auto',
+        draggingCursor: 'move'
     }); 
+
+    map.setOptions({draggableCursor:'auto'});
 
     //Add an event listener for map clicks
     map.addListener('click', function(event) {
@@ -112,6 +116,7 @@ async function initMap() {
             }
         });
     });
+
 }
 
 //Called each time the Search Location bar is changed, and tries to find the input location.
