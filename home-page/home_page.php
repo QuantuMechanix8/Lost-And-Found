@@ -5,25 +5,26 @@
     <link rel="stylesheet" type="text/css" href="home_page.css">
 </head>
 <body>
-    <div id="map" class="map-container"></div>
+    <div id="map" class="map-container">
+    </div>
 
-        <div class="transparent-container">
+        <div class="transparent-container" id="transparent_container">
 
             <nav id="navbar">
 
                 <div id="searchbar-container">
 
                     <label for="searchbar" class="formlbl">Search</label><br>
-                    <input type="text" id="searchbar" oninput="FindLocation()" placeholder="You can search for a location below. This will autofill the entries">
+                    <input type="text" id="searchbar" oninput="FindLocation()" placeholder="You can search for a location below">
 
                 </div>
 
                 <div id="buttons-container">
 
-                    <button>Add Markers</button>
-                    <button>Add Route</button>
-                    <button>Browse Markers</button>
-                    <button>Browse Routes</button>
+                    <button onclick="AddMarkerClicked()">Add Markers</button>
+                    <button onclick="AddRouteClicked()">Add Routes</button>
+                    <button onclick="BrowseMarkersClicked()">Browse Markers</button>
+                    <button onclick="BrowseRoutesClicked()">Browse Routes</button>
 
                 </div>
 
@@ -31,11 +32,9 @@
 
         <div class="form-container">
             
-            <div class="Add-Marker-input-box">
+            <div class="input-box" id="add_marker_input_box">
 
-                <div class="response-container" id="responseContainer">
-
-                </div>
+                <div class="response-container" id="responseContainer"></div>
 
                 <h2>Add Markers</h2>
                 <hr>
@@ -54,11 +53,22 @@
 
                 </div>
 
-                <div class="container3" id="errorMessage">
-                    
-                </div>
+                <div class="container3" id="errorMessage"></div>
 
             </div>
+
+            <div class="input-box" id="add_route_input_box">
+                <h2>Add Routes</h2>
+            </div>
+            
+            <div class="input-box" id="browse_markers_input_box">
+                <h2>Browse Markers</h2>
+            </div>
+
+            <div class="input-box" id="browse_routes_input_box">
+                <h2>Browse Routes</h2>
+            </div>
+
 
         </div>
 

@@ -117,6 +117,7 @@ async function initMap() {
             }
         });
     });
+    document.getElementById("transparent_container").classList.add("slide-in-transparent-container");
 
 }
 
@@ -186,4 +187,39 @@ function capitalizeWords(inputString) {
 function isValidLocation(location){
     var regex = /^\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*$/;
     return regex.test(location);
+}
+
+function AddMarkerClicked(){
+    HideAllInputDivs();
+    var div = document.getElementById("add_marker_input_box");
+    div.style.display="block";
+    div.classList.add("slide-in");
+}
+
+function AddRouteClicked(){
+    HideAllInputDivs();
+    var div = document.getElementById("add_route_input_box");
+    div.style.display="block";
+    div.classList.add("slide-in");
+}
+
+function BrowseMarkersClicked(){
+    HideAllInputDivs();
+    var div = document.getElementById("browse_markers_input_box");
+    div.style.display="block";
+    div.classList.add("slide-in");
+}
+
+function BrowseRoutesClicked(){
+    HideAllInputDivs();
+    var div = document.getElementById("browse_routes_input_box");
+    div.style.display="block";
+    div.classList.add("slide-in");
+}
+function HideAllInputDivs(){
+    //needs to be updated to hide all the other divs that are to be created
+    document.getElementById("add_marker_input_box").style.display="none";
+    document.getElementById("add_route_input_box").style.display="none";
+    document.getElementById("browse_routes_input_box").style.display="none";
+    document.getElementById("browse_markers_input_box").style.display="none";
 }
