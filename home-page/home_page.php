@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Input Place</title>
+    <title>Lost and Found Home Page</title>
+    <link rel="icon" type="image/png" href="icon2.png">
     <link rel="stylesheet" type="text/css" href="home_page.css">
 </head>
 <body>
@@ -14,8 +15,10 @@
 
                 <div id="searchbar-container">
 
-                    <label for="searchbar" class="formlbl">Search</label><br>
-                    <input type="text" id="searchbar" oninput="FindLocation()" placeholder="You can search for a location below">
+                    <div class="search-container">
+                        <input type="text" id="searchbar" placeholder="Search">
+                        <button id="search-btn" onclick="FindLocation()"><img src="magnifying-glass.png" alt="Search"></button>
+                    </div>
 
                 </div>
 
