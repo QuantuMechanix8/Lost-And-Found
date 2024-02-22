@@ -57,9 +57,9 @@ function SubmitPlace() {
     document.getElementById("errorMessage").textContent="";
     document.getElementById('responseContainer').textContent="";
 
-    //Accesses the database by calling the store_place.php script
+    //Accesses the database by calling the store_place_home.php script
     xhr = new XMLHttpRequest();
-    xhr.open("POST", "store_place.php", true);
+    xhr.open("POST", "store_place_home.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     //Checks and alerts that request was successful (indicated by a status of 200)
@@ -87,7 +87,12 @@ async function initMap() {
     map = new Map(document.getElementById('map'), {
         center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
         zoom: 10,
+        draggableCursor: 'auto',
+        draggingCursor: 'move',
+        mapTypeControl: false
     }); 
+
+    map.setOptions({draggableCursor:'auto'});
 
     //Add an event listener for map clicks
     map.addListener('click', function(event) {
@@ -112,12 +117,13 @@ async function initMap() {
             }
         });
     });
+
 }
 
 //Called each time the Search Location bar is changed, and tries to find the input location.
 function FindLocation(){
     var geocoder = new google.maps.Geocoder();
-    var address = document.getElementById("search").value;
+    var address = document.getElementById("searchbar").value;
     document.getElementById("place_name").value = capitalizeWords(address);
     
     //Geocodes the address
