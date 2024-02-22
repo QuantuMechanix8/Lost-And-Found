@@ -118,7 +118,7 @@ async function initMap() {
         });
     });
     document.getElementById("transparent_container").classList.add("slide-in-transparent-container");
-
+    document.getElementById("icon").classList.add("slide-in-transparent-container");
 }
 
 //Called each time the Search Location bar is changed, and tries to find the input location.

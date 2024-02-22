@@ -2,11 +2,15 @@
 <html>
 <head>
     <title>Lost and Found Home Page</title>
-    <link rel="icon" type="image/png" href="icon2.png">
+    <link rel="icon" type="image/png" href="icon.png">
     <link rel="stylesheet" type="text/css" href="home_page.css">
 </head>
 <body>
     <div id="map" class="map-container">
+    </div>
+
+    <div class="logo-container" id="icon">
+        <img src="icon.svg" alt="icon">
     </div>
 
         <div class="transparent-container" id="transparent_container">
