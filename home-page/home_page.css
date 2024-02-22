@@ -1,5 +1,5 @@
 :root{
-    --containerwidth: 350px;
+    --containerwidth: 18.229167vw;
 }
 
 body {
@@ -13,7 +13,7 @@ body {
 .transparent-container {
     width: var(--containerwidth);
     background-color: rgba(0, 0, 0, 0.9);
-    border-radius: 8px;
+    border-radius: 0px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 0px;
     z-index: 1;
@@ -90,7 +90,7 @@ textarea {
     top: 0;
     left: 0;
     width: 93%;
-    margin: 5px 0px 10px 10px;
+    margin-left: 10px;
     z-index: 1;
 }
 #searchbar-container label{
