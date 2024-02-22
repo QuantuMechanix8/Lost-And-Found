@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Lost and Found Home Page</title>
-    <link rel="icon" type="image/png" href="icon.png">
+    <link rel="icon" type="image/png" href="images/icon.png">
     <link rel="stylesheet" type="text/css" href="home_page.css">
 </head>
 <body>
@@ -10,7 +10,7 @@
     </div>
 
     <div class="logo-container" id="icon">
-        <img src="icon.svg" alt="icon">
+        <img src="images/icon.svg" alt="icon">
     </div>
 
         <div class="transparent-container" id="transparent_container">
@@ -21,7 +21,7 @@
 
                     <div class="search-container">
                         <input type="text" id="searchbar" placeholder="Search">
-                        <button id="search-btn" onclick="FindLocation()"><img src="magnifying-glass.png" alt="Search"></button>
+                        <button id="search-btn" onclick="FindLocation()"><img src="images/magnifying-glass.png" alt="Search"></button>
                     </div>
 
                 </div>
