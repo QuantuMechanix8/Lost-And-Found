@@ -21,9 +21,9 @@
 
                 <div id="buttons-container">
 
-                    <button onclick="AddMarkerClicked()">Add Markers</button>
+                    <button onclick="AddMarkerClicked()">Add Places</button>
                     <button onclick="AddRouteClicked()">Add Routes</button>
-                    <button onclick="BrowseMarkersClicked()">Browse Markers</button>
+                    <button onclick="BrowseMarkersClicked()">Browse Places</button>
                     <button onclick="BrowseRoutesClicked()">Browse Routes</button>
 
                 </div>
@@ -36,7 +36,7 @@
 
                 <div class="response-container" id="responseContainer"></div>
 
-                <h2>Add Markers</h2>
+                <h2>Add Place</h2>
                 <hr>
 
                 <div class="formdiv">
@@ -62,7 +62,7 @@
             </div>
             
             <div class="input-box" id="browse_markers_input_box">
-                <h2>Browse Markers</h2>
+                <h2>Browse Places</h2>
             </div>
 
             <div class="input-box" id="browse_routes_input_box">
