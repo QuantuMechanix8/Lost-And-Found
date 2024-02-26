@@ -19,15 +19,14 @@ async function initMap() {
   }).done(function(data) {
     console.log(data);})
     .fail(function( xhr, status, errorThrown ) {
-      alert( "Sorry, there was a problem!" );
-      console.log( "Error: " + errorThrown );
-      console.log( "Status: " + status );
-      console.dir( xhr );
+      alert("Sorry, there was a problem!"); //annoying but useful
+      console.log("Error: " + errorThrown);
+      console.log("Status: " + status);
+      console.dir(xhr);
     });
 
   console.log(placeData);
   console.log("heyyyy");
-  document.getElementById("map").setAttribute("innerHTML",placeData);
 
 
   //const myLatLng = { lat: 53.480759, lng: -2.242631 }

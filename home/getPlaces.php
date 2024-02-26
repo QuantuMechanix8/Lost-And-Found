@@ -27,7 +27,7 @@ if( !isset($aResult['error']) ) {
 
 echo json_encode($aResult);
 
-function getPlaces() { //this function works! don't mess around too much pls :) - had to change a column name in db to make it work as 'Location' is a php keyword i think
+function getPlaces() { //this function works! don't mess around too much pls :) - THIS IS A FAT LIE FROM ME SOZ - had to change a column name in db to make it work as 'Location' is a php keyword i think
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "j22352sa";
     $database_pass = "cooldatabasepassword";
@@ -37,7 +37,7 @@ function getPlaces() { //this function works! don't mess around too much pls :) 
         echo 'Connection to Database Error';
     }
 
-    $sqlGetPlaces = "SELECT PlaceName FROM Place"; //why is querying Location returning an error?
+    $sqlGetPlaces = "SELECT PlaceName, Location FROM Place"; //why is querying Location returning an error?
 
 
     $result = mysqli_query($conn, $sqlGetPlaces); //returns mysqli_result object not array ! (im a fool)
