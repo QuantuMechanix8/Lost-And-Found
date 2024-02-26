@@ -28,10 +28,10 @@
 
                 <div id="buttons-container">
 
-                    <button onclick="AddMarkerClicked()">Add Places</button>
-                    <button onclick="AddRouteClicked()">Add Routes</button>
-                    <button onclick="BrowseMarkersClicked()">Browse Places</button>
-                    <button onclick="BrowseRoutesClicked()">Browse Routes</button>
+                    <button id = "AddMarkerButton" onclick="AddMarkerClicked()">Add Places</button>
+                    <button id = "AddRouteButton" onclick="AddRouteClicked()">Add Routes</button>
+                    <button id = "BrowseMarkersButton" onclick="BrowseMarkersClicked()">Browse Places</button>
+                    <button id = "BrowseRoutesButton" onclick="BrowseRoutesClicked()">Browse Routes</button>
 
                 </div>
 

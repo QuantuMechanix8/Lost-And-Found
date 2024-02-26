@@ -194,6 +194,12 @@ function AddMarkerClicked(){
     var div = document.getElementById("add_marker_input_box");
     div.style.display="block";
     div.classList.add("slide-in");
+
+    var button = document.getElementById("AddMarkerButton");
+    button.classList.add("expand-and-contract");
+    setTimeout(function() {
+        button.classList.remove("expand-and-contract");
+    }, 500);
 }
 
 function AddRouteClicked(){
@@ -201,6 +207,13 @@ function AddRouteClicked(){
     var div = document.getElementById("add_route_input_box");
     div.style.display="block";
     div.classList.add("slide-in");
+
+    var button = document.getElementById("AddRouteButton");
+    button.classList.add("expand-and-contract");
+    setTimeout(function() {
+        button.classList.remove("expand-and-contract");
+    }, 500);
+    
 }
 
 function BrowseMarkersClicked(){
@@ -208,6 +221,12 @@ function BrowseMarkersClicked(){
     var div = document.getElementById("browse_markers_input_box");
     div.style.display="block";
     div.classList.add("slide-in");
+
+    var button = document.getElementById("BrowseMarkersButton");
+    button.classList.add("expand-and-contract");
+    setTimeout(function() {
+        button.classList.remove("expand-and-contract");
+    }, 500);
 }
 
 function BrowseRoutesClicked(){
@@ -215,6 +234,12 @@ function BrowseRoutesClicked(){
     var div = document.getElementById("browse_routes_input_box");
     div.style.display="block";
     div.classList.add("slide-in");
+
+    var button = document.getElementById("BrowseRoutesButton");
+    button.classList.add("expand-and-contract");
+    setTimeout(function() {
+        button.classList.remove("expand-and-contract");
+    }, 500);
 }
 function HideAllInputDivs(){
     //needs to be updated to hide all the other divs that are to be created
