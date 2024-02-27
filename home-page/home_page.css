@@ -43,7 +43,9 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: none;
 }
-
+#add_marker_input_box{
+    display: block;
+}
 input[type="text"],
 input[type="email"],
 input[type="password"],

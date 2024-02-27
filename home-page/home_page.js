@@ -214,12 +214,9 @@ function AddRouteClicked(){
 
     var button = document.getElementById("AddRouteButton");
     button.classList.add("expand-and-contract");
-    setTimeout(function() {
-        button.classList.remove("expand-and-contract");
-    }, 500);
+    setTimeout(function() {button.classList.remove("expand-and-contract");}, 500);
     
 }
-
 function BrowseMarkersClicked(){
     HideAllInputDivs();
     var div = document.getElementById("browse_markers_input_box");
@@ -229,10 +226,8 @@ function BrowseMarkersClicked(){
     var button = document.getElementById("BrowseMarkersButton");
     button.classList.add("expand-and-contract");
     setTimeout(function() {
-        button.classList.remove("expand-and-contract");
-    }, 500);
+        button.classList.remove("expand-and-contract");}, 500);
 }
-
 function BrowseRoutesClicked(){
     HideAllInputDivs();
     var div = document.getElementById("browse_routes_input_box");
@@ -242,8 +237,7 @@ function BrowseRoutesClicked(){
     var button = document.getElementById("BrowseRoutesButton");
     button.classList.add("expand-and-contract");
     setTimeout(function() {
-        button.classList.remove("expand-and-contract");
-    }, 500);
+        button.classList.remove("expand-and-contract");}, 500);
 }
 function HideAllInputDivs(){
     //needs to be updated to hide all the other divs that are to be created
