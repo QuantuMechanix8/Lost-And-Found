@@ -4,6 +4,10 @@
     <title>Lost and Found Home Page</title>
     <link rel="icon" type="image/png" href="home-images/icon.png">
     <link rel="stylesheet" type="text/css" href="home_page.css">
+
+    <!-- jQuery script -->
+    <script src="../jquery-3.7.1.js"></script>
+
 </head>
 <body>
     <div id="map" class="map-container">

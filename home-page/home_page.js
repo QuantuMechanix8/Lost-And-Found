@@ -77,23 +77,98 @@ function SubmitPlace() {
     xhr.send("place_name=" + PLACE_NAME + "&location=" + LOCATION + "&place_description=" + PLACE_DESCRIPTION);
 }
 
+
+//this function calls php code to return all place data from the database - more can be added as needed
+async function getPlaceData() {
+    var placeData;
+    await jQuery.ajax({
+      type: "POST",
+      url: 'getPlaces.php',
+      dataType: 'json',
+      data: {functionname: 'getPlaces'},
+  
+      success: function (obj, textstatus) {
+                    if( !('error' in obj) ) {
+                        placeData = obj.result;
+                    }
+                    else {
+                        console.log(obj.error);
+                    }
+              }
+    }).done(function(data) {
+      var placeData = data;})
+      .fail(function( xhr, status, errorThrown ) {
+        alert("Sorry, there was a problem!"); //annoying but useful
+        console.log("Error: " + errorThrown);
+        console.log("Status: " + status);
+        console.dir(xhr);
+      });
+  
+    return await placeData;
+  
+    
+    
+  
+  
+  }
+
+
+
+
+
+
+
+
+
 //We only want one map, so declare it here
 var map;
 
 //Initialises Google Maps API. Async keyword means it runs without freezing the entire program
 async function initMap() {
-    const {Map} = await google.maps.importLibrary("maps");
+
+    //call getPlaceData function
+    var placeData = await getPlaceData();
+
+    console.log(placeData);
+    const {Map,InfoWindow} = await google.maps.importLibrary("maps");
+    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
+        "marker",
+      );
 
     map = new Map(document.getElementById('map'), {
         center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
         zoom: 10,
         draggableCursor: 'auto',
         draggingCursor: 'move',
-        mapTypeControl: false
+        mapTypeControl: false,
+        mapId: 'DEMO_MAP_ID',
     }); 
 
     map.setOptions({draggableCursor:'auto'});
 
+    //define an infowindow so all markers can have one on click
+    const infoWindow = new google.maps.InfoWindow({
+        content: "",
+        disableAutoPan: true,
+      });
+
+    //define markers based on placeData array, add a listener to all of them
+    const markers = placeData.map((element,i) => { //go through every element of placedata, make a marker with attached infowindow out of it
+        const marker = new google.maps.marker.AdvancedMarkerElement({
+        position : ({ lat: parseFloat(element.latitude), lng : parseFloat(element.longitude)}),
+        map,
+        });
+    
+    
+        marker.addListener("click", () => { //add an infowindow to each marker just for fun
+          infoWindow.setContent(element.PlaceName + '\n' + element.PlaceDesc);
+          infoWindow.open(map, marker);
+        });
+    
+        return marker;
+    
+    });
+    
     //Add an event listener for map clicks
     map.addListener('click', function(event) {
         var geocoder = new google.maps.Geocoder();
