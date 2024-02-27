@@ -5,20 +5,32 @@ async function login() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
 
-    // Perform login validation and other actions here
-
     // Get the salt for the user
     try {
-        let user_salt = await get_salt(username);
+        var user_salt = await get_salt(username);
         console.log(`${username} salt is ${user_salt}`);
-        let validLogin = await verifyPassword(username, password, user_salt);
-        console.log(`Valid login: ${validLogin}`);
     } catch (error) {
         console.error(error);
         alert("Username not found, please try again");
         return;
     }
 
+    // Verify the password matches the hash in the database
+    try {
+        var validLogin = await verifyPassword(username, password, user_salt);
+    } catch (error) {
+        console.error(error);
+        alert("Server error occurred while verifying password");
+        return;
+    }
+
+    // If the login is valid, redirect to the home page
+    if (validLogin) {
+        alert("Login successful");
+        window.location.href = "../front_page/views/landing_page.ejs"; // redirect to front page until main page is merged to same branch
+    } else {
+        alert("Invalid username or password");
+    }
 }
 
 /* 
@@ -60,23 +72,20 @@ async function get_salt(username) {
 
 async function verifyPassword(username, password, salt) {
     const passwordHash = await hashPassword(password, salt);
-    //console.log(`Password hash: ${passwordHash}`)
-    const response = await fetch('verify_user.php', {
+
+    // Send the username and password hash to the server to check if they match
+    const match = await fetch('verify_user.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `username=${username}, passwordHash=${passwordHash}`,
+        body: `username=${username}&passwordHash=${passwordHash}`,
     });
 
-    const text = await response.text();
-    if (!response.ok) {
-        throw new Error("Error occurred: " + response.status + " " + text);
-    }
+    const match_text = (await match.text()).toLowerCase();
+    console.log("matching passwords: " + match_text);
 
-    //const text = response.text();
-    console.log(text);
-    return text;
+    return match_text === "true";
     // Compare hash with hash in database
     // If they match, the password is correct
 }
