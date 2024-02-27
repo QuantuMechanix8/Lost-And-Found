@@ -1,6 +1,6 @@
 
 //creates map
-async function initMap() {
+/*async function getPlaceData() {
   var placeData;
   await jQuery.ajax({
     type: "POST",
@@ -17,7 +17,8 @@ async function initMap() {
                   }
             }
   }).done(function(data) {
-    console.log(data);})
+    console.log(data);
+    var dataOfPlaces = data.result;})
     .fail(function( xhr, status, errorThrown ) {
       alert("Sorry, there was a problem!"); //annoying but useful
       console.log("Error: " + errorThrown);
@@ -25,20 +26,47 @@ async function initMap() {
       console.dir(xhr);
     });
 
-  console.log(placeData);
-  console.log("heyyyy");
+  console.log(placeData)
+
+  return await placeData;
+
+  
+  
 
 
-  //const myLatLng = { lat: 53.480759, lng: -2.242631 }
-  //makes map object
-  /*const map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 4,
-      center: myLatlng,
-    });
+}*/
+
+let map;
+
+async function initMap() {
+
+  //var placeData = getPlaceData()
+
+  const { Map } = await google.maps.importLibrary("maps");
+  const myLatLng = { lat: -25.363, lng: 131.044 };
+  map = new Map(document.getElementById("map"), {
+    zoom: 4,
+    center: myLatLng,
+  });
+
+ /*let Marker = new google.maps.Marker({
+    position: myLatLng,
+  });
+
+  Marker.setMap(map)*/
+
+  /*for (let place of placeData) {
+    position = {place.latitude,place.longitude};
+
+    let Marker = new google.maps.Marker({
+      position: myLatlng
+    })
+    Marker.setMap(map)
+  
+  }*/
+}
 
     //todo: call php to get all the data from db,
     //make markers and add to map, 
-    //return map*/
-}
-
-initMap()
+    //return map
+initMap();
