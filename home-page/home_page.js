@@ -240,8 +240,11 @@ function buildContent(element) {
 
     content.classList.add("element");
     content.innerHTML = `
-    <div class = "place_title_desc">
-        ${element.PlaceName} <br>
+    <div class = "icon">
+        <i class = "marker_icon" title="marker_icon"></i>
+        <span></span>
+    </div>
+    <div class = "details">
         ${element.PlaceDesc}
     </div>
     
