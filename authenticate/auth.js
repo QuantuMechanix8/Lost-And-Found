@@ -1,31 +1,29 @@
 // input username & password -> send username to server & return user salt 
 // -> hash password with salt -> check if password hashes match 
 
-function login() {
+async function login() {
     var username = document.getElementById("username").value;
-    var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
-    var confirmPassword = document.getElementById("confirmPassword").value;
 
     // Perform login validation and other actions here
-    if (password != confirmPassword) {
-        alert("Password does not match confirmation password");
-    } else if (password.length < 8) {
-        alert("Password must be at least 8 characters long")
-    } else {
-        // generate user ID, create new user in database, give user confirmation of created account, redirect to index
-        let salt = createSalt();
-        let passwordHash = hashPassword(password, salt);
-        createNewUser(username, passwordHash, email, salt);
+
+    // Get the salt for the user
+    try {
+        let user_salt = await get_salt(username);
+        console.log(`${username} salt is ${user_salt}`);
+        let validLogin = await verifyPassword(username, password, user_salt);
+        console.log(`Valid login: ${validLogin}`);
+    } catch (error) {
+        console.error(error);
+        alert("Username not found, please try again");
+        return;
     }
 
-    // Example of printing the values entered
-    console.log("Username: " + username);
-    console.log("Email ID: " + email);
-    console.log("Password: " + password);
-    console.log("Confirm Password: " + confirmPassword);
 }
 
+/* 
+Hashes the password and salt using SHA-256
+*/
 async function hashPassword(password, salt) {
     const msgBuffer = new TextEncoder().encode(password + salt);
     // Should we use argon2id instead of SHA-256 - more secure (good for write up)
@@ -35,28 +33,50 @@ async function hashPassword(password, salt) {
     return hashHex;
 }
 
-function verifyUser(username, password) {
-    xhr = new XMLHttpRequest();
-    xhr.open("POST", "verify_user.php", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.send("username=" + username);
+
+/*
+    Finds the salt for the user by calling get_salt.php on the server and passing the username as parameter
+    
+    server then finds salt for the user and returns it to the client
+*/
+async function get_salt(username) {
+    const response = await fetch('get_salt.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `username=${username}`,
+    });
+
+    const text = await response.text();
+    if (!response.ok) {
+        throw new Error("Error occurred: " + response.status + " " + text);
+    }
+
+    //const text = response.text();
+    console.log(text);
+    return text;
 }
 
-function createNewUser(username, passwordHash, email, salt) {
-    xhr = new XMLHttpRequest();
-    xhr.open("POST", "create_new_user.php", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+async function verifyPassword(username, password, salt) {
+    const passwordHash = await hashPassword(password, salt);
+    //console.log(`Password hash: ${passwordHash}`)
+    const response = await fetch('verify_user.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `username=${username}, passwordHash=${passwordHash}`,
+    });
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                const response_text = xhr.responseText;
-                document.getElementById("responseContainer").innerHTML = response_text;
-            }
-            else {
-                console.error('Error occurred: ' + xhr.status);
-            }
-        }
-    };
-    xhr.send("username=" + username + "&passwordHash=" + passwordHash + "&email=" + email + "&salt=" + salt);
+    const text = await response.text();
+    if (!response.ok) {
+        throw new Error("Error occurred: " + response.status + " " + text);
+    }
+
+    //const text = response.text();
+    console.log(text);
+    return text;
+    // Compare hash with hash in database
+    // If they match, the password is correct
 }
