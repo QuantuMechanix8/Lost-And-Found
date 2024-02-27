@@ -112,8 +112,6 @@ async function getPlaceData() {
   }
 //We only want one map, so declare it here
 var map;
-var current_longitude = -2.2282816409214923;
-var current_latitude = 53.45621235073006;
 //Initialises Google Maps API. Async keyword means it runs without freezing the entire program
 async function initMap(first_init = true) {
 
