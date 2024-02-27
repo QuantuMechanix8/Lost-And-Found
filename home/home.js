@@ -49,6 +49,7 @@ async function initMap() {
   map = new Map(document.getElementById("map"), {
     zoom: 4,
     center: myLatLng,
+    mapId: 'DEMO_MAP_ID',
   });
 
   /*let Marker = new google.maps.Marker({
@@ -63,10 +64,11 @@ async function initMap() {
     disableAutoPan: true,
   });
 
-
+  console.log(placeData);
   const markers = placeData.map((element,i) => { //go through every element of placedata, make a marker with attached infowindow out of it
     const marker = new google.maps.marker.AdvancedMarkerElement({
-    positon : { lat: element.latitude, lng : element.longitude},
+    position : ({ lat: parseFloat(element.latitude), lng : parseFloat(element.longitude)}),
+    map,
     });
 
 
@@ -79,7 +81,7 @@ async function initMap() {
 
   });
   
-  new MarkerClusterer({ markers, map }); //make a marker clusterer so we don't lag too much (i hope)
+  //new markerClusterer.MarkerClusterer({ markers, map }); //make a marker clusterer so we don't lag too much (i hope) - needs another library I haven't installed yet
 
 
   }

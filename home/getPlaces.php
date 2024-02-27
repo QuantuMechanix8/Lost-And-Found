@@ -37,7 +37,7 @@ function getPlaces() { //this function works! don't mess around too much pls :) 
         echo 'Connection to Database Error';
     }
 
-    $sqlGetPlaces = "SELECT PlaceName, ST_X(Location) as latitude, ST_Y(Location) as longitude FROM Place"; //why is querying Location returning an error? - supposedly backticks prevent it from being read as a keyword but it still doesn't work
+    $sqlGetPlaces = "SELECT PlaceName, ST_X(Location) as longitude, ST_Y(Location) as latitude FROM Place"; //why is querying Location returning an error? - supposedly backticks prevent it from being read as a keyword but it still doesn't work
 
 
     $result = mysqli_query($conn, $sqlGetPlaces); //returns mysqli_result object not array ! (im a fool)
