@@ -136,32 +136,41 @@ async function initMap() {
     map.setOptions({draggableCursor:'auto'});
 
     //define an infowindow so all markers can have one on click
-    const infoWindow = new google.maps.InfoWindow({
+    /*const infoWindow = new google.maps.InfoWindow({
         content: "",
         disableAutoPan: true,
-      });
+      });*/
 
     //define markers based on placeData array, add a listener to all of them
     const markers = placeData.map((element,i) => { //go through every element of placedata, make a marker with attached infowindow out of it
         const marker = new google.maps.marker.AdvancedMarkerElement({
         position : ({ lat: parseFloat(element.latitude), lng : parseFloat(element.longitude)}),
         map,
+        content: buildContent(element),
         });
     
     
         marker.addListener("click", () => { //add an infowindow to each marker just for fun
-          infoWindow.setContent(element.PlaceName + '\n' + element.PlaceDesc);
-          infoWindow.open(map, marker);
+          //infoWindow.setContent(element.PlaceName + '\n' + element.PlaceDesc);
+          //infoWindow.open(map, marker);
           //document.getElementById('browse_place_name').value = element.PlaceName; //this lines can be included when the pages exist
           //document.getElementById('browse_place_description').value = element.PlaceDesc; //this lines can be included when the pages exist
           //document.getElementById('browse_location').value = element.latitude + ', ' + element.longitude; //this lines can be included when the pages exist
-          
+          toggleHighlight(marker, element);
+
         });
+
+
+
     
         return marker;
     
     });
     
+
+
+
+
     //Add an event listener for map clicks
     map.addListener('click', function(event) {
         var geocoder = new google.maps.Geocoder();
@@ -224,6 +233,34 @@ function FindLocation(){
         }
     });
 }
+
+//creates content for advanced html info on each marker - just a simplified version for now, this could easily be updated to include whatever info we want!
+function buildContent(element) {
+    const content = document.createElement("div");
+
+    content.classList.add("element");
+    content.innerHTML = `
+    <div class = "place_title_desc">
+        ${element.PlaceName} <br>
+        ${element.PlaceDesc}
+    </div>
+    
+    `;
+    return content;
+}
+
+//toggles whether advanced html info shows for a marker on home page
+function toggleHighlight(markerView, property) {
+    if (markerView.content.classList.contains("highlight")) {
+      markerView.content.classList.remove("highlight");
+      markerView.zIndex = null;
+    } else {
+      markerView.content.classList.add("highlight");
+      markerView.zIndex = 1;
+    }
+  }
+  
+
 
 //Changes the map location each time they manually enter a valid latitude and longitude
 function LocationInputChanged(){
