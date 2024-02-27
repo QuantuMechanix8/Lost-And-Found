@@ -110,21 +110,12 @@ async function getPlaceData() {
   
   
   }
+
 //We only want one map, so declare it here
 var map;
-var current_longitude = -2.2282816409214923;
-var current_latitude = 53.45621235073006;
+
 //Initialises Google Maps API. Async keyword means it runs without freezing the entire program
 async function initMap(first_init = true) {
-
-    //call getPlaceData function
-    var placeData = await getPlaceData();
-
-    console.log(placeData);
-    const {Map,InfoWindow} = await google.maps.importLibrary("maps");
-    const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
-        "marker",
-      );
     if (first_init){
         map = new Map(document.getElementById('map'), {
         center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
@@ -135,6 +126,15 @@ async function initMap(first_init = true) {
         mapId: 'DEMO_MAP_ID',
     }); 
     }
+    //call getPlaceData function
+    var placeData = await getPlaceData();
+    console.log(placeData);
+    const {Map,InfoWindow} = await google.maps.importLibrary("maps");
+    const {AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
+        "marker",
+      );
+    //Only want to initialise the map when the page is opened for the first time
+    
     
     //define an infowindow so all markers can have one on click
     /*const infoWindow = new google.maps.InfoWindow({
@@ -150,7 +150,6 @@ async function initMap(first_init = true) {
         content: buildContent(element),
         });
     
-    
         marker.addListener("click", () => { //add an infowindow to each marker just for fun
           //infoWindow.setContent(element.PlaceName + '\n' + element.PlaceDesc);
           //infoWindow.open(map, marker);
@@ -161,16 +160,9 @@ async function initMap(first_init = true) {
 
         });
 
-
-
-    
         return marker;
     
     });
-    
-
-
-
 
     //Add an event listener for map clicks
     map.addListener('click', function(event) {
@@ -230,7 +222,6 @@ function FindLocation(){
  
             map.setCenter({ lat: latitude, lng: longitude });
             map.setZoom(15);
-
         }
     });
 }
