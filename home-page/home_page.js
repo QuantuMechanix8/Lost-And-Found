@@ -68,6 +68,7 @@ function SubmitPlace() {
             if (xhr.status === 200) {
                 const response_text = xhr.responseText;
                 document.getElementById("responseContainer").innerHTML = response_text;
+                initMap(false);
             } 
             else {
                 console.error('Error occurred: ' + xhr.status);
@@ -111,9 +112,10 @@ async function getPlaceData() {
   }
 //We only want one map, so declare it here
 var map;
-
+var current_longitude = -2.2282816409214923;
+var current_latitude = 53.45621235073006;
 //Initialises Google Maps API. Async keyword means it runs without freezing the entire program
-async function initMap() {
+async function initMap(first_init = true) {
 
     //call getPlaceData function
     var placeData = await getPlaceData();
@@ -123,8 +125,8 @@ async function initMap() {
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
         "marker",
       );
-
-    map = new Map(document.getElementById('map'), {
+    if (first_init){
+        map = new Map(document.getElementById('map'), {
         center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
         zoom: 10,
         draggableCursor: 'auto',
@@ -132,9 +134,8 @@ async function initMap() {
         mapTypeControl: false,
         mapId: 'DEMO_MAP_ID',
     }); 
-
-    map.setOptions({draggableCursor:'auto'});
-
+    }
+    
     //define an infowindow so all markers can have one on click
     /*const infoWindow = new google.maps.InfoWindow({
         content: "",
@@ -177,7 +178,7 @@ async function initMap() {
         var location = event.latLng;
         var latitude = event.latLng.lat();
         var longitude = event.latLng.lng();
-        document.getElementById('location').value = latitude + ', ' + longitude;
+        document.getElementById('location').value = longitude + ', ' + latitude;
 
         //Get the clicked location's details
         geocoder.geocode({ 'location': location }, function(results, status) {
@@ -225,7 +226,7 @@ function FindLocation(){
             var latitude = location.lat();
             var longitude = location.lng();
     
-            document.getElementById('location').value = latitude + ', ' + longitude;
+            document.getElementById('location').value = longitude + ', ' + latitude;
  
             map.setCenter({ lat: latitude, lng: longitude });
             map.setZoom(15);
