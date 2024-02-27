@@ -241,11 +241,16 @@ function buildContent(element) {
     content.classList.add("element");
     content.innerHTML = `
     <div class = "icon">
-        <i class = "marker_icon" title="marker_icon"></i>
-        <span></span>
+        <i aria-hidden = "true" class = "fa fa-icon fa-house marker_icon" title="marker_icon"></i>
+        <span class="fa-sr-only">${element.PlaceName}</span>
     </div>
     <div class = "details">
-        ${element.PlaceDesc}
+        <div class = "place_name">
+        <p>${element.PlaceName}</p>
+        </div>
+        <div class = "place_desc" style = "{width: 30em; word-wrap: normal;}">
+        <p>${element.PlaceDesc}</p>
+        </div>
     </div>
     
     `;

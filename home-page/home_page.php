@@ -8,6 +8,10 @@
     <!-- jQuery script -->
     <script src="../jquery-3.7.1.js"></script>
 
+    <!-- we using fontawesome now baby!-->
+    <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
+
+
 </head>
 <body>
     <div id="map" class="map-container">
