@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Earth Globe</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <div class="header">
+        <img src="./ui-assets/icon.svg" alt="Icon" class="icon" width="150" height="150">
+        <img src="./ui-assets/logo.svg" alt="Logo" class="logo" width="400" height="400">
+        <button class="menu-button" onclick="toggleMenu()">Menu</button>
+        <!-- Move the menu inside the header -->
+        <div class="menu">
+            <a href="./login/login.html">Sign Up</a>
+            <a href="./authenticate/auth.html">Authenticate</a>
+        </div>
+    </div>
+    
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const geometry = new THREE.SphereGeometry(5, 32, 32);
+        const textureLoader = new THREE.TextureLoader();
+        const texture = textureLoader.load('https://i.imgur.com/BvnfHq9.jpeg');
+        const material = new THREE.MeshBasicMaterial({ map: texture });
+        const globe = new THREE.Mesh(geometry, material);
+        scene.add(globe);
+
+        globe.position.x = 5;
+        camera.position.z = 15;
+
+        const animate = function () {
+            requestAnimationFrame(animate);
+            globe.rotation.y += 0.002;
+            renderer.render(scene, camera);
+        };
+
+        window.addEventListener('resize', function () {
+            const newWidth = window.innerWidth;
+            const newHeight = window.innerHeight;
+
+            camera.aspect = newWidth / newHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(newWidth, newHeight);
+        });
+
+        animate();
+    </script>
+
+    <!-- About me section -->
+    <div class="about-section">
+        <h2>About the Project</h2>
+        <p>Your project details and description go here...</p>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.querySelector('.menu');
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+
+    <style>
+        /* Add styles for the header, logo, icon, and menu button */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2px;
+            background-color: #3c3b3b; /* Set the background color of the header */
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Add a whitish shadow line */
+            height: 120px; /* Set the height of the header */
+        }
+
+        .logo {
+            margin-right: 5px; /* Add some spacing between the logo and icon */
+            margin-bottom: -30px; /* Move the logo down */
+            margin-left: -60px; /* Move the logo to the left */
+        }
+
+        .icon {
+            margin-left: 30px;
+        }
+
+        .menu-button {
+            margin-right: 10px; /* Add some spacing to the right of the menu button */
+        }
+
+        .menu {
+            display: none; /* Hide the menu by default */
+        }
+
+        .menu a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .content {
+            position: relative; /* Ensure relative positioning for absolute elements inside */
+        }
+
+        /* About me section styles */
+        .about-section {
+            padding: 20px;
+            margin-top: 20px; /* Add some margin after the quote */
+            background-color: #f5f5f5; /* Light gray background */
+            border-radius: 8px;
+        }
+
+        .about-section h2 {
+            color: #333;
+        }
+    </style>
+</body>
+</html>
