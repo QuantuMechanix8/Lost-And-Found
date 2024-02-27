@@ -126,7 +126,11 @@ function FindLocation(){
     var geocoder = new google.maps.Geocoder();
     var address = document.getElementById("searchbar").value;
     document.getElementById("place_name").value = capitalizeWords(address);
-    
+    var button = document.getElementById("search-btn");
+    button.classList.add("expand-and-contract");
+    setTimeout(function() {
+        button.classList.remove("expand-and-contract");
+    }, 500);
     //Geocodes the address
     geocoder.geocode({ 'address': address }, function(results, status) {
 
