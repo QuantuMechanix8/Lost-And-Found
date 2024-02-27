@@ -76,8 +76,6 @@ function SubmitPlace() {
     };
     xhr.send("place_name=" + PLACE_NAME + "&location=" + LOCATION + "&place_description=" + PLACE_DESCRIPTION);
 }
-
-
 //this function calls php code to return all place data from the database - more can be added as needed
 async function getPlaceData() {
     var placeData;
@@ -111,15 +109,6 @@ async function getPlaceData() {
   
   
   }
-
-
-
-
-
-
-
-
-
 //We only want one map, so declare it here
 var map;
 
@@ -163,6 +152,10 @@ async function initMap() {
         marker.addListener("click", () => { //add an infowindow to each marker just for fun
           infoWindow.setContent(element.PlaceName + '\n' + element.PlaceDesc);
           infoWindow.open(map, marker);
+          //document.getElementById('browse_place_name').value = element.PlaceName; //this lines can be included when the pages exist
+          //document.getElementById('browse_place_description').value = element.PlaceDesc; //this lines can be included when the pages exist
+          //document.getElementById('browse_location').value = element.latitude + ', ' + element.longitude; //this lines can be included when the pages exist
+          
         });
     
         return marker;
