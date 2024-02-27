@@ -1,10 +1,10 @@
-async function login() {
+async function signup() {
     var username = document.getElementById("username").value;
     var email = document.getElementById("email").value;
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirmPassword").value;
 
-    // Perform login validation and other actions here
+    // Perform validation and other actions here
     if (password != confirmPassword) {
         alert("Password does not match confirmation password");
     } else if (password.length < 8) {
@@ -17,7 +17,7 @@ async function login() {
     }
 
     // Example of printing the values entered
-    console.log("User Name: " + username);
+    console.log("Username: " + username);
     console.log("Password: " + password);
     console.log("Confirm Password: " + confirmPassword);
 }
