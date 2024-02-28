@@ -4,22 +4,25 @@ async function signup() {
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirmPassword").value;
 
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // Perform validation and other actions here
     if (password != confirmPassword) {
         alert("Password does not match confirmation password");
     } else if (password.length < 8) {
-        alert("Password must be at least 8 characters long")
+        alert("Password must be at least 8 characters long");
+    } else if (re.test(email)) {
+        alert("Enter a valid email address");
     } else {
-        // generate user ID, create new user in database, give user confirmation of created account, redirect to index page TODO
+        // create new user in database
+        // give user confirmation of created account (send email)
+        // redirect to index page
+
         let salt = createSalt();
         let hashedPassword = await hashPassword(password, salt);
         createNewUser(username, hashedPassword, email, salt);
+        // sendConfirmationEmail(email);
+        window.location.href("../authenticate/auth.html");
     }
-
-    // Example of printing the values entered
-    console.log("Username: " + username);
-    console.log("Password: " + password);
-    console.log("Confirm Password: " + confirmPassword);
 }
 
 function createSalt() {
