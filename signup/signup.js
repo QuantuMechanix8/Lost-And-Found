@@ -10,8 +10,10 @@ async function signup() {
         alert("Password does not match confirmation password");
     } else if (password.length < 8) {
         alert("Password must be at least 8 characters long");
-    } else if (re.test(email)) {
+    } else if (re.test(email) == false) {
         alert("Enter a valid email address");
+    } else if (checkUserExists(username) == true) { 
+        alert("Username already taken");
     } else {
         // create new user in database
         // give user confirmation of created account (send email)
@@ -21,7 +23,8 @@ async function signup() {
         let hashedPassword = await hashPassword(password, salt);
         createNewUser(username, hashedPassword, email, salt);
         // sendConfirmationEmail(email);
-        window.location.href("../authenticate/auth.html");
+        alert("Account created successfully.\nRedirecting to login.");
+        window.location.href = "../authenticate/auth.html";
     }
 }
 
@@ -46,12 +49,25 @@ function createNewUser(username, passwordHash, email, salt) {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 const response_text = xhr.responseText;
-                //document.getElementById("responseContainer").innerHTML = response_text;
-            }
-            else {
+            } else {
                 console.error('Error occurred: ' + xhr.status);
             }
         }
     };
     xhr.send("username=" + username + "&passwordHash=" + passwordHash + "&email=" + email + "&salt=" + salt);
+}
+
+async function checkUserExists(username) {
+    await jQuery.ajax({
+        url: 'checkUserExists.php',
+        method: 'POST',
+        data: { username: username },
+        success: function(response) {
+            if (response == true) {
+                return true;
+            } else if (response == false) {
+                return false;
+            }
+        }
+    });
 }
