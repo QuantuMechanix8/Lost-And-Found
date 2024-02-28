@@ -1,5 +1,24 @@
 var timeouts = [];
 
+// (incomplete) dictionary to map tagIDs to their respective Font Awesome icons
+const tagIDToIcon = {
+    "1": "fa-solid fa-camera",
+    "1.1": "fa-solid fa-tree",
+    "1.1.1": "fa-solid fa-binoculars",
+    "1.1.2": "fa-solid fa-tornado fa-rotate-180", // used for waterfall icon since no waterfall icon exists 
+    "1.1.3": "fa-solid fa-mountain",
+    "1.1.4": "fa-solid fa-icicles", // used for cave icon since no cave icon exists
+    "1.1.5": "fa-solid fa-umbrella-beach",
+    "1.2.1": "fa-solid fa-place-of-worship",
+    "1.2.2": "fa-solid fa-building",
+    "1.2.3": "fa-solid fa-palette",
+    "1.2.4": "fa-solid fa-road",
+    "2.1": "fa-solid fa-building-columns",
+    "2.2": "fa-solid fa-store",
+    "2.3": "fa-solid fa-utensils"
+}
+
+
 //Calls the function 'callback' after a certain amount of time 'delay'
 function SetDelayedFunction(callback, delay){
     var timer = setTimeout(callback, delay);
