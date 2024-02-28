@@ -11,6 +11,9 @@
     <!-- we using fontawesome now baby!-->
     <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
 
+    <!-- markerClusterer object - we need to make loading efficient! -->
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+
 
 </head>
 <body>

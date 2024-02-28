@@ -165,7 +165,7 @@ async function initMap(first_init = true) {
     const markers = placeData.map((element,i) => { //go through every element of placedata, make a marker with attached infowindow out of it
         const marker = new google.maps.marker.AdvancedMarkerElement({
         position : ({ lat: parseFloat(element.latitude), lng : parseFloat(element.longitude)}),
-        map,
+        map, //might need to remove this to make marker clustering work
         content: buildContent(element),
         });
     
@@ -180,12 +180,15 @@ async function initMap(first_init = true) {
 
         });
 
-
-
-    
         return marker;
+
+
+
     
     });
+
+    new MarkerClusterer({ markers, map });
+
     
 
 
