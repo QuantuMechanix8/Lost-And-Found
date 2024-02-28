@@ -2,7 +2,7 @@ var timeouts = [];
 
 // (incomplete) dictionary to map tagIDs to their respective Font Awesome icons
 const tagIDToIcon = {
-    "0": "fa-solid fa-eye",
+    "0": "fa-solid fa-map-pin", // used for default icon
     "1": "fa-solid fa-camera",
     "1.1": "fa-solid fa-tree",
     "1.1.1": "fa-solid fa-binoculars",
@@ -14,11 +14,11 @@ const tagIDToIcon = {
     "1.2.2": "fa-solid fa-building",
     "1.2.3": "fa-solid fa-palette",
     "1.2.4": "fa-solid fa-road",
+    "2": "fa-solid fa-burst",
     "2.1": "fa-solid fa-building-columns",
     "2.2": "fa-solid fa-store",
     "2.3": "fa-solid fa-utensils"
-}
-
+};
 
 //Calls the function 'callback' after a certain amount of time 'delay'
 function SetDelayedFunction(callback, delay){
