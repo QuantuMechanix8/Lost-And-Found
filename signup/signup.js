@@ -30,7 +30,6 @@ async function hashPassword(password, salt) {
     var msgBuffer = new TextEncoder().encode(password + salt);
     var hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
     var hashArray = Array.from(new Uint8Array(hashBuffer));
-    alert (hashArray);
     var hashHex = hashArray.map(byte => ('00' + byte.toString(16)).slice(-2)).join('');
     return hashHex;
 }
