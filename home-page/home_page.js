@@ -2,6 +2,7 @@ var timeouts = [];
 
 // (incomplete) dictionary to map tagIDs to their respective Font Awesome icons
 const tagIDToIcon = {
+    "0": "fa-solid fa-eye",
     "1": "fa-solid fa-camera",
     "1.1": "fa-solid fa-tree",
     "1.1.1": "fa-solid fa-binoculars",
@@ -143,6 +144,8 @@ async function initMap(first_init = true) {
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
         "marker",
       );
+
+    
     //Only want to initialise the map when the page is opened for the first time
     if (first_init){
         map = new Map(document.getElementById('map'), {
@@ -187,11 +190,11 @@ async function initMap(first_init = true) {
     
     });
 
-    new MarkerClusterer({ markers, map });
+    const clusterer = new markerClusterer.MarkerClusterer({ map, markers });
 
     
 
-
+    var clickMarker = new google.maps.Marker; //maybe advancedMarkerElement?
 
 
     //Add an event listener for map clicks
@@ -201,6 +204,13 @@ async function initMap(first_init = true) {
         var latitude = event.latLng.lat();
         var longitude = event.latLng.lng();
         document.getElementById('location').value = longitude + ', ' + latitude;
+
+        clickMarker.setMap(null)
+
+        clickMarker = new google.maps.Marker({ //displays a marker wherever you last clicked! - we can make the marker look nicer whenever using advancedmarkerelement
+            position: {lat: latitude, lng: longitude},
+            map,
+        })
 
         //Get the clicked location's details
         geocoder.geocode({ 'location': location }, function(results, status) {

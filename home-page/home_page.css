@@ -1,7 +1,7 @@
 :root{
     --containerwidth: 18.229167vw;
     --marker-colour: #c91111;
-
+    --fa-eye-colour: #000099;
 }
 
 body {
@@ -210,8 +210,8 @@ textarea {
 
 /* stuff for markers */
 
-/* before highlighted */
-.element {
+/* before highlighted - aka open window (NOT AS MARKER)  */
+.element { /*default css for html not very interesting*/
     align-items: center;
     background-color: #FFFFFF;
     border-radius: 50%;
@@ -227,7 +227,7 @@ textarea {
     transition: all 0.3s ease-out;
     width: 30px;
   }
-  .element::after {
+  .element::after { /*not sure but hopefully it's cool*/
     border-left: 9px solid transparent;
     border-right: 9px solid transparent;
     border-top: 9px solid #FFFFFF;
@@ -241,25 +241,25 @@ textarea {
     width: 0;
     z-index: 1;
   }
-  .element .icon {
+  .element .icon { /*controls icon html*/
     align-items: center;
     display: flex;
     justify-content: center;
     color: #FFFFFF;
   }
   
-  .element .icon svg {
+  .element .icon svg { /*controls icon html */
     height: 20px;
     width: auto;
   }
   
-  .element .details {
+  .element .details { /*controls text html*/
     display: none;
     flex-direction: column;
     flex: 1;
   }
-  /* after highlighted */
-  .element.highlight {
+  /* after highlighted - aka when in marker form*/
+  .element.highlight { /* */
     background-color: #FFFFFF;
     border-radius: 8px;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
@@ -272,7 +272,7 @@ textarea {
     border-top: 9px solid #FFFFFF;
   }
   
-  .element.highlight .details {
+  .element.highlight .details { /*maybe we don't want a flex display?*/
     display: flex;
   }
   
@@ -280,8 +280,8 @@ textarea {
     width: 50px;
     height: 50px;
   }
-  /*icon properties */
-  .element.highlight:has(.marker_icon) .icon {
+  /*icon properties - can change markers based on tag here - this is the important bit*/
+  .element.highlight:has(.marker_icon) .icon { /*set marker icon colours - we can do stuff for different tags here*/
     color: var(--marker-colour);
   }
   
