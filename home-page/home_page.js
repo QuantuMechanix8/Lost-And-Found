@@ -392,3 +392,34 @@ function HideAllInputDivs(){
     document.getElementById("browse_routes_input_box").style.display="none";
     document.getElementById("browse_markers_input_box").style.display="none";
 }
+
+async function submit_search_place() { //searches database for the place - we do a lil fuzzy search??? also maybe move map centre to the marker you find.
+    /* ADD SOME ERROR CHECKING */
+    var location;
+    var name = document.getElementById("search_places").value;
+    await jQuery.ajax({
+        type: "POST",
+        url: 'getPlaces.php',
+        dataType: 'json',
+        data: {functionname: 'searchPlace', arguments: [name]},
+    
+        success: function (obj, textstatus) {
+                      if( !('error' in obj) ) {
+                          location = obj.result;
+                      }
+                      else {
+                          console.log(obj.error);
+                      }
+                }
+      }).done(function(data) {
+        var location = data;})
+        .fail(function( xhr, status, errorThrown ) {
+          alert("Sorry, there was a problem!"); //annoying but useful
+          console.log("Error: " + errorThrown);
+          console.log("Status: " + status);
+          console.dir(xhr);
+        });
+    //map.setZoom(4);
+    map.panTo({lat:parseFloat(location[0].latitude),lng:parseFloat(location[0].longitude)});
+    //map.setZoom(12);
+}

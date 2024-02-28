@@ -76,10 +76,22 @@
 
             <div class="input-box" id="add_route_input_box">
                 <h2>Add Routes</h2>
+                <hr>
+
+                <div class="formdiv">
+                    <label for=""></label> <!-- im working on it... --->
+                </div>
             </div>
             
             <div class="input-box" id="browse_markers_input_box">
                 <h2>Browse Places</h2>
+                <hr>
+
+                <div class="formdiv" method="post">
+                    <label for="search_places">Search</label>
+                    <input type="text" id="search_places" name="search_places"> 
+                    <button type="submit" onclick="submit_search_place()">Search</button> <!-- need to make submit_search_place() --->
+                </div>
             </div>
 
             <div class="input-box" id="browse_routes_input_box">

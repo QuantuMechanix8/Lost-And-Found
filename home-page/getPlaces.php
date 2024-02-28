@@ -8,7 +8,6 @@ $aResult = array();
 if( !isset($_POST['functionname']) ) { $aResult['error'] = 'No function name!'; }
 
 //echo $_POST['functionname'];
-//if( !isset($_POST['arguments']) ) { $aResult['error'] = 'No function arguments!'; }
 
 if( !isset($aResult['error']) ) {
 
@@ -17,9 +16,13 @@ if( !isset($aResult['error']) ) {
             $aResult['result'] = getPlaces();
             //echo $aResult; //just check if it's working; we really want to send back a json
             break;
+        case 'searchPlace':
+            if( !isset($_POST['arguments']) ) { $aResult['error'] = 'No function arguments!'; }
+            else if (count($_POST['arguments'])!=1) { $aResult['error'] = 'Wrong number of arguments!';}
+            $aResult['result'] = searchPlace($_POST['arguments'][0]);
+            break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
-            echo '2b';
             break;
     }
 
@@ -27,7 +30,7 @@ if( !isset($aResult['error']) ) {
 
 echo json_encode($aResult);
 
-function getPlaces() { //this function works! don't mess around too much pls :) - THIS IS A FAT LIE FROM ME SOZ - had to change a column name in db to make it work as 'Location' is a php keyword i think
+function getPlaces() { 
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "j22352sa";
     $database_pass = "cooldatabasepassword";
@@ -53,6 +56,30 @@ function getPlaces() { //this function works! don't mess around too much pls :) 
     return $return;
 }
 
+function searchPlace($name) {
+    $sqlSearchPlace = "SELECT ST_X(Location) as longitude, ST_Y(Location) as latitude FROM Place WHERE PlaceName='$name';";
+    $database_host = "dbhost.cs.man.ac.uk";
+    $database_user = "j22352sa";
+    $database_pass = "cooldatabasepassword";
+    $database_name = "2023_comp10120_cm7";
+    $connSearch = new mysqli($database_host,$database_user, $database_pass, $database_name);
+    if($connSearch->connect_error){
+        echo 'Connection to Database Error';
+    }
+    $resultSearch = mysqli_query($connSearch, $sqlSearchPlace);
+    $returnSearch = array();
+    if (mysqli_num_rows($resultSearch) > 0) {
+        foreach($resultSearch as $row) {
+            $returnSearch[] = $row;
+            //echo $row['LocationLatLng']; //checking LocationLatLng actually returned; 
+        }
+    } else {
+        $returnSearch = 'Query Failed'; //this is not a good error message but
+    }
+    $connSearch->close();
+    return $returnSearch;
+
+}
 
 
 ?>
