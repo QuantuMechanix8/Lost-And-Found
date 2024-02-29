@@ -159,7 +159,7 @@ async function initMap(first_init = true) {
     //call getPlaceData function
     var placeData = await getPlaceData();
 
-    console.log(placeData);
+    //console.log(placeData);
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
         "marker",
@@ -291,10 +291,12 @@ function FindLocation() {
 function buildContent(element) {
     const content = document.createElement("div");
 
+    const iconName = tagIDToIcon[element.TagID];
+
     content.classList.add("element");
     content.innerHTML = `
     <div class = "icon">
-        <i aria-hidden = "true" class = "fa fa-icon fa-map-pin marker_icon" title="marker_icon"></i>
+        <i aria-hidden = "true" class = "fa fa-icon fa-${iconName} marker_icon" title="marker_icon"></i>
         <span class="fa-sr-only">${element.PlaceName}</span>
     </div>
     <div class = "details">
