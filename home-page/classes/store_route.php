@@ -35,7 +35,7 @@ $sql = "INSERT INTO Route (RouteID, RouteDesc, UserID, IsOrdered, DateCreated, T
 
 //Sending back the outcome
 if ($conn->query($sql) === TRUE) {
-    echo "Place Successfully Submitted!";
+    echo $next_id;
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }

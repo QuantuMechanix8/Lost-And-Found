@@ -1,9 +1,8 @@
 <?php
 //Gets the necessary data sent to the script from the form
-$place_name = $_POST["place_name"];
-$location = $_POST["location"];
-$place_description = $_POST["place_description"];
-$place_tag = $_POST["place_tag"];
+$place_id = $_POST["place_id"];
+$route_id = $_POST["route_id"];
+$order = $_POST["order"];
 //Info needed to access database
 $database_host = "dbhost.cs.man.ac.uk";
 $database_user = "s89990lo"; // use own username
@@ -16,11 +15,15 @@ if (!$conn) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql_max_id = "SELECT MAX(PlaceID) AS max_id FROM Place";
-$result_max_id = $conn->query($sql_max_id);
+$sql = "INSERT INTO PlaceRoute (PlaceID, RouteID, RouteOrder)
+        VALUES ($place_id, $route_id, $order)";
 
-if ($result_max_id && $result_max_id->num_rows > 0) {
-    $row = $result_max_id->fetch_assoc();
-    $max_id = $row["max_id"];
-} 
+//Sending back the outcome
+if ($conn->query($sql) === TRUE) {
+    echo "jsdljnfsdlnjkfasljk";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$conn->close();
 ?>

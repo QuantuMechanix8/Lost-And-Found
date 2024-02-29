@@ -39,9 +39,18 @@ function ClearAllTimeouts(){
 //Adds a place to the database once the user clicks submit
 function SubmitPlace() {
 
-    let route = new Route("testing route", 3, 1, "0");
+    /*let route = new Route("testing route", 3, 1, "0");
+    let place = new Place(3, "23, 47", "jhasfjkfa", "oiaf", "afaf", "afafs", "okkjafa");
+    let place2 = new Place(56, "23, 47", "fhdgds", "oiasgagf", "afasgasasgaf", "asggags", "okkjafaagasgag");
+    let place3 = new Place(78, "23, 47", "asgasgasgagag", "agsasgasg", "asgasgasgagga", "agagasgag", "gasgagagsagga");
+
+    route.AddPlace(place);
+    route.AddPlace(place2);
+    route.AddPlace(place3);
+
     route.StoreRoute();
-    return;
+    return;*/ //this is for testing whether storing routes works
+    
     ClearAllTimeouts();
 
     //Retrieve the inputted data
