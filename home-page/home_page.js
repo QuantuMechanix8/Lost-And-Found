@@ -428,6 +428,7 @@ async function submit_search_place() { //searches database for the place - we do
     map.panTo({lat:parseFloat(location[0].latitude),lng:parseFloat(location[0].longitude)});
     //map.setZoom(12);
 }
+
 function TagChanged(){
     return;
     //do this if we manage to find images for each tag.

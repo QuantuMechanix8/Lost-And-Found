@@ -110,8 +110,8 @@
                 <hr>
 
                 <div class="formdiv" method="post">
-                    <label for="search_places">Search</label>
-                    <input type="text" id="search_places" name="search_places"> 
+                    <label for="search_places" class="formlbl">Search</label>
+                    <input type="text" id="search_places" placeholder="Search for a place" name="search_places"> 
                     <button type="submit" onclick="submit_search_place()">Search</button> <!-- need to make submit_search_place() --->
                 </div>
             </div>
