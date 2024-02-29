@@ -33,8 +33,8 @@ $today = date("Y-m-d");
 $user_id = 3; //I'm assuming that the id of the user can be accessed once this is combined with the login system and so will just leave it as 3 for now since that is my ID
 
 //Stores record in the database
-$sql = "INSERT INTO Place (PlaceID, Location, PlaceDesc, UserID, DateCreated, PlaceName)
-        VALUES ($next_id, POINT(" . $location . "), '$place_description', $user_id, '$today', '$place_name')";
+$sql = "INSERT INTO Place (PlaceID, Location, PlaceDesc, UserID, DateCreated, PlaceName, tagID)
+        VALUES ($next_id, POINT(" . $location . "), '$place_description', $user_id, '$today', '$place_name', '0')";
 
 //Sending back the outcome
 if ($conn->query($sql) === TRUE) {
