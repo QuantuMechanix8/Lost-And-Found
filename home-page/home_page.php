@@ -66,26 +66,26 @@
                         <textarea placeholder="Please give any extra information on the place that others might find useful." id="place_description" required></textarea><br>
                         <label for="placetag" class="formlbl">Place Tag </label><span class="required">*</span><br>
                         <div class = "tag-select-container">
-                        <select class="tag-select" id="tag-selector">
-                            <option selected value="0">No Tag</option>
-                            <option value="1">Sight</option>
-                            <option value="1.1">Nature</option>
-                            <option value="1.1.1">Viewpoint</option>
-                            <option value="1.1.2">Waterfall</option>
-                            <option value="1.1.3">Mountain</option>
-                            <option value="1.1.4">Cave</option>
-                            <option value="1.1.5">Beach</option>
-                            <option value="1.2">Man-Made</option>
-                            <option value="1.2.1">Place of Worship</option>
-                            <option value="1.2.2">Building</option>
-                            <option value="1.2.3">Artwork</option>
-                            <option value="1.2.4">Street</option>
-                            <option value="2">Experiences</option>
-                            <option value="2.1">Museum</option>
-                            <option value="2.2">Market</option>
-                            <option value="2.3">Restaurant</option>
+                        <select onchange="TagChanged()" class="tag-select" id="tag-selector">
+                            <option id="house" selected value="0">No Tag</option>
+                            <option id="sight" value="1">Sight</option>
+                            <option id="nature" value="1.1">Nature</option>
+                            <option id="viewpoint" value="1.1.1">Viewpoint</option>
+                            <option id="waterfall" value="1.1.2">Waterfall</option>
+                            <option id="mountain" value="1.1.3">Mountain</option>
+                            <option id="cave" value="1.1.4">Cave</option>
+                            <option id="beach" value="1.1.5">Beach</option>
+                            <option id="man_made" value="1.2">Man-Made</option>
+                            <option id="place_of_worship" value="1.2.1">Place of Worship</option>
+                            <option id="building" value="1.2.2">Building</option>
+                            <option id="artwork" value="1.2.3">Artwork</option>
+                            <option id="street" value="1.2.4">Street</option>
+                            <option id="experiences" value="2">Experiences</option>
+                            <option id="museum" value="2.1">Museum</option>
+                            <option id="market" value="2.2">Market</option>
+                            <option id="restaurant" value="2.3">Restaurant</option>
                         </select>
-                        <img src="home-images/house_icon.png" class="tag-select-image" alt="tag image">
+                            <img src="home-images/tag-images/house_tag_icon.png" id="tag-image" class="tag-select-image" alt="tag image">
                         </div>
                         <button type="button" class = "submission_button" onclick="SubmitPlace()">Submit</button><br>
                     </form>

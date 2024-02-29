@@ -428,3 +428,15 @@ async function submit_search_place() { //searches database for the place - we do
     map.panTo({lat:parseFloat(location[0].latitude),lng:parseFloat(location[0].longitude)});
     //map.setZoom(12);
 }
+function TagChanged(){
+    return;
+    //do this if we manage to find images for each tag.
+    var tag_select_box = document.getElementById("tag-selector");
+
+    var selectedOption = tag_select_box.options[tag_select_box.selectedIndex];
+
+    var selectedID = selectedOption.id;
+
+    displayed_icon = document.getElementById("tag-image")
+    displayed_icon.src = "home-images/tag-images/" + selectedID + "_tag_icon.png";
+}
