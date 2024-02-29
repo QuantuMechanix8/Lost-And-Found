@@ -1,5 +1,6 @@
 var timeouts = [];
 
+
 // (incomplete) dictionary to map tagIDs to their respective Font Awesome icons
 const tagIDToIcon = {
     "0": "fa-solid fa-map-pin", // used for default icon
@@ -37,6 +38,10 @@ function ClearAllTimeouts(){
 
 //Adds a place to the database once the user clicks submit
 function SubmitPlace() {
+
+    let route = new Route("testing route", 3, 1, "0");
+    route.StoreRoute();
+    return;
     ClearAllTimeouts();
 
     //Retrieve the inputted data

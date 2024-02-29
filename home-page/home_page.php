@@ -4,6 +4,8 @@
     <title>Lost and Found Home Page</title>
     <link rel="icon" type="image/png" href="home-images/icon.png">
     <link rel="stylesheet" type="text/css" href="home_page.css">
+    <script src="classes/Place.js"></script>
+    <script src="classes/Route.js"></script>
     <!-- jQuery script -->
     <script src="../jquery-3.7.1.js"></script>
     
@@ -97,6 +99,7 @@
             </div>
 
             <div class="input-box" id="add_route_input_box">
+                <div class="response-container" id="routeResponseContainer"></div>
                 <h2>Add Routes</h2>
                 <hr>
 
