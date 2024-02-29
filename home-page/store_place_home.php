@@ -3,7 +3,7 @@
 $place_name = $_POST["place_name"];
 $location = $_POST["location"];
 $place_description = $_POST["place_description"];
-
+$place_tag = $_POST["place_tag"];
 //Info needed to access database
 $database_host = "dbhost.cs.man.ac.uk";
 $database_user = "s89990lo"; // use own username
@@ -34,7 +34,7 @@ $user_id = 3; //I'm assuming that the id of the user can be accessed once this i
 
 //Stores record in the database
 $sql = "INSERT INTO Place (PlaceID, Location, PlaceDesc, UserID, DateCreated, PlaceName, tagID)
-        VALUES ($next_id, POINT(" . $location . "), '$place_description', $user_id, '$today', '$place_name', '0')";
+        VALUES ($next_id, POINT(" . $location . "), '$place_description', $user_id, '$today', '$place_name', '$place_tag')";
 
 //Sending back the outcome
 if ($conn->query($sql) === TRUE) {

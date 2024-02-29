@@ -4,10 +4,9 @@
     <title>Lost and Found Home Page</title>
     <link rel="icon" type="image/png" href="home-images/icon.png">
     <link rel="stylesheet" type="text/css" href="home_page.css">
-
     <!-- jQuery script -->
     <script src="../jquery-3.7.1.js"></script>
-
+    
     <!-- we using fontawesome now baby!-->
     <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
 
@@ -65,6 +64,29 @@
                         <input type="text" oninput="LocationInputChanged()" placeholder="Please either select a location on the map or enter a location - Latitude, Longitude" id="location" required><br>
                         <label for="placedescription" class="formlbl">Place Description </label><span class="required">*</span><br>
                         <textarea placeholder="Please give any extra information on the place that others might find useful." id="place_description" required></textarea><br>
+                        <label for="placetag" class="formlbl">Place Tag </label><span class="required">*</span><br>
+                        <div class = "tag-select-container">
+                        <select class="tag-select" id="tag-selector">
+                            <option selected value="0">No Tag</option>
+                            <option value="1">Sight</option>
+                            <option value="1.1">Nature</option>
+                            <option value="1.1.1">Viewpoint</option>
+                            <option value="1.1.2">Waterfall</option>
+                            <option value="1.1.3">Mountain</option>
+                            <option value="1.1.4">Cave</option>
+                            <option value="1.1.5">Beach</option>
+                            <option value="1.2">Man-Made</option>
+                            <option value="1.2.1">Place of Worship</option>
+                            <option value="1.2.2">Building</option>
+                            <option value="1.2.3">Artwork</option>
+                            <option value="1.2.4">Street</option>
+                            <option value="2">Experiences</option>
+                            <option value="2.1">Museum</option>
+                            <option value="2.2">Market</option>
+                            <option value="2.3">Restaurant</option>
+                        </select>
+                        <img src="home-images/house_icon.png" class="tag-select-image" alt="tag image">
+                        </div>
                         <button type="button" class = "submission_button" onclick="SubmitPlace()">Submit</button><br>
                     </form>
 

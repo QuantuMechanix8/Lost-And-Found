@@ -18,7 +18,7 @@ const tagIDToIcon = {
     "2.1": "fa-solid fa-building-columns",
     "2.2": "fa-solid fa-store",
     "2.3": "fa-solid fa-utensils"
-};
+}; 
 
 //Calls the function 'callback' after a certain amount of time 'delay'
 function SetDelayedFunction(callback, delay){
@@ -40,10 +40,15 @@ function SubmitPlace() {
     ClearAllTimeouts();
 
     //Retrieve the inputted data
+    var tag_select_box = document.getElementById("tag-selector");
+
     const PLACE_NAME = document.getElementById("place_name").value;
     const LOCATION = document.getElementById("location").value;
     const PLACE_DESCRIPTION = document.getElementById("place_description").value;
+    const PLACE_TAG = tag_select_box.value;
 
+
+    
     var button = document.querySelector(".submission_button");
     button.textContent = "Submitting...";
 
@@ -76,7 +81,7 @@ function SubmitPlace() {
     document.getElementById("place_description").value = "";
     document.getElementById("errorMessage").textContent="";
     document.getElementById('responseContainer').textContent="";
-
+    document.getElementById("tag-selector").value="0";
     //Accesses the database by calling the store_place_home.php script
     xhr = new XMLHttpRequest();
     xhr.open("POST", "store_place_home.php", true);
@@ -95,7 +100,7 @@ function SubmitPlace() {
             }
         }
     };
-    xhr.send("place_name=" + PLACE_NAME + "&location=" + LOCATION + "&place_description=" + PLACE_DESCRIPTION);
+    xhr.send("place_name=" + PLACE_NAME + "&location=" + LOCATION + "&place_description=" + PLACE_DESCRIPTION + "&place_tag=" + PLACE_TAG);
 }
 //this function calls php code to return all place data from the database - more can be added as needed
 async function getPlaceData() {
