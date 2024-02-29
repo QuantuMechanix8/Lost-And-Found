@@ -3,7 +3,7 @@
 
 <head>
     <title>Lost and Found Home Page</title>
-    <link rel="icon" type="image/png" href="home-images/icon.png">
+    <link rel="icon" type="image/png" href="../ui-assets/icon(1).svg">
     <link rel="stylesheet" type="text/css" href="home_page.css">
     <script src="classes/Place.js"></script>
     <script src="classes/Route.js"></script>
