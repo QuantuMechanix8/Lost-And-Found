@@ -11,6 +11,7 @@ const tagIDToIcon = {
     "1.1.3": "mountain",
     "1.1.4": "icicles", // used for cave icon since no cave icon exists
     "1.1.5": "umbrella-beach",
+    "1.2": "monument",
     "1.2.1": "place-of-worship",
     "1.2.2": "building",
     "1.2.3": "palette",
@@ -20,6 +21,29 @@ const tagIDToIcon = {
     "2.2": "store",
     "2.3": "utensils"
 };
+
+// (incomplete) dictionary to map a given tag icon (by ID) to their respective colours
+const tagIDToColor = {
+    "0": "black", // black used as default colour
+    "1": "black",
+    "1.1": "ForestGreen",
+    "1.1.1": "SkyBlue",
+    "1.1.2": "blue",
+    "1.1.3": "DarkSlategrey",
+    "1.1.4": "DimGrey",
+    "1.1.5": "#E5C975",
+    "1.2": "LightSlateGray",
+    "1.2.1": "BlueViolet",
+    "1.2.2": "brown",
+    "1.2.3": "orange",
+    "1.2.4": "black",
+    "2": "HotPink",
+    "2.1": "red",
+    "2.2": "yellow",
+    "2.3": "brown"
+}
+
+
 
 //Calls the function 'callback' after a certain amount of time 'delay'
 function SetDelayedFunction(callback, delay) {
@@ -292,11 +316,12 @@ function buildContent(element) {
     const content = document.createElement("div");
 
     const iconName = tagIDToIcon[element.TagID];
+    const iconColor = tagIDToColor[element.TagID];
 
     content.classList.add("element");
     content.innerHTML = `
     <div class = "icon">
-        <i aria-hidden = "true" class = "fa fa-icon fa-${iconName} marker_icon" title="marker_icon"></i>
+        <i aria-hidden = "true" class = "fa fa-icon fa-${iconName} marker_icon" style="color: ${iconColor}" title="marker_icon"></i>
         <span class="fa-sr-only">${element.PlaceName}</span>
     </div>
     <div class = "details">
@@ -459,6 +484,7 @@ function TagChanged() {
     var iconName = tagIDToIcon[selectedTagID];
 
     var displayed_icon = document.getElementById("tag-image");
+    displayed_icon.setAttribute("style", `color: ${tagIDToColor[selectedTagID]};`)
     displayed_icon.dataset.icon = iconName;
 
     //FontAwesome.dom.i2svg(displayed_icon);
