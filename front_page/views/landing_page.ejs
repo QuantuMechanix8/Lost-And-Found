@@ -25,6 +25,14 @@
         const width = window.innerWidth;
         const height = window.innerHeight * 0.9;
         const scene = new THREE.Scene();
+
+        // Add a background texture
+        var texture_bg = new THREE.TextureLoader().load("../public/ui-assets/starmap360.jpg", () => {
+            texture.mapping = THREE.EquirectangularReflectionMapping;
+            texture.colorSpace = THREE.sRGBEncoding;
+            scene.background = texture_bg;
+        });
+
         const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
