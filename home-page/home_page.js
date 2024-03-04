@@ -493,6 +493,16 @@ function TagChanged() {
     displayed_icon.setAttribute("style", `color: ${tagIDToColor[selectedTagID]};`)
     displayed_icon.dataset.icon = iconName;
 
+    var route_tag_select_box = document.getElementById("route-tag-selector");
+    var selectedOption = route_tag_select_box.options[route_tag_select_box.selectedIndex];
+    var selectedTagID = selectedOption.value;
+
+    var iconName = tagIDToIcon[selectedTagID];
+
+    var displayed_icon = document.getElementById("route-tag-image");
+    displayed_icon.setAttribute("style", `color: ${tagIDToColor[selectedTagID]};`)
+    displayed_icon.dataset.icon = iconName;
+
     //FontAwesome.dom.i2svg(displayed_icon);
     return;
 }
@@ -659,6 +669,8 @@ function HideRouteContent(){
     document.getElementById("route_tracker_header").style.display = "none";
     document.getElementById("route_description_textarea").style.display = "none";
     document.getElementById("route_description_label").style.display = "none";
+    document.getElementById("route-tag-select-container").style.display = "none";
+    document.getElementById("route_tag_label").style.display = "nonw";
 }
 function ShowRouteContent(){
     document.getElementById("routePlaces").style.display = "block";
@@ -666,4 +678,6 @@ function ShowRouteContent(){
     document.getElementById("route_tracker_header").style.display = "block";
     document.getElementById("route_description_textarea").style.display = "block";
     document.getElementById("route_description_label").style.display = "block";
+    document.getElementById("route-tag-select-container").style.display = "flex";
+    document.getElementById("route_tag_label").style.display = "block";
 }
