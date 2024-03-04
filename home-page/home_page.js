@@ -38,7 +38,7 @@ const tagIDToColor = {
     "1.2.3": "orange",
     "1.2.4": "black",
     "2": "HotPink",
-    "2.1": "red",
+    "2.1": "green",
     "2.2": "yellow",
     "2.3": "brown"
 }
