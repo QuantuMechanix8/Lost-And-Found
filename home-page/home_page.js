@@ -497,7 +497,7 @@ function TagChanged() {
     return;
 }
 
-var route = new Route("testing route", 3, 1, "0");
+var route = new Route("Route", 3, 1, "0");
 var routePlaces = [];
 function removePlaceFromRoute(index) {
     routePlaces.splice(index, 1);
@@ -637,9 +637,6 @@ function GetPlaceId(place_name, callback) {
     xhr.send("place_name=" + place_name);
 }
 function SubmitRoute(){
-    var button = document.getElementById("submit_route_button")
-    button.textContent = "Loading...";
-
-    //Puts the word 'Submit' back in the button after 500 milliseconds
-    SetDelayedFunction(function () { button.textContent = "Submit route"; }, 500);
+    document.getElementById("loading-container").style.display = "block";
+    route.StoreRoute();
 }

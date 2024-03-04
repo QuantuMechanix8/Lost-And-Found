@@ -18,6 +18,13 @@ class Route{
         }
         return temp_route;
     }
+    GetRouteAsIds(){
+        let temp_route = [];
+        for (let i = 0; i < this.route.length; i++){
+            temp_route.push(this.route[i].id);
+        }
+        return temp_route;
+    }
     SetRouteId(id){
         this.route_id = id;
     }
@@ -56,7 +63,6 @@ class Route{
 
     //stores a single record in the Route Table
     StoreRoute(){
-
         let xhr = new XMLHttpRequest();
         let self = this;
 
@@ -69,7 +75,6 @@ class Route{
                 if (xhr.status === 200) {
                     const response_text = xhr.responseText;
                     let this_route_id = parseInt(response_text);
-                    //document.getElementById("responseContainer").innerHTML = this_route_id; //change this to show up in the make route section
                     self.route_id = this_route_id;
 
                     //After the route has been stored, store the necessary PlaceRoute records using the previous function
@@ -78,6 +83,11 @@ class Route{
                         let place_id = current_place.id;
                         self.StorePlaceRoute(place_id, i);
                     }
+                    document.getElementById("routeResponseContainer").innerHTML = "Route Successfully stored!"; //change this to show up in the make route section
+                    SetDelayedFunction(function() {
+                        document.getElementById("routeResponseContainer").innerHTML = "";
+                    }, 5000);
+                    document.getElementById("loading-container").style.display = "none";
                 } 
                 else {
                     console.error('Error occurred: ' + xhr.status);
