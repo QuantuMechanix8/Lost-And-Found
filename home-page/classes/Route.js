@@ -25,6 +25,9 @@ class Route{
         }
         return temp_route;
     }
+    SetRouteDescription(text){
+        this.route_description = text;
+    }
     SetRouteId(id){
         this.route_id = id;
     }

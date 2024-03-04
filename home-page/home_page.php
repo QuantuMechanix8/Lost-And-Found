@@ -116,6 +116,8 @@
                             <!-- Individual place items will be dynamically added here -->
                         </ol>
                 </div>
+                <label for="route_description" id="route_description_label" style="display: none;" class="formlbl">Route Description </label>
+                <textarea placeholder="Please give any extra information on the place that others might find useful." id="route_description_textarea" style="display: none;"></textarea><br>
                 <button id = "submit_route_button" onclick="SubmitRoute()">Submit route</button>
                 <div class="response-container" id="routeResponseContainer2"></div>
                 <div class = "loading-containers" id="loading-container" style="display: none;">loading...</div>

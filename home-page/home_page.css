@@ -99,6 +99,9 @@ textarea {
     box-sizing: border-box;
     resize: none;
 }
+#route_description_textarea{
+    height: 100px;
+}
 #map {
     position: absolute;
     top: 0;

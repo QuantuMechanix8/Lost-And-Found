@@ -1,5 +1,5 @@
 var timeouts = [];
-
+var logged_in_user_id = 3;
 
 // (incomplete) dictionary to map tagIDs to their respective Font Awesome icons
 const tagIDToIcon = {
@@ -504,9 +504,7 @@ function removePlaceFromRoute(index) {
     route.RemovePlace(index);
     updateRoutePlacesList(); // Update the UI to reflect the changes
     if (routePlaces.length === 0){
-        document.getElementById("routePlaces").style.display = "none";
-        document.getElementById("submit_route_button").style.display = "none";
-        document.getElementById("route_tracker_header").style.display = "none";
+        HideRouteContent();
     }
 }
 
@@ -606,9 +604,7 @@ function addPlaceToRoute() {
             }
 
             if (routePlaces.length > 0) {
-                document.getElementById("routePlaces").style.display = "block";
-                document.getElementById("submit_route_button").style.display = "block";
-                document.getElementById("route_tracker_header").style.display = "block";
+                ShowRouteContent();
             }
 
             document.getElementById("routePlaces").scrollTop = document.getElementById("routePlaces").scrollHeight;
@@ -622,6 +618,7 @@ function addPlaceToRoute() {
     }
 }
 
+//Gets the id of a place, given the name, then calls callback if it was successfull.
 function GetPlaceId(place_name, callback) {
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "get_place_id.php", true);
@@ -646,10 +643,27 @@ function SubmitRoute(){
         return;
     }
     document.getElementById("loading-container").style.display = "block";
+    route_desc = document.getElementById("route_description_textarea").value;
+    if (route_desc === ""){
+        route_desc = "No route description";
+    }
+    route.SetRouteDescription(route_desc);
     route.StoreRoute();
-    route = new Route("Route", 3, 1, "0");
+    route = new Route("", logged_in_user_id, 1, "0");
     routePlaces = [];
+    HideRouteContent();
+}
+function HideRouteContent(){
     document.getElementById("routePlaces").style.display = "none";
     document.getElementById("submit_route_button").style.display = "none";
     document.getElementById("route_tracker_header").style.display = "none";
+    document.getElementById("route_description_textarea").style.display = "none";
+    document.getElementById("route_description_label").style.display = "none";
+}
+function ShowRouteContent(){
+    document.getElementById("routePlaces").style.display = "block";
+    document.getElementById("submit_route_button").style.display = "block";
+    document.getElementById("route_tracker_header").style.display = "block";
+    document.getElementById("route_description_textarea").style.display = "block";
+    document.getElementById("route_description_label").style.display = "block";
 }
