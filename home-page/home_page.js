@@ -516,9 +516,7 @@ function updateRoutePlacesList() {
         place_container.style.justifyContent = "space-between";
         place_container.style.alignItems = 'center';
         place_container.style.height = "40px";
-        if (index % 2 == 1){
-            place_container.style.backgroundColor = "#fff";
-        }
+        
 
         var place_label = document.createElement("label");
         place_label.textContent = place.place_name;
@@ -534,10 +532,23 @@ function updateRoutePlacesList() {
         remove_button.style.marginTop = "10px";
         remove_button.style.marginRight = "5px";
         remove_button.style.borderRadius = "20px";
-        remove_button.style.background = "red";
         remove_button.style.padding = "0 10px";
+        remove_button.style.color = "red";
+        remove_button.style.borderStyle = "solid";
+        remove_button.style.borderWidth = "0.1px";
+        remove_button.style.borderColor = "#000";
+        if (index % 2 == 1){
+            place_container.style.background = "#fff";
+            remove_button.style.background = "#f2f2f2";
+        }
+        else{
+            remove_button.style.background = "#fff";
+        }
         place_container.appendChild(remove_button);
         list_item.appendChild(place_container);
+
+
+        
 
         remove_button.addEventListener('click', () => {
             removePlaceFromRoute(index);
