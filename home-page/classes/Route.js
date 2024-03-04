@@ -11,6 +11,13 @@ class Route{
     GetRoute(){
         return this.route;
     }
+    GetRouteAsNames(){
+        let temp_route = [];
+        for (let i = 0; i < this.route.length; i++){
+            temp_route.push(this.route[i].place_name);
+        }
+        return temp_route;
+    }
     SetRouteId(id){
         this.route_id = id;
     }

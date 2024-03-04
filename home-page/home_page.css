@@ -331,4 +331,12 @@ border-top: 9px solid var(--marker-colour);
     width: 10%;
     margin-left: 10px;
 }
-  
+#routePlaces{
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    border: 1px solid #000;
+    border-color: black;
+}
+#routePlacesList{
+    margin-right: 20px;
+}

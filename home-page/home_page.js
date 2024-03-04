@@ -490,3 +490,75 @@ function TagChanged() {
     //FontAwesome.dom.i2svg(displayed_icon);
     return;
 }
+
+var route = new Route("testing route", 3, 1, "0");
+var routePlaces = [];
+function removePlaceFromRoute(index) {
+    routePlaces.splice(index, 1);
+    route.RemovePlace(index);
+    updateRoutePlacesList(); // Update the UI to reflect the changes
+}
+
+// Function to update the UI by refreshing the list of route places
+function updateRoutePlacesList() {
+    const route_place_list = document.getElementById('routePlacesList');
+    route_place_list.innerHTML = '';
+
+    
+
+    routePlaces.forEach((place, index) => {
+
+        var list_item = document.createElement('li');
+
+        var place_container = document.createElement("div");
+        place_container.style.display = 'flex';
+        place_container.style.borderRadius = '10px';
+        place_container.style.justifyContent = "space-between";
+        place_container.style.alignItems = 'center';
+        place_container.style.height = "40px";
+        if (index % 2 == 1){
+            place_container.style.backgroundColor = "#fff";
+        }
+
+        var place_label = document.createElement("label");
+        place_label.textContent = place.place_name;
+        place_label.style.marginLeft = "5px";
+        place_container.appendChild(place_label);
+
+        var remove_button = document.createElement('button');
+        remove_button.textContent = 'Remove';
+        remove_button.style.width = 'auto';
+        remove_button.style.height = "20px"; // Increase the height to accommodate the text
+        remove_button.style.display = "flex"; // Set display to flex
+        remove_button.style.alignItems = "center"; // Align items vertically center
+        remove_button.style.marginTop = "10px";
+        remove_button.style.marginRight = "5px";
+        remove_button.style.borderRadius = "20px";
+        remove_button.style.background = "red";
+        remove_button.style.padding = "0 10px";
+        place_container.appendChild(remove_button);
+        list_item.appendChild(place_container);
+
+        remove_button.addEventListener('click', () => {
+            removePlaceFromRoute(index);
+        });
+
+
+        route_place_list.appendChild(list_item);
+    });
+}
+
+function addPlaceToRoute() {
+    const new_place_name_input = document.getElementById('newPlaceName');
+    const place_name = new_place_name_input.value.trim();
+
+    if (place_name !== '') {
+        let place = new Place(3, "", "", "", "", place_name, "");
+        routePlaces.push(place);
+        route.AddPlace(place);
+        updateRoutePlacesList();
+        new_place_name_input.value = '';
+    } else {
+        alert('Please enter a place name.');
+    }
+}

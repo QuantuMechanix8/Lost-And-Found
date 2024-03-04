@@ -106,8 +106,18 @@
                 <hr>
 
                 <div class="formdiv">
-                    <label for=""></label> <!-- im working on it... --->
+                    <label for=""></label>
+                    <label for="newPlaceName">Add Place:</label>
+                    <input type="text" id="newPlaceName" placeholder="Enter place name">
+                    <button onclick="addPlaceToRoute()">Add</button>
+                    <h3>Route Tracker:</h3>
+                    <div id="routePlaces">
+                        <ol id="routePlacesList">
+                            <!-- Individual place items will be dynamically added here -->
+                        </ol>
                 </div>
+            </div>
+
             </div>
 
             <div class="input-box" id="browse_markers_input_box">
