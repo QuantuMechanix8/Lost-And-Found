@@ -497,6 +497,10 @@ function removePlaceFromRoute(index) {
     routePlaces.splice(index, 1);
     route.RemovePlace(index);
     updateRoutePlacesList(); // Update the UI to reflect the changes
+    if (routePlaces.length === 0){
+        document.getElementById("routePlaces").style.display = "none";
+        document.getElementById("submit_route_button").style.display = "none";
+    }
 }
 
 // Function to update the UI by refreshing the list of route places
@@ -572,4 +576,12 @@ function addPlaceToRoute() {
     } else {
         alert('Please enter a place name.');
     }
+
+    if (routePlaces.length >= 0){
+        document.getElementById("routePlaces").style.display = "block";
+        document.getElementById("submit_route_button").style.display = "block";
+    }
+}
+function SubmitRoute(){
+
 }

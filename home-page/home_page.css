@@ -340,7 +340,12 @@ border-top: 9px solid var(--marker-colour);
     border-color: black;
     max-height: 490px;
     overflow-y: auto;
+    margin-bottom: 5px;
+    display: none;
 }
 #routePlacesList{
     margin-right: 20px;
+}
+#submit_route_button{
+    display: none;
 }
