@@ -515,7 +515,6 @@ function updateRoutePlacesList() {
     const route_place_list = document.getElementById('routePlacesList');
     route_place_list.innerHTML = '';
 
-    
 
     routePlaces.forEach((place, index) => {
 
@@ -574,6 +573,10 @@ function updateRoutePlacesList() {
 
 //Adds a place to the route collection
 function addPlaceToRoute() {
+    if (document.getElementById("loading-container").style.display === "block"){
+        alert("Please wait for your previous action to process.");
+        return;
+    }
     ClearAllTimeouts();
     document.getElementById("loading-container").style.display = "block";
     const new_place_name_input = document.getElementById('newPlaceName');
@@ -637,6 +640,16 @@ function GetPlaceId(place_name, callback) {
     xhr.send("place_name=" + place_name);
 }
 function SubmitRoute(){
+
+    if (document.getElementById("loading-container").style.display === "block"){
+        alert("Please wait for your previous action to process.");
+        return;
+    }
     document.getElementById("loading-container").style.display = "block";
     route.StoreRoute();
+    route = new Route("Route", 3, 1, "0");
+    routePlaces = [];
+    document.getElementById("routePlaces").style.display = "none";
+    document.getElementById("submit_route_button").style.display = "none";
+    document.getElementById("route_tracker_header").style.display = "none";
 }

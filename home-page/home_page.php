@@ -107,7 +107,7 @@
 
                 <div class="formdiv">
                     <label for=""></label>
-                    <label for="newPlaceName" class="formlbl">Add a list of places:</label><span class="required">*</span><br>
+                    <label for="newPlaceName" class="formlbl">Add a place:</label><span class="required">*</span><br>
                     <input type="text" id="newPlaceName" placeholder="Click on markers to fill this field.">
                     <button id="add_place_button" onclick="addPlaceToRoute()">Add to route</button>
                     <h3 id="route_tracker_header" style="display: none;">Route Tracker:</h3>
