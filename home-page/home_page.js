@@ -63,8 +63,8 @@ function ClearAllTimeouts() {
 //Adds a place to the database once the user clicks submit
 function SubmitPlace() {
 
-    /*let route = new Route("testing route", 3, 1, "0");
-    let place = new Place(3, "23, 47", "jhasfjkfa", "oiaf", "afaf", "afafs", "okkjafa");
+    /*let route = new Route("testing route", logged_in_user_id, 1, "0");
+    let place = new Place(logged_in_user_id, "23, 47", "jhasfjkfa", "oiaf", "afaf", "afafs", "okkjafa");
     let place2 = new Place(56, "23, 47", "fhdgds", "oiasgagf", "afasgasasgaf", "asggags", "okkjafaagasgag");
     let place3 = new Place(78, "23, 47", "asgasgasgagag", "agsasgasg", "asgasgasgagga", "agagasgag", "gasgagagsagga");
 
@@ -78,12 +78,12 @@ function SubmitPlace() {
     ClearAllTimeouts();
 
     //Retrieve the inputted data
-    var tag_select_box = document.getElementById("tag-selector");
+    
 
     const PLACE_NAME = document.getElementById("place_name").value;
     const LOCATION = document.getElementById("location").value;
     const PLACE_DESCRIPTION = document.getElementById("place_description").value;
-    const PLACE_TAG = tag_select_box.value;
+    const PLACE_TAG = document.getElementById("tag-selector").value;
 
 
 
@@ -138,7 +138,7 @@ function SubmitPlace() {
             }
         }
     };
-    xhr.send("place_name=" + PLACE_NAME + "&location=" + LOCATION + "&place_description=" + PLACE_DESCRIPTION + "&place_tag=" + PLACE_TAG);
+    xhr.send("place_name=" + PLACE_NAME + "&location=" + LOCATION + "&place_description=" + PLACE_DESCRIPTION + "&place_tag=" + PLACE_TAG + "&logged_user_id=" + logged_in_user_id);
 }
 //this function calls php code to return all place data from the database - more can be added as needed
 async function getPlaceData() {
@@ -507,7 +507,7 @@ function TagChanged() {
     return;
 }
 
-var route = new Route("Route", 3, 1, "0");
+var route = new Route("Route", logged_in_user_id, 1, "0");
 var routePlaces = [];
 function removePlaceFromRoute(index) {
     routePlaces.splice(index, 1);
@@ -653,10 +653,12 @@ function SubmitRoute(){
         return;
     }
     document.getElementById("loading-container").style.display = "block";
-    route_desc = document.getElementById("route_description_textarea").value;
+    let route_desc = document.getElementById("route_description_textarea").value;
     if (route_desc === ""){
         route_desc = "No route description";
     }
+    let route_tag = document.getElementById("route-tag-selector").value;
+    route.SetRouteTag(route_tag);
     route.SetRouteDescription(route_desc);
     route.StoreRoute();
     route = new Route("", logged_in_user_id, 1, "0");
@@ -670,7 +672,7 @@ function HideRouteContent(){
     document.getElementById("route_description_textarea").style.display = "none";
     document.getElementById("route_description_label").style.display = "none";
     document.getElementById("route-tag-select-container").style.display = "none";
-    document.getElementById("route_tag_label").style.display = "nonw";
+    document.getElementById("route_tag_label").style.display = "none";
 }
 function ShowRouteContent(){
     document.getElementById("routePlaces").style.display = "block";

@@ -28,6 +28,9 @@ class Route{
     SetRouteDescription(text){
         this.route_description = text;
     }
+    SetRouteTag(text){
+        this.tag_id=text
+    }
     SetRouteId(id){
         this.route_id = id;
     }
