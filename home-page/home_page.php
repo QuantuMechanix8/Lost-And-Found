@@ -92,6 +92,7 @@
                             <i aria-hidden="true" class="fa fa-icon fa-solid fa-map-pin marker_icon" id="tag-image"></i>
                         </div>
                         <button type="button" class="submission_button" onclick="SubmitPlace()">Submit</button><br>
+                        <div class = "loading-containers" id="place-loading-container" style="display: none;">loading...</div>
                     </form>
 
                 </div>

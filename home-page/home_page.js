@@ -62,23 +62,11 @@ function ClearAllTimeouts() {
 
 //Adds a place to the database once the user clicks submit
 function SubmitPlace() {
-
-    /*let route = new Route("testing route", logged_in_user_id, 1, "0");
-    let place = new Place(logged_in_user_id, "23, 47", "jhasfjkfa", "oiaf", "afaf", "afafs", "okkjafa");
-    let place2 = new Place(56, "23, 47", "fhdgds", "oiasgagf", "afasgasasgaf", "asggags", "okkjafaagasgag");
-    let place3 = new Place(78, "23, 47", "asgasgasgagag", "agsasgasg", "asgasgasgagga", "agagasgag", "gasgagagsagga");
-
-    route.AddPlace(place);
-    route.AddPlace(place2);
-    route.AddPlace(place3);
-
-    route.StoreRoute();
-    return;*/ //this is for testing whether storing routes works
-
+    if (document.getElementById("place-loading-container").style.display === "block"){
+        alert("Please wait for your previous action to process.");
+        return;
+    }
     ClearAllTimeouts();
-
-    //Retrieve the inputted data
-    
 
     const PLACE_NAME = document.getElementById("place_name").value;
     const LOCATION = document.getElementById("location").value;
@@ -86,21 +74,23 @@ function SubmitPlace() {
     const PLACE_TAG = document.getElementById("tag-selector").value;
 
 
+    document.getElementById("place-loading-container").style.display="block";
 
     var button = document.querySelector(".submission_button");
     button.textContent = "Loading...";
 
     //Puts the word 'Submit' back in the button after 500 milliseconds
     SetDelayedFunction(function () { button.textContent = "Submit"; }, 500);
-    SetDelayedFunction(function () { document.getElementById("responseContainer").innerHTML = ""; }, 5000);
+    SetDelayedFunction(function () { document.getElementById("responseContainer").innerHTML = ""; }, 500);
 
     //Checks and alerts if any of the fields are empty
     if (PLACE_NAME.trim() === "" || LOCATION.trim() === "" || PLACE_DESCRIPTION.trim() === "") {
         var error_message = document.getElementById("errorMessage");
         error_message.textContent = "Please fill all fields.";
         error_message.style.display = "block";
-        SetDelayedFunction(function () { error_message.textContent = ""; error_message.style.display = "none"; }, 10000);
+        SetDelayedFunction(function () { error_message.textContent = ""; error_message.style.display = "none"; }, 2500);
         document.getElementById('responseContainer').textContent = "";
+        document.getElementById("place-loading-container").style.display="none";
         return;
     }
 
@@ -108,18 +98,14 @@ function SubmitPlace() {
     if (!isValidLocation(LOCATION)) {
         var error_message = document.getElementById("errorMessage");
         error_message.textContent = "Invalid location. Please try again.";
+        document.getElementById("place-loading-container").style.display="none";
         error_message.style.display = "block";
-        SetDelayedFunction(function () { error_message.textContent = ""; error_message.style.display = "none"; }, 10000);
+        SetDelayedFunction(function () { error_message.textContent = ""; error_message.style.display = "none"; }, 2500);
         return;
     }
 
     //Clear all the entries
-    document.getElementById("place_name").value = "";
-    document.getElementById("location").value = "";
-    document.getElementById("place_description").value = "";
-    document.getElementById("errorMessage").textContent = "";
-    document.getElementById('responseContainer').textContent = "";
-    document.getElementById("tag-selector").value = "0";
+    
     //Accesses the database by calling the store_place_home.php script
     xhr = new XMLHttpRequest();
     xhr.open("POST", "store_place_home.php", true);
@@ -131,10 +117,18 @@ function SubmitPlace() {
             if (xhr.status === 200) {
                 const response_text = xhr.responseText;
                 document.getElementById("responseContainer").innerHTML = response_text;
+                document.getElementById("place-loading-container").style.display="none";
+                document.getElementById("place_name").value = "";
+                document.getElementById("location").value = "";
+                document.getElementById("place_description").value = "";
+                document.getElementById("errorMessage").textContent = "";
+                document.getElementById('responseContainer').textContent = "";
+                document.getElementById("tag-selector").value = "0";
                 initMap(false);
             }
             else {
                 console.error('Error occurred: ' + xhr.status);
+                document.getElementById("place-loading-container").style.display="none";
             }
         }
     };
