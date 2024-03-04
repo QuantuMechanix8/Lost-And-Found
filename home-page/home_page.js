@@ -124,6 +124,7 @@ function SubmitPlace() {
                 document.getElementById("errorMessage").textContent = "";
                 document.getElementById('responseContainer').textContent = "";
                 document.getElementById("tag-selector").value = "0";
+                TagChanged();
                 initMap(false);
             }
             else {
@@ -633,6 +634,9 @@ function GetPlaceId(place_name, callback) {
             if (xhr.status === 200) {
                 const response_text = xhr.responseText;
                 callback(response_text);
+                document.getElementById("route_description_textarea").value="";
+                document.getElementById("route-tag-selector").value = "0";
+                TagChanged();
             } else {
                 console.error('Error occurred: ' + xhr.status);
             }
