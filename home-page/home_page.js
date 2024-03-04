@@ -224,7 +224,13 @@ async function initMap(first_init = true) {
             //document.getElementById('browse_place_description').value = element.PlaceDesc; //this lines can be included when the pages exist
             //document.getElementById('browse_location').value = element.latitude + ', ' + element.longitude; //this lines can be included when the pages exist
             toggleHighlight(marker, element);
+            
 
+            //if the add routes window is showing, do something.
+
+            if (document.getElementById("add_route_input_box").style.display === "block"){
+                document.getElementById("newPlaceName").value = element.PlaceName
+            }
         });
 
         return marker;
@@ -500,6 +506,7 @@ function removePlaceFromRoute(index) {
     if (routePlaces.length === 0){
         document.getElementById("routePlaces").style.display = "none";
         document.getElementById("submit_route_button").style.display = "none";
+        document.getElementById("route_tracker_header").style.display = "none";
     }
 }
 
@@ -580,7 +587,10 @@ function addPlaceToRoute() {
     if (routePlaces.length >= 0){
         document.getElementById("routePlaces").style.display = "block";
         document.getElementById("submit_route_button").style.display = "block";
+        document.getElementById("route_tracker_header").style.display = "block";
     }
+
+    document.getElementById("routePlaces").scrollTop = document.getElementById("routePlaces").scrollHeight;
 }
 function SubmitRoute(){
 

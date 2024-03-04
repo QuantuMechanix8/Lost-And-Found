@@ -107,16 +107,16 @@
 
                 <div class="formdiv">
                     <label for=""></label>
-                    <label for="newPlaceName">Add a list of places:</label>
-                    <input type="text" id="newPlaceName" placeholder="Enter place name">
+                    <label for="newPlaceName" class="formlbl">Add a list of places:</label><span class="required">*</span><br>
+                    <input type="text" id="newPlaceName" placeholder="Click on markers to fill this field.">
                     <button onclick="addPlaceToRoute()">Add to route</button>
-                    <h3>Route Tracker:</h3>
+                    <h3 id="route_tracker_header" style="display: none;">Route Tracker:</h3>
                     <div id="routePlaces">
                         <ol id="routePlacesList">
                             <!-- Individual place items will be dynamically added here -->
                         </ol>
                 </div>
-                <button id = "submit_route_button" onclick="SubmitRoute()">Submit Route</button>
+                <button id = "submit_route_button" onclick="SubmitRoute()">Submit route</button>
             </div>
 
             </div>
