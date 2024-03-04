@@ -26,60 +26,69 @@
         const height = window.innerHeight * 0.9;
         const scene = new THREE.Scene();
 
-        // Add a 360 star background texture
-        var texture_bg = new THREE.TextureLoader().load("../public/ui-assets/starmap360.jpg");
-        texture_bg.mapping = THREE.EquirectangularReflectionMapping;
-        scene.background = texture_bg;
 
-        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        var star_background = new THREE.TextureLoader().load("../public/ui-assets/star_map.png");
+        star_background.mapping = THREE.EquirectangularReflectionMapping;
+        scene.background = star_background;
+
+
+        const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(width, height);
         document.body.appendChild(renderer.domElement);
         // create earth (sphere) and map texture image to it
-        const geometry = new THREE.SphereGeometry(5, 32, 32);
+        const sphere = new THREE.SphereGeometry(5, 32, 32);
         const textureLoader = new THREE.TextureLoader();
         const texture = textureLoader.load('../public/ui-assets/med_res_earth.jpg');
         // Thicc image file but looks crisp
-        const material = new THREE.MeshPhongMaterial({
+        const earth_material = new THREE.MeshPhongMaterial({
             // map of earth's surface directions (normal vectors) to make it look 3D with reflections
-            normalMap: textureLoader.load('../public/ui-assets/EarthNormal.png'),
+            normalMap: textureLoader.load('../public/ui-assets/earth_normals.png'),
             normalScale: new THREE.Vector2(5, 5), // make the normal map more pronounced
-            //bumpMap: textureLoader.load('../public/ui-assets/terrain_map.png'),
-            //bumpScale: 8,
-            //specularMap: textureLoader.load('../public/ui-assets/EarthSpec.png'),
-            shininess: 20,
+
+            // add map of night lights to make the dark side of the earth glow
+            emissiveMap: textureLoader.load('../public/ui-assets/earth_emissions.jpg'),
+            emissive: 0xBD9977, // earth lights glow colour - slightly yellow and not too bright
+            emissiveIntensity: 1, // make the glow less intense
+
+            //specularMap: textureLoader.load('../public/ui-assets/earth_speculars.png'),
+            shininess: 30,
             map: texture
         });
-        const globe = new THREE.Mesh(geometry, material);
+
+        const globe = new THREE.Mesh(sphere, earth_material);
         scene.add(globe);
 
-        // add an ambient light so we can see dark side of the globe
+        // ambient light so we can see dark side of the globe
         const softLightColour = 0x404040;
-        const ambientLight = new THREE.AmbientLight(softLightColour, 2);
+        const ambientLight = new THREE.AmbientLight(softLightColour, 0.6);
         scene.add(ambientLight);
 
 
-        // add directional light to simulate sunlight
+        // directional light to simulate sunlight
         const sunlightColour = 0xffefc9;
-        const light = new THREE.DirectionalLight(sunlightColour, 1.5);
-        light.position.set(30, 0, 50); // Position the light to the right of & behind camera
+        const light = new THREE.DirectionalLight(sunlightColour, 2);
+        light.position.set(30, -5, 0); // Position the (sun) light to the right of & slightly below camera - to match sun position in background
         light.target = globe;
         scene.add(light);
 
-        const radius = 15;
-        var angle = 0;
-        globe.rotation.y = 2.5; // start the globe above australia and rotate westwards
-        camera.position.y = 6; // move camera up slightly to see more land (looking at northern hemisphere)
+        const radius = 15; // distance from camera to center
+        var angle = -1.3; //start at sunrise
+
+        camera.position.y = 4; // move camera up slightly to see more land (looking at northern hemisphere)
         camera.position.z = radius;
+
+
 
         const animate = function () {
             requestAnimationFrame(animate);
-            globe.rotation.y += 0.003; // rotate the globe
+            globe.rotation.y += 0.0033; // rotate the globe
+
             // rotate camera around earth
             camera.position.x = radius * Math.sin(angle);
             camera.position.z = radius * Math.cos(angle);
             camera.lookAt(globe.position);
-            angle += 0.0004;
+            angle += 0.001;
 
             renderer.render(scene, camera);
         };

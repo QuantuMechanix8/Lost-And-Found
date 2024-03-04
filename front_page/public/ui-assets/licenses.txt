@@ -2,8 +2,13 @@ Text file to record the licences for each of the images used
 
 ## Earth maps 
 topography (bump map) https://visibleearth.nasa.gov/images/73934/topography
-specular & normal maps http://www.celestiamotherlode.net/catalog/earthbumpspec.html
-earth map (low,med & high res) https://upload.wikimedia.org
 
-CHECK LICENCING FOR
-star map https://www.renderosity.com/gallery/items/2797098/space-001-hdri 
+specular & normal maps http://www.celestiamotherlode.net/catalog/earthbumpspec.html
+
+earth map (medium res) https://upload.wikimedia.org
+
+emission map https://earthobservatory.nasa.gov/features/NightLights
+freely available for use - credit NASA
+
+star map is taken from a screenshot of Stellarium software - which is allowed for non commercial use as discussed here 
+https://sourceforge.net/p/stellarium/discussion/278769/thread/6702ea71/
