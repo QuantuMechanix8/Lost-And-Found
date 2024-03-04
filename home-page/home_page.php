@@ -111,14 +111,14 @@
                     <label for="newPlaceName" class="formlbl">Add a place:</label><span class="required">*</span><br>
                     <input type="text" id="newPlaceName" placeholder="Click on markers to fill this field.">
                     <button id="add_place_button" onclick="addPlaceToRoute()">Add to route</button>
-                    <h3 id="route_tracker_header" style="display: none;">Route Tracker:</h3>
+                    <h3 id="route_tracker_header" style="display: none;">Current Route:</h3>
                     <div id="routePlaces">
                         <ol id="routePlacesList">
                             <!-- Individual place items will be dynamically added here -->
                         </ol>
                 </div>
                 <label for="route_description" id="route_description_label" style="display: none;" class="formlbl">Route Description </label>
-                <textarea placeholder="Please give any extra information on the place that others might find useful." id="route_description_textarea" style="display: none;"></textarea><br>
+                <textarea placeholder="Please give any extra information on the route that others might find useful." id="route_description_textarea" style="display: none;"></textarea><br>
                 <label for="routetag" id="route_tag_label" class="formlbl" style="display: none;">Route Tag </label>
                         <div class="tag-select-container" id="route-tag-select-container" style="display: none;">
                             <select onchange="TagChanged()" class="tag-select" id="route-tag-selector">
@@ -157,6 +157,7 @@
                     <label for="search_places" class="formlbl">Search</label>
                     <input type="text" id="search_places" placeholder="Search for a place" name="search_places">
                     <button type="submit" onclick="submit_search_place()">Search</button> <!-- need to make submit_search_place() --->
+                    <div class = "loading-containers" id="search-loading-container" style="display: none;">loading...</div>
                 </div>
             </div>
 

@@ -445,6 +445,13 @@ function HideAllInputDivs() {
 
 async function submit_search_place() { //searches database for the place - we do a lil fuzzy search??? also maybe move map centre to the marker you find.
     /* ADD SOME ERROR CHECKING */
+    
+    document.getElementById("search-loading-container").style.display = "block";
+    setTimeout(function () {
+        document.getElementById("search-loading-container").style.display = "none";
+
+    }, 5000);
+    
     var location;
     var name = document.getElementById("search_places").value;
     await jQuery.ajax({
@@ -473,6 +480,7 @@ async function submit_search_place() { //searches database for the place - we do
     //map.setZoom(4);
     map.panTo({ lat: parseFloat(location[0].latitude), lng: parseFloat(location[0].longitude) });
     //map.setZoom(12);
+    document.getElementById("search-loading-container").style.display = "none";
 }
 
 function TagChanged() {
@@ -538,7 +546,7 @@ function updateRoutePlacesList() {
         place_container.appendChild(place_label);
 
         var remove_button = document.createElement('button');
-        remove_button.textContent = 'Remove';
+        remove_button.textContent = 'Discard';
         remove_button.style.width = 'auto';
         remove_button.style.height = "20px"; // Increase the height to accommodate the text
         remove_button.style.display = "flex"; // Set display to flex
