@@ -118,7 +118,7 @@
                 </div>
                 <button id = "submit_route_button" onclick="SubmitRoute()">Submit route</button>
                 <div class="response-container" id="routeResponseContainer2"></div>
-                <div id="loading-container" style="display: none;">loading...</div>
+                <div class = "loading-containers"id="loading-container" style="display: none;">loading...</div>
             </div>
 
             </div>

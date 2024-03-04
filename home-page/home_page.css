@@ -352,7 +352,7 @@ border-top: 9px solid var(--marker-colour);
 #routeResponseContainer2{
     color: red;
 }
-#loading-container{
+.loading-containers{
     color: black;
     text-align: center;
 }

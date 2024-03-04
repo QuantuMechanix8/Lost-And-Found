@@ -611,7 +611,11 @@ function addPlaceToRoute() {
             document.getElementById("routePlaces").scrollTop = document.getElementById("routePlaces").scrollHeight;
         });
     } else {
-        alert('Please enter a place name.');
+        document.getElementById("routeResponseContainer2").textContent = "Please enter a place, or click on a marker.";
+        document.getElementById("loading-container").style.display = "none";
+        SetDelayedFunction(function() {
+            document.getElementById("routeResponseContainer2").innerHTML = "";
+        }, 5000);
     }
 }
 
