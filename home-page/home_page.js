@@ -88,7 +88,7 @@ function SubmitPlace() {
 
 
     var button = document.querySelector(".submission_button");
-    button.textContent = "Submitting...";
+    button.textContent = "Loading...";
 
     //Puts the word 'Submit' back in the button after 500 milliseconds
     SetDelayedFunction(function () { button.textContent = "Submit"; }, 500);
@@ -574,6 +574,8 @@ function updateRoutePlacesList() {
 
 //Adds a place to the route collection
 function addPlaceToRoute() {
+    ClearAllTimeouts();
+    document.getElementById("loading-container").style.display = "block";
     const new_place_name_input = document.getElementById('newPlaceName');
     const place_name = new_place_name_input.value.trim();
 
@@ -581,12 +583,15 @@ function addPlaceToRoute() {
         GetPlaceId(place_name, function(place_id) {
             if (place_id === "-1") {
                 document.getElementById("routeResponseContainer2").textContent = "That place does not exist. Clicking on the corresponding marker might help you.";
+                document.getElementById("loading-container").style.display = "none";
                 SetDelayedFunction(function() {
                     document.getElementById("routeResponseContainer2").innerHTML = "";
                 }, 5000);
                 return;
             } else {
                 document.getElementById("routeResponseContainer").textContent = "This place has been added to the route!";
+                document.getElementById("loading-container").style.display = "none";
+                
                 SetDelayedFunction(function() {
                     document.getElementById("routeResponseContainer").innerHTML = "";
                 }, 5000);
@@ -628,5 +633,9 @@ function GetPlaceId(place_name, callback) {
     xhr.send("place_name=" + place_name);
 }
 function SubmitRoute(){
+    var button = document.getElementById("submit_route_button")
+    button.textContent = "Loading...";
 
+    //Puts the word 'Submit' back in the button after 500 milliseconds
+    SetDelayedFunction(function () { button.textContent = "Submit route"; }, 500);
 }

@@ -109,7 +109,7 @@
                     <label for=""></label>
                     <label for="newPlaceName" class="formlbl">Add a list of places:</label><span class="required">*</span><br>
                     <input type="text" id="newPlaceName" placeholder="Click on markers to fill this field.">
-                    <button onclick="addPlaceToRoute()">Add to route</button>
+                    <button id="add_place_button" onclick="addPlaceToRoute()">Add to route</button>
                     <h3 id="route_tracker_header" style="display: none;">Route Tracker:</h3>
                     <div id="routePlaces">
                         <ol id="routePlacesList">
@@ -118,6 +118,7 @@
                 </div>
                 <button id = "submit_route_button" onclick="SubmitRoute()">Submit route</button>
                 <div class="response-container" id="routeResponseContainer2"></div>
+                <div id="loading-container" style="display: none;">loading...</div>
             </div>
 
             </div>
