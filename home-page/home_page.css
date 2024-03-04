@@ -349,3 +349,6 @@ border-top: 9px solid var(--marker-colour);
 #submit_route_button{
     display: none;
 }
+#routeResponseContainer2{
+    color: red;
+}

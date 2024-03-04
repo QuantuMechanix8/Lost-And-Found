@@ -532,6 +532,7 @@ function updateRoutePlacesList() {
         var place_label = document.createElement("label");
         place_label.textContent = place.place_name;
         place_label.style.marginLeft = "5px";
+        place_label.style.marginRight = "5px";
         place_container.appendChild(place_label);
 
         var remove_button = document.createElement('button');
@@ -548,6 +549,7 @@ function updateRoutePlacesList() {
         remove_button.style.borderStyle = "solid";
         remove_button.style.borderWidth = "0.1px";
         remove_button.style.borderColor = "#000";
+
         if (index % 2 == 1){
             place_container.style.background = "#fff";
             remove_button.style.background = "#f2f2f2";
@@ -570,27 +572,60 @@ function updateRoutePlacesList() {
     });
 }
 
+//Adds a place to the route collection
 function addPlaceToRoute() {
     const new_place_name_input = document.getElementById('newPlaceName');
     const place_name = new_place_name_input.value.trim();
 
     if (place_name !== '') {
-        let place = new Place(3, "", "", "", "", place_name, "");
-        routePlaces.push(place);
-        route.AddPlace(place);
-        updateRoutePlacesList();
-        new_place_name_input.value = '';
+        GetPlaceId(place_name, function(place_id) {
+            if (place_id === "-1") {
+                document.getElementById("routeResponseContainer2").textContent = "That place does not exist. Clicking on the corresponding marker might help you.";
+                SetDelayedFunction(function() {
+                    document.getElementById("routeResponseContainer2").innerHTML = "";
+                }, 5000);
+                return;
+            } else {
+                document.getElementById("routeResponseContainer").textContent = "This place has been added to the route!";
+                SetDelayedFunction(function() {
+                    document.getElementById("routeResponseContainer").innerHTML = "";
+                }, 5000);
+                let place = new Place(place_id, "", "", "", "", place_name, "");
+                routePlaces.push(place);
+                route.AddPlace(place);
+                updateRoutePlacesList();
+                new_place_name_input.value = '';
+            }
+
+            if (routePlaces.length > 0) {
+                document.getElementById("routePlaces").style.display = "block";
+                document.getElementById("submit_route_button").style.display = "block";
+                document.getElementById("route_tracker_header").style.display = "block";
+            }
+
+            document.getElementById("routePlaces").scrollTop = document.getElementById("routePlaces").scrollHeight;
+        });
     } else {
         alert('Please enter a place name.');
     }
+}
 
-    if (routePlaces.length >= 0){
-        document.getElementById("routePlaces").style.display = "block";
-        document.getElementById("submit_route_button").style.display = "block";
-        document.getElementById("route_tracker_header").style.display = "block";
-    }
+function GetPlaceId(place_name, callback) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "get_place_id.php", true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    document.getElementById("routePlaces").scrollTop = document.getElementById("routePlaces").scrollHeight;
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const response_text = xhr.responseText;
+                callback(response_text);
+            } else {
+                console.error('Error occurred: ' + xhr.status);
+            }
+        }
+    };
+    xhr.send("place_name=" + place_name);
 }
 function SubmitRoute(){
 

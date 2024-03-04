@@ -117,6 +117,7 @@
                         </ol>
                 </div>
                 <button id = "submit_route_button" onclick="SubmitRoute()">Submit route</button>
+                <div class="response-container" id="routeResponseContainer2"></div>
             </div>
 
             </div>
