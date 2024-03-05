@@ -28,6 +28,7 @@
 
 .logo {
   /* make the logo fill */
+  filter: drop-shadow(0 0 10rem #ffffff);
   object-fit: contain;
   height: 100%;
   width: fit-content;
@@ -52,13 +53,14 @@
 
 #container {
   position: relative;
+  mix-blend-mode: exclusion;
 }
 
 #description {
   display: flex;
   /* Showthe description by default */
   position: absolute;
-  top: 20vh;
+  top: 25vh;
   /* center the description text */
   left: 0;
   right: 0;
@@ -69,15 +71,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  color: #ffffff;
 }
 
 #description>* {
-  color: rgb(195, 195, 195);
-  mix-blend-mode: difference;
+  font-family: "BioRhyme", serif;
   /* ensures text is visible regardless of background colour */
   text-align: center;
-  line-height: max(2em, 5vh);
-  opacity: 0.8;
+  line-height: max(2vw, 5vh);
 }
 
 .logo:hover {
@@ -116,8 +117,8 @@
 #menu a {
   display: block;
   border-radius: 10%;
-  height: 10vh;
-  line-height: 5vh;
+  height: 8vh;
+  line-height: 4vh;
   /* centres text since its two lines*/
   width: 100%;
   text-align: center;
@@ -126,6 +127,17 @@
   color: #a5a5a5;
   background-color: #272727;
   opacity: 0.6;
+}
+
+#image-credits {
+  position: absolute;
+  font-family: "Anta", sans-serif;
+  color: rgb(72, 72, 72);
+  left: 0;
+  bottom: 0;
+  opacity: 0.2;
+  margin: 0;
+  padding: 0;
 }
 
 .content {
