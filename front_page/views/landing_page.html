@@ -4,31 +4,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Earth js</title>
-  <script src="landing_page.js"></script>
+  <title>Lost & Found Frontpage</title>
+  <link rel="icon" href="../public/ui-assets/favicon-96x96.png" type="image/svg+xml">
   <!-- add fontawesome-->
   <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
+
+  <script src="landing_page.js"></script>
   <link rel="stylesheet" href="landing_page.css">
 </head>
 
 <body>
   <div id="earth" alt="Threejs scene">
     <div class="header">
-      <img src="../public/ui-assets/icon.svg" title="View Description" alt="Icon" class="icon" width="150" height="150">
+      <img src="../public/ui-assets/icon.svg" title="Toggle Description" alt="Icon" class="icon" width="150"
+        height="150" onclick="toggleDescription()">
       <img src="../public/ui-assets/logo.svg" title="Access Map" alt="Logo" class="logo" width="400" height="400">
       <i class="fa-solid fa-bars" id="menu-button" title="menu" onclick="toggleMenu()"></i>
       <!-- embed threejs canvas within div  -->
     </div>
-    <div id="menu">
-      <a href="../../signup/signup.html">Sign<br>Up</a>
-      <a href="../../authenticate/auth.html">Log<br>In</a>
+
+    <div id="container">
+      <div id="description">
+        <p>Immerse yourself in the world of travel and exploration with our travel map and planner! <br>
+          Uncover hidden gems and must-visit destinations curated by a community of passionate travelers.<br>
+          Seamlessly craft your itinerary, leveraging integrated route planning features powered by Google Maps. <br>
+          Whether you're seeking serene natural landscapes or vibrant urban experiences, our platform empowers you to
+          embark on unforgettable journeys. <br>
+          Welcome to Lost and Found!</p>
+      </div>
+
+      <div id="menu">
+        <a href="../../signup/signup.html">Sign<br>Up</a>
+        <a href="../../authenticate/auth.html">Log<br>In</a>
+      </div>
     </div>
+    <!--threejs code to simulate earth, which then adds a canvas here in the html-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="earth_scene.js"></script>
-
-    <!--<script>
-      // TODO add toggle menu function
-    </script> -->
   </div>
 
 </html>
