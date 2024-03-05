@@ -5,212 +5,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Earth js</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="landing_page.js"></script>
   <!-- add fontawesome-->
   <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
-  <style>
-    #earth {
-      position: absolute;
-      top: 0;
-      left: 0;
-      /* Set the position to the top left corner */
-      display: block;
-      height: 100%;
-      width: 100%;
-    }
-
-    /* Add styles for the header, logo, icon, and menu button */
-    .header {
-      position: relative;
-      top: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 0;
-      padding: 0;
-      /*padding: 2px;*/
-      background-color: transparent;
-      /* Set the background color of the header */
-      /*box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);*/
-      /* Add a whitish shadow line */
-      height: 10vh;
-      /* Set the height of the header */
-    }
-
-    .logo {
-      /* make the logo fill */
-      object-fit: contain;
-      height: 100%;
-      width: fit-content;
-      opacity: 0.6;
-      margin: 0;
-      padding: 0;
-    }
-
-    .icon {
-      /* make the icon fill */
-      object-fit: contain;
-      height: 100%;
-      width: fit-content;
-      opacity: 0.5;
-      margin: 0;
-      padding: 0;
-    }
-
-    .icon:hover {
-      opacity: 1;
-    }
-
-    .logo:hover {
-      opacity: 1;
-    }
-
-    #button {
-      height: 80%;
-      padding-right: 1%;
-      opacity: 0.6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #535353;
-    }
-
-    #button:hover {
-      opacity: 1;
-    }
-
-    .menu {
-      display: none;
-      /* Hide the menu by default */
-    }
-
-    .menu a {
-      display: block;
-      padding: 10px;
-      text-decoration: none;
-      color: #333;
-    }
-
-    .content {
-      position: relative;
-      /* Ensure relative positioning for absolute elements inside */
-    }
-
-    /* About me section styles */
-    .about-section {
-      padding: 20px;
-      margin-top: 20px;
-      /* Add some margin after the quote */
-      background-color: #f5f5f5;
-      /* Light gray background */
-      border-radius: 8px;
-    }
-
-    .about-section h2 {
-      color: #333;
-    }
-  </style>
+  <link rel="stylesheet" href="landing_page.css">
 </head>
 
 <body>
   <div id="earth" alt="Threejs scene">
     <div class="header">
-      <img src="../public/ui-assets/icon.svg" alt="Icon" class="icon" width="150" height="150">
-      <img src="../public/ui-assets/logo.svg" alt="Logo" class="logo" width="400" height="400">
-      <i class="fa-solid fa-bars" id="button" onclick="toggleMenu()"></i>
-      <!-- Move the menu inside the header -->
-      <div class="menu">
-        <a href="../../signup/signup.html">Sign Up</a>
-        <a href="../../authenticate/auth.html">Log In</a>
-      </div>
+      <img src="../public/ui-assets/icon.svg" title="View Description" alt="Icon" class="icon" width="150" height="150">
+      <img src="../public/ui-assets/logo.svg" title="Access Map" alt="Logo" class="logo" width="400" height="400">
+      <i class="fa-solid fa-bars" id="menu-button" title="menu" onclick="toggleMenu()"></i>
+      <!-- embed threejs canvas within div  -->
     </div>
+    <div id="menu">
+      <a href="../../signup/signup.html">Sign<br>Up</a>
+      <a href="../../authenticate/auth.html">Log<br>In</a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="earth_scene.js"></script>
 
-    <script>
-      const width = window.innerWidth;
-      const height = window.innerHeight;
-      const scene = new THREE.Scene();
-
-
-      var star_background = new THREE.TextureLoader().load("../public/ui-assets/star_map.png");
-      star_background.mapping = THREE.EquirectangularReflectionMapping;
-      scene.background = star_background;
-
-
-      const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer();
-      renderer.setSize(width, height);
-      document.body.appendChild(renderer.domElement);
-      // create earth (sphere) and map texture image to it
-      const sphere = new THREE.SphereGeometry(5, 32, 32);
-      const textureLoader = new THREE.TextureLoader();
-      const texture = textureLoader.load('../public/ui-assets/med_res_earth.jpg');
-      // Thicc image file but looks crisp
-      const earth_material = new THREE.MeshPhongMaterial({
-        // map of earth's surface directions (normal vectors) to make it look 3D with reflections
-        normalMap: textureLoader.load('../public/ui-assets/earth_normals.png'),
-        normalScale: new THREE.Vector2(5, 5), // make the normal map more pronounced
-
-        // add map of night lights to make the dark side of the earth glow
-        emissiveMap: textureLoader.load('../public/ui-assets/earth_emissions.jpg'),
-        emissive: 0xBD9977, // earth lights glow colour - slightly yellow and not too bright
-        emissiveIntensity: 1, // make the glow less intense
-
-        //specularMap: textureLoader.load('../public/ui-assets/earth_speculars.png'),
-        shininess: 20,
-        map: texture
-      });
-
-      const globe = new THREE.Mesh(sphere, earth_material);
-      scene.add(globe);
-
-      // ambient light so we can see dark side of the globe
-      const softLightColour = 0x404040;
-      const ambientLight = new THREE.AmbientLight(softLightColour, 0.6);
-      scene.add(ambientLight);
-
-
-      // directional light to simulate sunlight
-      const sunlightColour = 0xffefc9;
-      const light = new THREE.DirectionalLight(sunlightColour, 2);
-      light.position.set(30, -5, 0); // Position the (sun) light to the right of & slightly below camera - to match sun position in background
-      light.target = globe;
-      scene.add(light);
-
-      const radius = 15; // distance from camera to center
-      var angle = -1.3; //start at sunrise
-
-      camera.position.y = 4; // move camera up slightly to see more land (looking at northern hemisphere)
-      camera.position.z = radius;
-
-
-
-      const animate = function () {
-        requestAnimationFrame(animate);
-        globe.rotation.y += 0.0033; // rotate the globe
-
-        // rotate camera around earth
-        camera.position.x = radius * Math.sin(angle);
-        camera.position.z = radius * Math.cos(angle);
-        camera.lookAt(globe.position);
-        angle += 0.001;
-
-        renderer.render(scene, camera);
-      };
-
-      window.addEventListener('resize', function () {
-        const newWidth = window.innerWidth;
-        const newHeight = window.innerHeight;
-
-        camera.aspect = newWidth / newHeight;
-        camera.updateProjectionMatrix();
-
-        renderer.setSize(newWidth, newHeight);
-      });
-
-      animate();
-
+    <!--<script>
       // TODO add toggle menu function
-    </script>
+    </script> -->
   </div>
 
 </html>
