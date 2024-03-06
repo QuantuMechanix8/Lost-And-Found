@@ -209,7 +209,7 @@ async function initMap(first_init = true) {
             position: ({ lat: parseFloat(element.latitude), lng: parseFloat(element.longitude) }),
             map, //might need to remove this to make marker clustering work
             content: buildContent(element),
-        });
+        })
 
 
         marker.addListener("click", () => { //add an infowindow to each marker just for fun
@@ -314,15 +314,17 @@ function FindLocation() {
 
 //creates content for advanced html info on each marker - just a simplified version for now, this could easily be updated to include whatever info we want!
 function buildContent(element) {
-    const content = document.createElement("div");
+    const content = document.createElement("div"); 
 
     const iconName = tagIDToIcon[element.TagID];
     const iconColor = tagIDToColor[element.TagID];
 
+    content.style.backgroundColor = iconColor; //set icon background as tag color
+
     content.classList.add("element");
     content.innerHTML = `
     <div class = "icon">
-        <i aria-hidden = "true" class = "fa fa-icon fa-${iconName} marker_icon" style="color: ${iconColor}" title="marker_icon"></i>
+        <i aria-hidden = "true" class = "fa fa-icon fa-${iconName} marker_icon" style="color: white" title="marker_icon"></i>
         <span class="fa-sr-only">${element.PlaceName}</span>
     </div>
     <div class = "details">

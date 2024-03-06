@@ -299,7 +299,7 @@ background-color: var(--marker-colour);
 }
 
 .element:not(.highlight):has(.marker_icon)::after {
-border-top: 9px solid var(--marker-colour);
+border-top: 0px solid ;
 }
 .tag-select-container {
     display: flex;
