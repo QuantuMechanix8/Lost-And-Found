@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=BioRhyme");
+/* */
+
 #earth {
   position: absolute;
   top: 0;
@@ -32,10 +35,15 @@
   object-fit: contain;
   height: 100%;
   width: fit-content;
-  opacity: 0.6;
+  opacity: 0.8;
   margin: 0;
   padding: 0;
 }
+
+.logo:hover {
+  opacity: 1;
+}
+
 
 .icon {
   /* make the icon fill */
@@ -71,19 +79,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  color: #ffffff;
+  color: #c4c4ff;
 }
 
 #description>* {
   font-family: "BioRhyme", serif;
-  /* ensures text is visible regardless of background colour */
+  font-size: 1.6vh;
+  /* text fits within earth */
   text-align: center;
-  line-height: max(2vw, 5vh);
+  line-height: 4vh;
 }
 
-.logo:hover {
-  opacity: 1;
-}
 
 #menu-button {
   height: 80%;
@@ -132,7 +138,8 @@
 #image-credits {
   position: absolute;
   font-family: "Anta", sans-serif;
-  color: rgb(72, 72, 72);
+  font-size: 1.5vh;
+  color: rgb(255, 255, 255);
   left: 0;
   bottom: 0;
   opacity: 0.2;

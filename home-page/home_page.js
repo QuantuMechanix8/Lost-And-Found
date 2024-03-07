@@ -24,8 +24,8 @@ const tagIDToIcon = {
 
 // (incomplete) dictionary to map a given tag icon (by ID) to their respective colours
 const tagIDToColor = {
-    "0": "black", // black used as default colour
-    "1": "black",
+    "0": "maroon", // black used as default colour
+    "1": "maroon",
     "1.1": "ForestGreen",
     "1.1.1": "SkyBlue",
     "1.1.2": "blue",
@@ -62,7 +62,7 @@ function ClearAllTimeouts() {
 
 //Adds a place to the database once the user clicks submit
 function SubmitPlace() {
-    if (document.getElementById("place-loading-container").style.display === "block"){
+    if (document.getElementById("place-loading-container").style.display === "block") {
         alert("Please wait for your previous action to process.");
         return;
     }
@@ -74,7 +74,7 @@ function SubmitPlace() {
     const PLACE_TAG = document.getElementById("tag-selector").value;
 
 
-    document.getElementById("place-loading-container").style.display="block";
+    document.getElementById("place-loading-container").style.display = "block";
 
     var button = document.querySelector(".submission_button");
     button.textContent = "Loading...";
@@ -90,7 +90,7 @@ function SubmitPlace() {
         error_message.style.display = "block";
         SetDelayedFunction(function () { error_message.textContent = ""; error_message.style.display = "none"; }, 2500);
         document.getElementById('responseContainer').textContent = "";
-        document.getElementById("place-loading-container").style.display="none";
+        document.getElementById("place-loading-container").style.display = "none";
         return;
     }
 
@@ -98,14 +98,14 @@ function SubmitPlace() {
     if (!isValidLocation(LOCATION)) {
         var error_message = document.getElementById("errorMessage");
         error_message.textContent = "Invalid location. Please try again.";
-        document.getElementById("place-loading-container").style.display="none";
+        document.getElementById("place-loading-container").style.display = "none";
         error_message.style.display = "block";
         SetDelayedFunction(function () { error_message.textContent = ""; error_message.style.display = "none"; }, 2500);
         return;
     }
 
     //Clear all the entries
-    
+
     //Accesses the database by calling the store_place_home.php script
     xhr = new XMLHttpRequest();
     xhr.open("POST", "store_place_home.php", true);
@@ -117,7 +117,7 @@ function SubmitPlace() {
             if (xhr.status === 200) {
                 const response_text = xhr.responseText;
                 document.getElementById("responseContainer").innerHTML = response_text;
-                document.getElementById("place-loading-container").style.display="none";
+                document.getElementById("place-loading-container").style.display = "none";
                 document.getElementById("place_name").value = "";
                 document.getElementById("location").value = "";
                 document.getElementById("place_description").value = "";
@@ -129,7 +129,7 @@ function SubmitPlace() {
             }
             else {
                 console.error('Error occurred: ' + xhr.status);
-                document.getElementById("place-loading-container").style.display="none";
+                document.getElementById("place-loading-container").style.display = "none";
             }
         }
     };
@@ -219,11 +219,11 @@ async function initMap(first_init = true) {
             //document.getElementById('browse_place_description').value = element.PlaceDesc; //this lines can be included when the pages exist
             //document.getElementById('browse_location').value = element.latitude + ', ' + element.longitude; //this lines can be included when the pages exist
             toggleHighlight(marker, element);
-            
+
 
             //if the add routes window is showing, do something.
 
-            if (document.getElementById("add_route_input_box").style.display === "block"){
+            if (document.getElementById("add_route_input_box").style.display === "block") {
                 document.getElementById("newPlaceName").value = element.PlaceName
             }
         });
@@ -314,7 +314,7 @@ function FindLocation() {
 
 //creates content for advanced html info on each marker - just a simplified version for now, this could easily be updated to include whatever info we want!
 function buildContent(element) {
-    const content = document.createElement("div"); 
+    const content = document.createElement("div");
 
     const iconName = tagIDToIcon[element.TagID];
     const iconColor = tagIDToColor[element.TagID];
@@ -447,13 +447,13 @@ function HideAllInputDivs() {
 
 async function submit_search_place() { //searches database for the place - we do a lil fuzzy search??? also maybe move map centre to the marker you find.
     /* ADD SOME ERROR CHECKING */
-    
+
     document.getElementById("search-loading-container").style.display = "block";
     setTimeout(function () {
         document.getElementById("search-loading-container").style.display = "none";
 
     }, 5000);
-    
+
     var location;
     var name = document.getElementById("search_places").value;
     await jQuery.ajax({
@@ -518,7 +518,7 @@ function removePlaceFromRoute(index) {
     routePlaces.splice(index, 1);
     route.RemovePlace(index);
     updateRoutePlacesList(); // Update the UI to reflect the changes
-    if (routePlaces.length === 0){
+    if (routePlaces.length === 0) {
         HideRouteContent();
     }
 }
@@ -539,7 +539,7 @@ function updateRoutePlacesList() {
         place_container.style.justifyContent = "space-between";
         place_container.style.alignItems = 'center';
         place_container.style.height = "40px";
-        
+
 
         var place_label = document.createElement("label");
         place_label.textContent = place.place_name;
@@ -562,18 +562,18 @@ function updateRoutePlacesList() {
         remove_button.style.borderWidth = "0.1px";
         remove_button.style.borderColor = "#000";
 
-        if (index % 2 == 1){
+        if (index % 2 == 1) {
             place_container.style.background = "#fff";
             remove_button.style.background = "#f2f2f2";
         }
-        else{
+        else {
             remove_button.style.background = "#fff";
         }
         place_container.appendChild(remove_button);
         list_item.appendChild(place_container);
 
 
-        
+
 
         remove_button.addEventListener('click', () => {
             removePlaceFromRoute(index);
@@ -586,7 +586,7 @@ function updateRoutePlacesList() {
 
 //Adds a place to the route collection
 function addPlaceToRoute() {
-    if (document.getElementById("loading-container").style.display === "block"){
+    if (document.getElementById("loading-container").style.display === "block") {
         alert("Please wait for your previous action to process.");
         return;
     }
@@ -596,19 +596,19 @@ function addPlaceToRoute() {
     const place_name = new_place_name_input.value.trim();
 
     if (place_name !== '') {
-        GetPlaceId(place_name, function(place_id) {
+        GetPlaceId(place_name, function (place_id) {
             if (place_id === "-1") {
                 document.getElementById("routeResponseContainer2").textContent = "That place does not exist. Clicking on the corresponding marker might help you.";
                 document.getElementById("loading-container").style.display = "none";
-                SetDelayedFunction(function() {
+                SetDelayedFunction(function () {
                     document.getElementById("routeResponseContainer2").innerHTML = "";
                 }, 5000);
                 return;
             } else {
                 document.getElementById("routeResponseContainer").textContent = "This place has been added to the route!";
                 document.getElementById("loading-container").style.display = "none";
-                
-                SetDelayedFunction(function() {
+
+                SetDelayedFunction(function () {
                     document.getElementById("routeResponseContainer").innerHTML = "";
                 }, 5000);
                 let place = new Place(place_id, "", "", "", "", place_name, "");
@@ -627,7 +627,7 @@ function addPlaceToRoute() {
     } else {
         document.getElementById("routeResponseContainer2").textContent = "Please enter a place, or click on a marker.";
         document.getElementById("loading-container").style.display = "none";
-        SetDelayedFunction(function() {
+        SetDelayedFunction(function () {
             document.getElementById("routeResponseContainer2").innerHTML = "";
         }, 5000);
     }
@@ -639,12 +639,12 @@ function GetPlaceId(place_name, callback) {
     xhr.open("POST", "get_place_id.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 const response_text = xhr.responseText;
                 callback(response_text);
-                document.getElementById("route_description_textarea").value="";
+                document.getElementById("route_description_textarea").value = "";
                 document.getElementById("route-tag-selector").value = "0";
                 TagChanged();
             } else {
@@ -654,15 +654,15 @@ function GetPlaceId(place_name, callback) {
     };
     xhr.send("place_name=" + place_name);
 }
-function SubmitRoute(){
+function SubmitRoute() {
 
-    if (document.getElementById("loading-container").style.display === "block"){
+    if (document.getElementById("loading-container").style.display === "block") {
         alert("Please wait for your previous action to process.");
         return;
     }
     document.getElementById("loading-container").style.display = "block";
     let route_desc = document.getElementById("route_description_textarea").value;
-    if (route_desc === ""){
+    if (route_desc === "") {
         route_desc = "No route description";
     }
     let route_tag = document.getElementById("route-tag-selector").value;
@@ -673,7 +673,7 @@ function SubmitRoute(){
     routePlaces = [];
     HideRouteContent();
 }
-function HideRouteContent(){
+function HideRouteContent() {
     document.getElementById("routePlaces").style.display = "none";
     document.getElementById("submit_route_button").style.display = "none";
     document.getElementById("route_tracker_header").style.display = "none";
@@ -682,7 +682,7 @@ function HideRouteContent(){
     document.getElementById("route-tag-select-container").style.display = "none";
     document.getElementById("route_tag_label").style.display = "none";
 }
-function ShowRouteContent(){
+function ShowRouteContent() {
     document.getElementById("routePlaces").style.display = "block";
     document.getElementById("submit_route_button").style.display = "block";
     document.getElementById("route_tracker_header").style.display = "block";

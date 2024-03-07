@@ -28,7 +28,7 @@ const earth_material = new THREE.MeshPhongMaterial({
   emissiveIntensity: 1, // make the glow less intense
 
   //specularMap: textureLoader.load('../public/ui-assets/earth_speculars.png'),
-  shininess: 20,
+  shininess: 30,
   map: texture
 });
 
