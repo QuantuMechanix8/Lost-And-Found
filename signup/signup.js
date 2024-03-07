@@ -12,7 +12,7 @@ async function signup() {
         alert("Password must be at least 8 characters long");
     } else if (re.test(email) == false) {
         alert("Enter a valid email address");
-    } else if (checkUserExists(username) == true) { 
+    } else if (checkUserExists(username) == true) {
         alert("Username already taken");
     } else {
         // create new user in database
@@ -45,7 +45,7 @@ function createNewUser(username, passwordHash, email, salt) {
     xhr.open("POST", "createNewUser.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
                 const response_text = xhr.responseText;
@@ -62,7 +62,7 @@ async function checkUserExists(username) {
         url: 'checkUserExists.php',
         method: 'POST',
         data: { username: username },
-        success: function(response) {
+        success: function (response) {
             if (response == true) {
                 return true;
             } else if (response == false) {
@@ -70,4 +70,9 @@ async function checkUserExists(username) {
             }
         }
     });
+}
+
+
+function returnToFrontPage() {
+    window.location.href = "../front-page/views/front_page.html";
 }

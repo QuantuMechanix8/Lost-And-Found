@@ -90,3 +90,8 @@ async function verifyPassword(username, password, salt) {
     // Compare hash with hash in database
     // If they match, the password is correct
 }
+
+
+function returnToFrontPage() {
+    window.location.href = "../front-page/views/front_page.html";
+}
