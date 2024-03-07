@@ -1,3 +1,7 @@
+:root {
+    --background-colour: rgba(255, 255, 255, 0.2);
+}
+
 body {
     background: black;
     color: white;
@@ -5,7 +9,7 @@ body {
 }
 
 .container {
-    padding: 20px;
+    padding: 10vh;
     text-align: center;
 }
 
@@ -15,10 +19,16 @@ h1 {
 
 .login-box {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--background-colour);
     border-radius: 5px;
     padding: 20px;
     margin: 40px;
+}
+
+#login-title {
+    text-align: left;
+    margin-left: 1%;
+    margin-bottom: 5%
 }
 
 h2 {
@@ -43,4 +53,24 @@ button {
 
 button:hover {
     background: #45a049;
+}
+
+#logo-background {
+    display: flex;
+    height: 10vh;
+    float: center;
+    justify-content: center;
+    /*padding-left: 5vw;*/
+    /* aligns '&' in logo with login (deeply annoying otherwise)*/
+    padding-top: 1vh;
+}
+
+#logo {
+    object-fit: contain;
+    opacity: 0.8;
+}
+
+#logo:hover {
+    filter: drop-shadow(0 0 10rem #5c5c5c);
+    opacity: 1;
 }
