@@ -25,3 +25,8 @@ function toggleDescription() {
     description.style.display = 'flex';
   }
 }
+
+function toggleHome() {
+  console.log("toggleHome");
+  window.location.href = "../../home-page/home_page.php";
+}
