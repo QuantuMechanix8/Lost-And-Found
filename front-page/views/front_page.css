@@ -68,8 +68,8 @@
   display: flex;
   /* Showthe description by default */
   position: absolute;
-  top: 25vh;
-  /* center the description text */
+  top: 21vh;
+  /* center the description text (ensures text is readable as sun shines between text lines)*/
   left: 0;
   right: 0;
   margin-left: auto;
