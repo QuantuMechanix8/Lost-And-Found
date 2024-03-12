@@ -335,7 +335,7 @@ function buildContent(element) {
         <p>${element.PlaceDesc}</p>
         </div>
         <div class = "review_link" style = "{width: 30em; word-wrap: normal;}">
-        <a href="../reviews/review.php?id=${element.PlaceID}">Reviews</a>
+        <a href="../reviews/review.php?id=${element.PlaceID}&type=Place">Reviews</a>
         </div>
     </div>
     

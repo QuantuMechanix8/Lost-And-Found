@@ -1,8 +1,8 @@
 <?php
-$placeID = $_GET["id"];
-
-$sql = "SELECT pr.ReviewDesc as ReviewDesc, u.Username as Username, pr.Rating as Rating, pr.DateCreated as DateCreated FROM PlaceReview pr JOIN User u ON pr.UserID = u.UserID WHERE pr.PlaceID = $placeID ORDER BY Rating";
-
+$ID = $_GET["id"];
+$type = $_GET["type"]; //allows the same page to be used for reviews of routes and of places - we love modularity!
+$sqlPlace = "SELECT pr.ReviewDesc as ReviewDesc, u.Username as Username, pr.Rating as Rating, pr.DateCreated as DateCreated FROM PlaceReview pr JOIN User u ON pr.UserID = u.UserID WHERE pr.PlaceID = $ID ORDER BY Rating";
+$sqlRoute = "SELECT rr.ReviewDesc as ReviewDesc, u.Username as Username, rr.Rating as Rating, rr.DateCreated as DateCreated FROM RouteReview rr JOIN User u ON rr.UserID = u.UserID WHERE rr.PlaceID = $ID ORDER BY Rating";
 $database_host = "dbhost.cs.man.ac.uk";
 $database_user = "j22352sa";
 $database_pass = "cooldatabasepassword";
@@ -13,12 +13,15 @@ $conn = new mysqli($database_host,$database_user,$database_pass,$database_name);
 if($conn->connect_error){
     echo 'Connection to Database Error';
 }
-$result = mysqli_query($conn, $sql);
+if($type=="Place") { //choose correct query to use to get reviews of routes vs places
+    $result = mysqli_query($conn, $sqlPlace);
+} else {
+    $result = mysqli_query($conn, $sqlRoute);
+}
 $return = array();
 if (mysqli_num_rows($result) > 0) {
     foreach($result as $row) {
         $return[] = $row;
-        //echo $row['LocationLatLng']; //checking LocationLatLng actually returned; 
     }
 } else {
     $return = 'Query Failed'; //this is not a good error message but
@@ -32,7 +35,7 @@ echo `
     <body>
     <h1>Reviews for 
 `;
-//echo $review["PlaceName"];
+//echo $review["PlaceName"]; //need to get name of place/route with another query, sql joins suck ass
 echo "</h1>";
 
 foreach ($return as $review) {
