@@ -171,6 +171,7 @@ async function getPlaceData() {
 }
 //We only want one map, so declare it here
 var map;
+var markers;
 //Initialises Google Maps API. Async keyword means it runs without freezing the entire program
 async function initMap(first_init = true) {
 
@@ -204,7 +205,7 @@ async function initMap(first_init = true) {
       });*/
 
     //define markers based on placeData array, add a listener to all of them
-    const markers = placeData.map((element, i) => { //go through every element of placedata, make a marker with attached infowindow out of it
+    markers = placeData.map((element, i) => { //go through every element of placedata, make a marker with attached infowindow out of it
         const marker = new google.maps.marker.AdvancedMarkerElement({
             position: ({ lat: parseFloat(element.latitude), lng: parseFloat(element.longitude) }),
             map, //might need to remove this to make marker clustering work
@@ -218,6 +219,14 @@ async function initMap(first_init = true) {
             //document.getElementById('browse_place_name').value = element.PlaceName; //this lines can be included when the pages exist
             //document.getElementById('browse_place_description').value = element.PlaceDesc; //this lines can be included when the pages exist
             //document.getElementById('browse_location').value = element.latitude + ', ' + element.longitude; //this lines can be included when the pages exist
+            
+            //unselect all other selected markers
+            markers.forEach(otherMarker => {
+            if (otherMarker.content.classList.contains("highlight") && otherMarker != marker) {
+                toggleHighlight(otherMarker, null);
+            }
+            });
+
             toggleHighlight(marker, element);
 
 
@@ -256,6 +265,14 @@ async function initMap(first_init = true) {
             position: { lat: latitude, lng: longitude },
             map,
         })
+
+        // toggle off any other selected places
+        markers.forEach(marker => {
+            if (marker.content.classList.contains("highlight")) {
+                toggleHighlight(marker, null);
+            }
+        });
+
 
         //Get the clicked location's details
         geocoder.geocode({ 'location': location }, function (results, status) {
@@ -314,6 +331,7 @@ function FindLocation() {
 
 //creates content for advanced html info on each marker - just a simplified version for now, this could easily be updated to include whatever info we want!
 function buildContent(element) {
+
     const content = document.createElement("div");
 
     const iconName = tagIDToIcon[element.TagID];
