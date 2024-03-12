@@ -19,7 +19,7 @@ if( !isset($aResult['error']) ) {
         case 'searchPlace':
             if( !isset($_POST['arguments']) ) { $aResult['error'] = 'No function arguments!'; }
             else if (count($_POST['arguments'])!=1) { $aResult['error'] = 'Wrong number of arguments!';}
-            $aResult['result'] = searchPlace($_POST['arguments'][0]);
+            $aResult['result'] = searchPlace($_POST['arguments'][0]); // NOTE this can return multiple values since using LIKE not '='.
             break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
@@ -57,7 +57,7 @@ function getPlaces() {
 }
 
 function searchPlace($name) {
-    $sqlSearchPlace = "SELECT ST_X(Location) as longitude, ST_Y(Location) as latitude FROM Place WHERE PlaceName='$name';";
+    $sqlSearchPlace = "SELECT ST_X(Location) as longitude, ST_Y(Location) as latitude FROM Place WHERE PlaceName LIKE '%$name%';"; // LIKE returns anything where name is substring
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "j22352sa";
     $database_pass = "cooldatabasepassword";
