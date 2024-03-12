@@ -334,6 +334,9 @@ function buildContent(element) {
         <div class = "place_desc" style = "{width: 30em; word-wrap: normal;}">
         <p>${element.PlaceDesc}</p>
         </div>
+        <div class = "review_link" style = "{width: 30em; word-wrap: normal;}">
+        <a href="../reviews/review.php?id=${element.PlaceID}">Reviews</a>
+        </div>
     </div>
     
     `;

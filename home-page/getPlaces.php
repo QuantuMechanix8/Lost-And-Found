@@ -40,7 +40,7 @@ function getPlaces() {
         echo 'Connection to Database Error';
     }
 
-    $sqlGetPlaces = "SELECT PlaceName, ST_X(Location) as longitude, ST_Y(Location) as latitude, PlaceDesc, TagID FROM Place"; //best not to change this too much - especially any column aliases
+    $sqlGetPlaces = "SELECT PlaceName, ST_X(Location) as longitude, ST_Y(Location) as latitude, PlaceDesc, TagID, PlaceID FROM Place"; //best not to change this too much - especially any column aliases
 
     $result = mysqli_query($conn, $sqlGetPlaces); //returns mysqli_result object not array ! (im a fool)
     $return = array();
