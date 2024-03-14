@@ -1,19 +1,20 @@
 async function signup() {
-    var username = document.getElementById("username").value;
-    var email = document.getElementById("email").value;
+    // SQL search is case insensitive, so we convert the username and email to lowercase
+    var username = document.getElementById("username").value.toLowerCase();
+    var email = document.getElementById("email").value.toLowerCase();
     var password = document.getElementById("password").value;
     var confirmPassword = document.getElementById("confirmPassword").value;
 
-    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var validEmailRE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // Perform validation and other actions here
     if (password != confirmPassword) {
         alert("Password does not match confirmation password");
     } else if (password.length < 8) {
         alert("Password must be at least 8 characters long");
-    } else if (re.test(email) == false) {
+    } else if (validEmailRE.test(email) == false) {
         alert("Enter a valid email address");
-    } else if (checkUserExists(username) == true) {
-        alert("Username already taken");
+    } else if (await checkUserExists(username)) {
+        alert("Username '" + username + "' already taken, please choose another username.");
     } else {
         // create new user in database
         // give user confirmation of created account (send email)
@@ -58,18 +59,20 @@ function createNewUser(username, passwordHash, email, salt) {
 }
 
 async function checkUserExists(username) {
-    await jQuery.ajax({
-        url: 'checkUserExists.php',
+    const response = await fetch('checkUserExists.php', {
         method: 'POST',
-        data: { username: username },
-        success: function (response) {
-            if (response == true) {
-                return true;
-            } else if (response == false) {
-                return false;
-            }
-        }
-    });
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `username=${username}`,
+    }); // returns number 1 or 0 (bool from php becomes number in js, not sure why?)
+
+    const userExists = Boolean(await response.text());
+    if (!response.ok) {
+        throw new Error("Error occurred: " + response.status + " " + text);
+    }
+    //console.log("Response: " + userExists);
+    return userExists;
 }
 
 
