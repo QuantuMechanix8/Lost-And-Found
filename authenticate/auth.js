@@ -62,6 +62,7 @@ async function get_salt(username) {
     });
 
     const text = await response.text();
+    console.log("response: " + text);
     if (!response.ok) {
         throw new Error("Error occurred: " + response.status + " " + text);
     }
@@ -91,7 +92,13 @@ async function verifyPassword(username, password, salt) {
     // If they match, the password is correct
 }
 
+// If the user presses enter, call the login function
+function enterKey(event) {
+    if (event.key === "Enter") {
+        login();
+    }
+}
 
 function returnToFrontPage() {
-    window.location.href = "../front-page/views/front_page.html";
+    window.location.href = "../front-page/front_page.html";
 }

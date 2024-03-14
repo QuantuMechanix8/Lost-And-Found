@@ -77,5 +77,5 @@ async function checkUserExists(username) {
 
 
 function returnToFrontPage() {
-    window.location.href = "../front-page/views/front_page.html";
+    window.location.href = "../front-page/front_page.html";
 }

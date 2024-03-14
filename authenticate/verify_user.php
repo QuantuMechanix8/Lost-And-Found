@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // makes sure the script is only accessed via a POST request otherwise kills the script
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
   die("This script can only be accessed via a POST request");
@@ -36,7 +36,6 @@ $logoutTime = time() + $SESSION_LENGTH;
 
 // add user and logout time to session
 if ($valid_login) {
-  session_start();
   $_SESSION[$username] = true; // add user to session
   $_SESSION[$username . "logoutTime"] = $logoutTime; // add logout time to session
   setcookie("username", $username, $logoutTime, "/"); // add cookie to remember user
