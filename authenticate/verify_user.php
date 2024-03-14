@@ -1,4 +1,5 @@
 <?php
+
 // makes sure the script is only accessed via a POST request otherwise kills the script
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
   die("This script can only be accessed via a POST request");
@@ -20,18 +21,24 @@ try {
 }
 
 $sql = "SELECT PasswordHash FROM User WHERE Username = '$username'";
+// select statement is case insensitive
 $result = $conn->query($sql);
 
-echo $result->fetch_assoc()["PasswordHash"] == $passwordHash ? "true" : "false";
-/*
-if ($result && $result->num_rows > 0) {
-    $row = $result->fetch_assoc(); // store the first row
-    if ($row["PasswordHash"] == $passwordHash) {
-        echo "true";
-    }
-} else {
-    echo("server error?")
-    echo $conn->error;
-    throw new Exception("No rows found");
+// if result is empty return false
+if ($result->num_rows == 0) {
+  echo false;
+  die();
 }
-*/
+
+$valid_login = $result->fetch_assoc()["PasswordHash"] == $passwordHash ? true : false;
+$SESSION_LENGTH = 1800; // 30 minutes
+$logoutTime = time() + $SESSION_LENGTH;
+
+// add user and logout time to session
+if ($valid_login) {
+  session_start();
+  $_SESSION[$username] = true; // add user to session
+  $_SESSION[$username . "logoutTime"] = $logoutTime; // add logout time to session
+  setcookie("username", $username, $logoutTime, "/"); // add cookie to remember user
+}
+echo $valid_login;

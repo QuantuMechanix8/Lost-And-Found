@@ -86,7 +86,7 @@ async function verifyPassword(username, password, salt) {
     const match_text = (await match.text()).toLowerCase();
     console.log("matching passwords: " + match_text);
 
-    return match_text === "true";
+    return match_text;
     // Compare hash with hash in database
     // If they match, the password is correct
 }

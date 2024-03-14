@@ -3,7 +3,7 @@
 
 <head>
     <title>Lost and Found Home Page</title>
-    <link rel="icon" type="image/png" href="../ui-assets/icon(1).svg">
+    <link rel="icon" type="image/png" href="../ui-assets/favicon-96x96.png">
     <link rel="stylesheet" type="text/css" href="home_page.css">
     <script src="classes/Place.js"></script>
     <script src="classes/Route.js"></script>
@@ -12,7 +12,27 @@
 
     <!-- we using fontawesome now baby!-->
     <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
-
+    <?php
+    $login_page = "../authenticate/auth.html";
+    // check if user is logged in
+    session_start();
+    if (!isset($_COOKIE["username"])) {
+        header("Location: $login_page");
+        // if cookie (username) is not set, redirect to login page
+        die();
+    }
+    $username = $_COOKIE["username"];
+    if ($_SESSION[$username] != true || $_SESSION[$username . "logoutTime"] < time()) {
+        // if user hasn't logged in, or their login time has expired, redirect to login page
+        header("Location: $login_page");
+    }
+    /*
+    $username = $_COOKIE["username"];
+    if (!isset($_SESSION[$username])) {
+        // if session variable (username) is not set, set it
+        header("Location: $login_page");
+    }*/
+    ?>
 
 
 
@@ -92,7 +112,7 @@
                             <i aria-hidden="true" class="fa fa-icon fa-solid fa-map-pin marker_icon" id="tag-image"></i>
                         </div>
                         <button type="button" class="submission_button" onclick="SubmitPlace()">Submit</button><br>
-                        <div class = "loading-containers" id="place-loading-container" style="display: none;">loading...</div>
+                        <div class="loading-containers" id="place-loading-container" style="display: none;">loading...</div>
                     </form>
 
                 </div>
@@ -116,36 +136,36 @@
                         <ol id="routePlacesList">
                             <!-- Individual place items will be dynamically added here -->
                         </ol>
+                    </div>
+                    <label for="route_description" id="route_description_label" style="display: none;" class="formlbl">Route Description </label>
+                    <textarea placeholder="Please give any extra information on the route that others might find useful." id="route_description_textarea" style="display: none;"></textarea><br>
+                    <label for="routetag" id="route_tag_label" class="formlbl" style="display: none;">Route Tag </label>
+                    <div class="tag-select-container" id="route-tag-select-container" style="display: none;">
+                        <select onchange="TagChanged()" class="tag-select" id="route-tag-selector">
+                            <option id="house" selected value="0">No Tag</option>
+                            <option id="sight" value="1">Sight</option>
+                            <option id="nature" value="1.1">Nature</option>
+                            <option id="viewpoint" value="1.1.1">Viewpoint</option>
+                            <option id="waterfall" value="1.1.2">Waterfall</option>
+                            <option id="mountain" value="1.1.3">Mountain</option>
+                            <option id="cave" value="1.1.4">Cave</option>
+                            <option id="beach" value="1.1.5">Beach</option>
+                            <option id="man_made" value="1.2">Man-Made</option>
+                            <option id="place_of_worship" value="1.2.1">Place of Worship</option>
+                            <option id="building" value="1.2.2">Building</option>
+                            <option id="artwork" value="1.2.3">Artwork</option>
+                            <option id="street" value="1.2.4">Street</option>
+                            <option id="experiences" value="2">Experiences</option>
+                            <option id="museum" value="2.1">Museum</option>
+                            <option id="market" value="2.2">Market</option>
+                            <option id="restaurant" value="2.3">Restaurant</option>
+                        </select>
+                        <i aria-hidden="true" class="fa fa-icon fa-solid fa-map-pin marker_icon" id="route-tag-image"></i>
+                    </div>
+                    <button id="submit_route_button" onclick="SubmitRoute()">Submit route</button>
+                    <div class="response-container" id="routeResponseContainer2"></div>
+                    <div class="loading-containers" id="loading-container" style="display: none;">loading...</div>
                 </div>
-                <label for="route_description" id="route_description_label" style="display: none;" class="formlbl">Route Description </label>
-                <textarea placeholder="Please give any extra information on the route that others might find useful." id="route_description_textarea" style="display: none;"></textarea><br>
-                <label for="routetag" id="route_tag_label" class="formlbl" style="display: none;">Route Tag </label>
-                        <div class="tag-select-container" id="route-tag-select-container" style="display: none;">
-                            <select onchange="TagChanged()" class="tag-select" id="route-tag-selector">
-                                <option id="house" selected value="0">No Tag</option>
-                                <option id="sight" value="1">Sight</option>
-                                <option id="nature" value="1.1">Nature</option>
-                                <option id="viewpoint" value="1.1.1">Viewpoint</option>
-                                <option id="waterfall" value="1.1.2">Waterfall</option>
-                                <option id="mountain" value="1.1.3">Mountain</option>
-                                <option id="cave" value="1.1.4">Cave</option>
-                                <option id="beach" value="1.1.5">Beach</option>
-                                <option id="man_made" value="1.2">Man-Made</option>
-                                <option id="place_of_worship" value="1.2.1">Place of Worship</option>
-                                <option id="building" value="1.2.2">Building</option>
-                                <option id="artwork" value="1.2.3">Artwork</option>
-                                <option id="street" value="1.2.4">Street</option>
-                                <option id="experiences" value="2">Experiences</option>
-                                <option id="museum" value="2.1">Museum</option>
-                                <option id="market" value="2.2">Market</option>
-                                <option id="restaurant" value="2.3">Restaurant</option>
-                            </select>
-                            <i aria-hidden="true" class="fa fa-icon fa-solid fa-map-pin marker_icon" id="route-tag-image"></i>
-                        </div>
-                <button id = "submit_route_button" onclick="SubmitRoute()">Submit route</button>
-                <div class="response-container" id="routeResponseContainer2"></div>
-                <div class = "loading-containers" id="loading-container" style="display: none;">loading...</div>
-            </div>
 
             </div>
 
@@ -157,7 +177,7 @@
                     <label for="search_places" class="formlbl">Search</label>
                     <input type="text" id="search_places" placeholder="Search for a place" name="search_places">
                     <button type="submit" onclick="submit_search_place()">Search</button> <!-- need to make submit_search_place() --->
-                    <div class = "loading-containers" id="search-loading-container" style="display: none;">loading...</div>
+                    <div class="loading-containers" id="search-loading-container" style="display: none;">loading...</div>
                 </div>
             </div>
 
