@@ -1,3 +1,6 @@
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
 const width = window.innerWidth;
 const height = window.innerHeight;
 const scene = new THREE.Scene();
@@ -54,18 +57,26 @@ var angle = -1.4; //start at sunrise
 camera.position.y = 4; // move camera up slightly to see more land (looking at northern hemisphere)
 camera.position.z = radius;
 
+const controls = new OrbitControls(camera, document.documentElement);
+controls.listenToKeyEvents(window); // listen to keyboard events
+//controls.target = globe.position;
+controls.autoRotate = true;
+controls.autoRotateSpeed = -0.5;
+controls.enablePan = false;
 
+controls.update();
 
 const animate = function () {
   requestAnimationFrame(animate);
   globe.rotation.y += 0.0033; // rotate the globe
 
   // rotate camera around earth
-  camera.position.x = radius * Math.sin(angle);
-  camera.position.z = radius * Math.cos(angle);
+  //camera.position.x = radius * Math.sin(angle);
+  //camera.position.z = radius * Math.cos(angle);
   camera.lookAt(globe.position);
   angle += 0.001;
 
+  controls.update();
   renderer.render(scene, camera);
 };
 

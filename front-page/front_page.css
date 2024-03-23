@@ -38,6 +38,7 @@
   opacity: 0.8;
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 
 .logo:hover {
@@ -66,7 +67,6 @@
 
 #description {
   display: flex;
-  /* Showthe description by default */
   position: absolute;
   top: 21vh;
   /* center the description text (ensures text is readable as sun shines between text lines)*/
@@ -88,6 +88,7 @@
   /* text fits within earth */
   text-align: center;
   line-height: 4vh;
+  user-select: none;
 }
 
 
@@ -147,6 +148,7 @@
   opacity: 0.2;
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 
 .content {
