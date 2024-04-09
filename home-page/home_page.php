@@ -165,6 +165,21 @@
                 <h2>Browse Routes</h2>
             </div>
 
+            <div class="input-box" id="place_info_view_box">
+                <h2 id="place_title">
+                    <!-- to be filled by js -->
+                </h2>
+                <p id="place_description_reviews">temp
+                    <!-- to be filled by js -->
+                </p>
+                <button id="add review">Add a Review for this place<!-- on click move to a review adding page SAMAR --></button>
+                <h2 id="reviews_for_place_title">Reviews</h2>
+                <hr>
+                <div id="reviews_for_place">
+                    <!-- to be filled by js -->
+                </div>
+            </div>
+
 
         </div>
 

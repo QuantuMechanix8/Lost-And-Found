@@ -21,6 +21,11 @@ if( !isset($aResult['error']) ) {
             else if (count($_POST['arguments'])!=1) { $aResult['error'] = 'Wrong number of arguments!';}
             $aResult['result'] = searchPlace($_POST['arguments'][0]);
             break;
+        case 'getReviews':
+            if( !isset($_POST['arguments']) ) { $aResult['error'] = 'No function arguments!'; }
+            else if (count($_POST['arguments'])!=1) { $aResult['error'] = 'Wrong number of arguments!';}
+            $aResult['result'] = getReviews($_POST['arguments'][0]);
+            break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
             break;
@@ -79,6 +84,29 @@ function searchPlace($name) {
     $connSearch->close();
     return $returnSearch;
 
+}
+
+function getReviews($ID) {
+    $database_host = "dbhost.cs.man.ac.uk";
+    $database_user = "j22352sa";
+    $database_pass = "cooldatabasepassword";
+    $database_name = "2023_comp10120_cm7";
+    $sqlReview = "SELECT pr.ReviewDesc as ReviewDesc, u.Username as Username, pr.Rating as Rating, pr.DateCreated as DateCreated FROM PlaceReview pr JOIN User u ON pr.UserID = u.UserID WHERE pr.PlaceID = $ID ORDER BY Rating";
+    $conn = new mysqli($database_host,$database_user, $database_pass, $database_name);
+    if($conn->connect_error){
+        echo 'Connection to Database Error';
+    }
+    $result = mysqli_query($conn, $sqlReview); 
+    if (mysqli_num_rows($result) > 0) {
+        foreach($result as $row) {
+            $returnSearch[] = $row;
+            //echo $row['LocationLatLng']; //checking LocationLatLng actually returned; 
+        }
+    } else {
+        $returnSearch = 'Query Failed'; //this is not a good error message but
+    }
+    $conn->close();
+    return $returnSearch;
 }
 
 
