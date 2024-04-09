@@ -1,3 +1,8 @@
+function redirect() {
+  window.location.href = './home-page/home_page.php';
+}
+
+/*
 fetch("./locations.json").then((locations)=>response.json())
 
 function initMap() {
@@ -44,4 +49,5 @@ function initMap() {
 
 }
 
-window.initMap = initMap;
+window.initMap = initMap; 
+*/
