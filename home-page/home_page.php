@@ -37,28 +37,35 @@
             <h2>Add Review</h2>
                     <form>
                         <textarea rows="10" cols="50" placeholder="Write your review here" id="ReviewDesc"></textarea>
-                        <button type="submit" onclick = "add_review()">Submit</button>
+                        <button type="button" onclick = "add_review()">Submit</button>
                         <button type="button" onclick="closePopup()">Cancel</button>
                     </form>
+                    <div id="hidden" style="display: none;"></div>
                 </div>
 
                 <script>
-                    function openPopup() {
+                    function openPopup(PlaceID) {
                         document.getElementById("popup").style.display = "block";
+                        document.getElementById("hidden").innerHTML = PlaceID;
+
                     }
 
                     function closePopup() {
                         document.getElementById("popup").style.display = "none";
                     }
-                    function add_review(){
+                    async function add_review(){
+                        var reviewRating = 0;
+                        var reviewPlaceID = document.getElementById("hidden").innerHTML;
                         var reviewDesc = document.getElementById("ReviewDesc").value;
+                        console.log('here');
                         await jQuery.ajax({
                         type: "POST",
                         url: 'getPlaces.php',
                         dataType: 'json',
-                        data: { functionname: 'submitReview', arguments: [reviewDesc]},
+                        data: { functionname: 'submitReview', arguments: [reviewDesc,reviewPlaceID,reviewRating]},
 
                         success: function (obj, textstatus) {
+                            console.log(obj.error);
                             if (!('error' in obj)) {
                                 location = obj.result;
                             }
@@ -70,12 +77,13 @@
                         var location = data;
                         })
                         .fail(function (xhr, status, errorThrown) {
-                            alert("Sorry, there was a problem!"); //annoying but useful
+                            //alert("Sorry, there was a problem!"); //annoying but useful
                             console.log("Error: " + errorThrown);
                             console.log("Status: " + status);
                             console.dir(xhr);
                         });
                     }
+                    
                 </script>
             </div>
     
@@ -232,7 +240,7 @@
                 <p id="place_description_reviews">temp
                     <!-- to be filled by js -->
                 </p>
-                <button id="add review" onclick="openPopup()">Add a Review for this place<!-- on click move to a review adding page SAMAR --></button>
+                <button id="add_review_btn" onclick="openPopup()">Add a Review for this place<!-- on click move to a review adding page SAMAR --></button>
                 <h2 id="reviews_for_place_title">Reviews</h2>
                 <hr>
                 <div id="reviews_for_place">

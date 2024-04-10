@@ -26,6 +26,11 @@ if( !isset($aResult['error']) ) {
             else if (count($_POST['arguments'])!=1) { $aResult['error'] = 'Wrong number of arguments!';}
             $aResult['result'] = getReviews($_POST['arguments'][0]);
             break;
+        case 'submitReview':
+            if( !isset($_POST['arguments']) ) { $aResult['error'] = 'No function arguments!'; }
+            else if (count($_POST['arguments'])!=3) { $aResult['error'] = 'Wrong number of arguments!';}
+            $aResult['result'] = submitReview($_POST['arguments'][0],$_POST['arguments'][1],$_POST['arguments'][2]);
+            break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
             break;
@@ -109,5 +114,28 @@ function getReviews($ID) {
     return $returnSearch;
 }
 
+function submitReview($reviewDesc,$reviewPlaceID,$reviewRating) {
+    //$reviewUserID = $_COOKIE['UserID'];
+    //$reviewDateCreated = date('Y/m/d');
+    $reviewUserID = 3;
+    $reviewDateCreated = '2024-04-10';
+    $database_host = "dbhost.cs.man.ac.uk";
+    $database_user = "j22352sa";
+    $database_pass = "cooldatabasepassword";
+    $database_name = "2023_comp10120_cm7";
+    $conn = new mysqli($database_host,$database_user, $database_pass, $database_name);
+    if($conn->connect_error){
+        echo 'Connection to Database Error';
+    }
+    echo "$reviewPlaceID,$reviewUserID,$reviewDesc,$reviewRating,$reviewDateCreated";
+    $sql = "INSERT INTO PlaceReview VALUES ($reviewPlaceID,$reviewUserID,'$reviewDesc',$reviewRating,'$reviewDateCreated')";
+    $conn->query($sql);
+    echo $conn->error;
+    $conn->close();
+    echo 'success';
+    $return = array(); 
+    return $return;
+}
+// (PlaceID,UserID,ReviewDesc,Rating,DateCreated)
 
 ?>

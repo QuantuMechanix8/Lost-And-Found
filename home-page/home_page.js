@@ -481,12 +481,14 @@ async function PlaceInfoShow(place) {
         var header = document.getElementById("place_title");
         var description = document.getElementById("place_description_reviews");
         var review_div = document.getElementById("reviews_for_place");
+        var button = document.getElementById("add_review_btn");
+        button.setAttribute("onclick",`openPopup(${place.PlaceID})`);
         header.innerHTML = place.PlaceName;
         description.innerHTML = place.PlaceDesc;
         var reviews_html = '';
         if (reviews != "Query Failed") {
             for (i = 0; i<reviews.length;i++) {
-                console.log("creating review")
+                console.log("creating reviews")
 
                 reviews_html+=`
                 <h3>${reviews[i].Username}</h3>
