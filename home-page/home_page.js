@@ -475,6 +475,8 @@ async function PlaceInfoShow(place) {
         HideAllInputDivs();
         console.log(place);
         var reviews = await getReviewData(place.PlaceID);
+
+
         console.log(reviews)
         var header = document.getElementById("place_title");
         var description = document.getElementById("place_description_reviews");
@@ -485,10 +487,11 @@ async function PlaceInfoShow(place) {
         if (reviews != "Query Failed") {
             for (i = 0; i<reviews.length;i++) {
                 console.log("creating review")
+
                 reviews_html+=`
-                <h3>${reviews[i].Username} said:</h3>
+                <h3>${reviews[i].Username}</h3>
+                <p>${ratingToStars(reviews[i].Rating)}</p>
                 <p>${reviews[i].ReviewDesc}</p>
-                <p>Overall rating: ${reviews[i].Rating}</p>
                 <hr>
                 `;
             };
@@ -500,10 +503,16 @@ async function PlaceInfoShow(place) {
         var div = document.getElementById("place_info_view_box");
         div.style.display = "block";
         div.classList.add("slide-in");
-
-
-
     }
+}
+
+function ratingToStars(rating) {
+    rating = Math.round(rating*2)/2 // round to nearest 0.5
+    fullStars = Math.floor(rating);
+    halfStars = rating % 1 != 0;
+    fullStar = '<i class="fa-solid fa-star" style="color: gold"></i>';
+    halfStar = '<i class="fa-solid fa-star-half-stroke" style="color: gold"></i>';
+    return `${fullStar.repeat(fullStars) + halfStar.repeat(halfStars)}`;
 }
 
 function HideAllInputDivs() {
