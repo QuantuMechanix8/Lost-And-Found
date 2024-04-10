@@ -19,7 +19,7 @@ if( !isset($aResult['error']) ) {
         case 'searchPlace':
             if( !isset($_POST['arguments']) ) { $aResult['error'] = 'No function arguments!'; }
             else if (count($_POST['arguments'])!=1) { $aResult['error'] = 'Wrong number of arguments!';}
-            $aResult['result'] = searchPlace($_POST['arguments'][0]); // NOTE this can return multiple values since using LIKE not '='.
+            $aResult['result'] = searchPlace($_POST['arguments']); // NOTE this can return multiple values since using LIKE not '='. // REMOVED [0] AT END. now returns an array of all matched places.
             break;
         default:
             $aResult['error'] = 'Not found function '.$_POST['functionname'].'!';
