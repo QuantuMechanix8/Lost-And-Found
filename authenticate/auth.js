@@ -5,6 +5,15 @@ async function login() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
 
+    // set cookie for userID
+    try {
+        await setUserIDCookie(username);
+    } catch (error) {
+        console.error(error);
+        alert("Server error occurred while setting userID cookie");
+        return;
+    }
+
     // Get the salt for the user
     try {
         var user_salt = await get_salt(username);
@@ -90,6 +99,20 @@ async function verifyPassword(username, password, salt) {
     return match_text;
     // Compare hash with hash in database
     // If they match, the password is correct
+}
+
+async function setUserIDCookie(username) {
+    const match = await fetch('get_userID.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `username=${username}`,
+    });
+    userID = await match.text();
+
+    //document.cookie = `userID=${userID}`;
+    console.log("userID: " + userID);
 }
 
 // If the user presses enter, call the login function
