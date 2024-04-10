@@ -37,7 +37,7 @@
             <h2>Add Review</h2>
                     <form>
                         <textarea rows="10" cols="50" placeholder="Write your review here" id="ReviewDesc"></textarea>
-                        <button type="submit">Submit</button>
+                        <button type="submit" onclick = "add_review()">Submit</button>
                         <button type="button" onclick="closePopup()">Cancel</button>
                     </form>
                 </div>
@@ -49,6 +49,32 @@
 
                     function closePopup() {
                         document.getElementById("popup").style.display = "none";
+                    }
+                    function add_review(){
+                        var reviewDesc = document.getElementById("ReviewDesc").value;
+                        await jQuery.ajax({
+                        type: "POST",
+                        url: 'getPlaces.php',
+                        dataType: 'json',
+                        data: { functionname: 'submitReview', arguments: [reviewDesc]},
+
+                        success: function (obj, textstatus) {
+                            if (!('error' in obj)) {
+                                location = obj.result;
+                            }
+                            else {
+                                console.log(obj.error);
+                            }
+                        }
+                        }).done(function (data) {
+                        var location = data;
+                        })
+                        .fail(function (xhr, status, errorThrown) {
+                            alert("Sorry, there was a problem!"); //annoying but useful
+                            console.log("Error: " + errorThrown);
+                            console.log("Status: " + status);
+                            console.dir(xhr);
+                        });
                     }
                 </script>
             </div>
