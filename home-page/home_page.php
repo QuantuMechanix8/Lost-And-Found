@@ -13,12 +13,46 @@
     <!-- we using fontawesome now baby!-->
     <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
 
-
+    <style>         
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+        }
+    </style>
 
 
 </head>
 
 <body>
+
+<div id="popup" class="popup" style="display: none;">
+            <h2>Add Review</h2>
+                    <form>
+                        <textarea rows="10" cols="50" placeholder="Write your review here" id="ReviewDesc"></textarea>
+                        <button type="submit">Submit</button>
+                        <button type="button" onclick="closePopup()">Cancel</button>
+                    </form>
+                </div>
+
+                <script>
+                    function openPopup() {
+                        document.getElementById("popup").style.display = "block";
+                    }
+
+                    function closePopup() {
+                        document.getElementById("popup").style.display = "none";
+                    }
+                </script>
+            </div>
+    
     <div id="map" class="map-container">
     </div>
 
@@ -164,7 +198,7 @@
             <div class="input-box" id="browse_routes_input_box">
                 <h2>Browse Routes</h2>
             </div>
-
+            
             <div class="input-box" id="place_info_view_box">
                 <h2 id="place_title">
                     <!-- to be filled by js -->
@@ -172,12 +206,14 @@
                 <p id="place_description_reviews">temp
                     <!-- to be filled by js -->
                 </p>
-                <button id="add review">Add a Review for this place<!-- on click move to a review adding page SAMAR --></button>
+                <button id="add review" onclick="openPopup()">Add a Review for this place<!-- on click move to a review adding page SAMAR --></button>
                 <h2 id="reviews_for_place_title">Reviews</h2>
                 <hr>
                 <div id="reviews_for_place">
                     <!-- to be filled by js -->
                 </div>
+                
+
             </div>
 
 
