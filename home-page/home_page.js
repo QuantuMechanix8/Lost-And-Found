@@ -248,12 +248,12 @@ async function initMap(first_init = true) {
             //document.getElementById('browse_place_name').value = element.PlaceName; //this lines can be included when the pages exist
             //document.getElementById('browse_place_description').value = element.PlaceDesc; //this lines can be included when the pages exist
             //document.getElementById('browse_location').value = element.latitude + ', ' + element.longitude; //this lines can be included when the pages exist
-            
+
             //unselect all other selected markers
             markers.forEach(otherMarker => {
-            if (otherMarker.content.classList.contains("highlight") && otherMarker != marker) {
-                toggleHighlight(otherMarker, null);
-            }
+                if (otherMarker.content.classList.contains("highlight") && otherMarker != marker) {
+                    toggleHighlight(otherMarker, null);
+                }
             });
 
             toggleHighlight(marker, element);
@@ -488,7 +488,7 @@ async function PlaceInfoShow(place) {
     console.log("Function called successfully")
     var add_routes = document.getElementById("add_route_input_box");
     var add_place = document.getElementById("add_marker_input_box");
-    if (add_routes.style.display=="none" && add_place.style.display=="none") {
+    if (add_routes.style.display == "none" && add_place.style.display == "none") {
         console.log("if statement reached")
         HideAllInputDivs();
         console.log(place);
@@ -500,15 +500,15 @@ async function PlaceInfoShow(place) {
         var description = document.getElementById("place_description_reviews");
         var review_div = document.getElementById("reviews_for_place");
         var button = document.getElementById("add_review_btn");
-        button.setAttribute("onclick",`openPopup(${place.PlaceID})`);
+        button.setAttribute("onclick", `openPopup(${place.PlaceID})`);
         header.innerHTML = place.PlaceName;
         description.innerHTML = place.PlaceDesc;
         var reviews_html = '';
         if (reviews != "Query Failed") {
-            for (i = 0; i<reviews.length;i++) {
+            for (i = 0; i < reviews.length; i++) {
                 console.log("creating reviews")
 
-                reviews_html+=`
+                reviews_html += `
                 <h3>${reviews[i].Username}</h3>
                 <p>${ratingToStars(reviews[i].Rating)}</p>
                 <p>${reviews[i].ReviewDesc}</p>
@@ -527,7 +527,7 @@ async function PlaceInfoShow(place) {
 }
 
 function ratingToStars(rating) {
-    rating = Math.round(rating*2)/2 // round to nearest 0.5
+    rating = Math.round(rating * 2) / 2 // round to nearest 0.5
     fullStars = Math.floor(rating);
     halfStars = rating % 1 != 0;
     fullStar = '<i class="fa-solid fa-star" style="color: gold"></i>';
@@ -794,3 +794,52 @@ function ShowRouteContent() {
     document.getElementById("route-tag-select-container").style.display = "flex";
     document.getElementById("route_tag_label").style.display = "block";
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Attach event listener to the search button
+    document.getElementById('searchRoutesButton').addEventListener('click', searchRoutes);
+
+    async function searchRoutes() {
+        const searchCriteria = document.getElementById('routeSearchInput').value.trim();
+        if (!searchCriteria) {
+            alert('Please enter some search criteria.');
+            return;
+        }
+
+        try {
+            const response = await fetch('getRoutes.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `searchCriteria=${encodeURIComponent(searchCriteria)}`
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok.');
+
+            const routes = await response.json();
+            displayRoutes(routes);
+        } catch (error) {
+            console.error('Search failed:', error);
+            document.getElementById('routeSearchResults').innerHTML = 'Failed to load routes.';
+        }
+    }
+
+    function displayRoutes(routes) {
+        const resultsContainer = document.getElementById('routeSearchResults');
+        resultsContainer.innerHTML = ''; // Clear previous results
+
+        if (routes.length === 0) {
+            resultsContainer.innerHTML = '<p>No routes found. Try another search.</p>';
+            return;
+        }
+
+        routes.forEach(route => {
+            const routeElement = document.createElement('div');
+            routeElement.innerHTML = `
+            <h4>${route.route_description}</h4>
+            <p>Route ID: ${route.route_id}</p>
+            <!-- Add more route details as needed -->
+        `;
+            resultsContainer.appendChild(routeElement);
+        });
+    }
+});

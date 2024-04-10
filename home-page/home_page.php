@@ -12,7 +12,6 @@
 
     <!-- we using fontawesome now baby!-->
     <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
-<<<<<<< HEAD
     <?php
     $login_page = "../authenticate/auth.html";
     // check if user is logged in
@@ -35,7 +34,6 @@
     }*/
     ?>
 
-=======
 
     <style>         
         .popup {
@@ -51,7 +49,6 @@
             z-index: 9999;
         }
     </style>
->>>>>>> Reviews
 
 
 </head>
