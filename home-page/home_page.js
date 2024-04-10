@@ -169,6 +169,35 @@ async function getPlaceData() {
 
 
 }
+
+async function getReviewData(ID) {
+    var reviewData;
+    await jQuery.ajax({
+        type: "POST",
+        url: 'getPlaces.php',
+        dataType: 'json',
+        data: { functionname: 'getReviews', arguments: [ID] },
+
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                reviewData = obj.result;
+            }
+            else {
+                console.log(obj.error);
+            }
+        }
+    }).done(function (data) {
+        var reviewData = data;
+    })
+        .fail(function (xhr, status, errorThrown) {
+            alert("Sorry, there was a problem!"); //annoying but useful
+            console.log("Error: " + errorThrown);
+            console.log("Status: " + status);
+            console.dir(xhr);
+        });
+
+    return await reviewData;
+}
 //We only want one map, so declare it here
 var map;
 var markers;
@@ -228,7 +257,7 @@ async function initMap(first_init = true) {
             });
 
             toggleHighlight(marker, element);
-
+            PlaceInfoShow(element);
 
             //if the add routes window is showing, do something.
 
@@ -353,7 +382,6 @@ function buildContent(element) {
         <p>${element.PlaceDesc}</p>
         </div>
     </div>
-    
     `;
     return content;
 }
@@ -455,12 +483,69 @@ function BrowseRoutesClicked() {
         button.classList.remove("expand-and-contract");
     }, 500);
 }
+
+async function PlaceInfoShow(place) {
+    console.log("Function called successfully")
+    var add_routes = document.getElementById("add_route_input_box");
+    var add_place = document.getElementById("add_marker_input_box");
+    if (add_routes.style.display=="none" && add_place.style.display=="none") {
+        console.log("if statement reached")
+        HideAllInputDivs();
+        console.log(place);
+        var reviews = await getReviewData(place.PlaceID);
+
+
+        console.log(reviews)
+        var header = document.getElementById("place_title");
+        var description = document.getElementById("place_description_reviews");
+        var review_div = document.getElementById("reviews_for_place");
+        var button = document.getElementById("add_review_btn");
+        button.setAttribute("onclick",`openPopup(${place.PlaceID})`);
+        header.innerHTML = place.PlaceName;
+        description.innerHTML = place.PlaceDesc;
+        var reviews_html = '';
+        if (reviews != "Query Failed") {
+            for (i = 0; i<reviews.length;i++) {
+                console.log("creating reviews")
+
+                reviews_html+=`
+                <h3>${reviews[i].Username}</h3>
+                <p>${ratingToStars(reviews[i].Rating)}</p>
+                <p>${reviews[i].ReviewDesc}</p>
+                <hr>
+                `;
+            };
+        }
+        else {
+            reviews_html = "<p>No reviews yet</p>"
+        }
+        review_div.innerHTML = reviews_html;
+        var div = document.getElementById("place_info_view_box");
+        div.style.display = "block";
+        div.classList.add("slide-in");
+    }
+}
+
+function ratingToStars(rating) {
+    rating = Math.round(rating*2)/2 // round to nearest 0.5
+    fullStars = Math.floor(rating);
+    halfStars = rating % 1 != 0;
+    fullStar = '<i class="fa-solid fa-star" style="color: gold"></i>';
+    halfStar = '<i class="fa-solid fa-star-half-stroke" style="color: gold"></i>';
+    return `${fullStar.repeat(fullStars) + halfStar.repeat(halfStars)}`;
+}
+
 function HideAllInputDivs() {
     //needs to be updated to hide all the other divs that are to be created
     document.getElementById("add_marker_input_box").style.display = "none";
     document.getElementById("add_route_input_box").style.display = "none";
     document.getElementById("browse_routes_input_box").style.display = "none";
     document.getElementById("browse_markers_input_box").style.display = "none";
+    document.getElementById("place_info_view_box").style.display = "none";
+}
+
+function buildReviewContent(review) {
+
 }
 
 async function submit_search_place() { //searches database for the place - we do a lil fuzzy search??? also maybe move map centre to the marker you find.

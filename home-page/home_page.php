@@ -12,6 +12,7 @@
 
     <!-- we using fontawesome now baby!-->
     <script src="https://use.fontawesome.com/releases/v6.2.0/js/all.js"></script>
+<<<<<<< HEAD
     <?php
     $login_page = "../authenticate/auth.html";
     // check if user is logged in
@@ -34,11 +35,83 @@
     }*/
     ?>
 
+=======
+
+    <style>         
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+        }
+    </style>
+>>>>>>> Reviews
 
 
 </head>
 
 <body>
+
+<div id="popup" class="popup" style="display: none;">
+            <h2>Add Review</h2>
+                    <form>
+                        <textarea rows="10" cols="50" placeholder="Write your review here" id="ReviewDesc"></textarea>
+                        <button type="button" onclick = "add_review()">Submit</button>
+                        <button type="button" onclick="closePopup()">Cancel</button>
+                    </form>
+                    <div id="hidden" style="display: none;"></div>
+                </div>
+
+                <script>
+                    function openPopup(PlaceID) {
+                        document.getElementById("popup").style.display = "block";
+                        document.getElementById("hidden").innerHTML = PlaceID;
+
+                    }
+
+                    function closePopup() {
+                        document.getElementById("popup").style.display = "none";
+                    }
+                    async function add_review(){
+                        var reviewRating = 0;
+                        var reviewPlaceID = document.getElementById("hidden").innerHTML;
+                        var reviewDesc = document.getElementById("ReviewDesc").value;
+                        console.log('here');
+                        await jQuery.ajax({
+                        type: "POST",
+                        url: 'getPlaces.php',
+                        dataType: 'json',
+                        data: { functionname: 'submitReview', arguments: [reviewDesc,reviewPlaceID,reviewRating]},
+
+                        success: function (obj, textstatus) {
+                            console.log(obj.error);
+                            if (!('error' in obj)) {
+                                location = obj.result;
+                            }
+                            else {
+                                console.log(obj.error);
+                            }
+                        }
+                        }).done(function (data) {
+                        var location = data;
+                        })
+                        .fail(function (xhr, status, errorThrown) {
+                            //alert("Sorry, there was a problem!"); //annoying but useful
+                            console.log("Error: " + errorThrown);
+                            console.log("Status: " + status);
+                            console.dir(xhr);
+                        });
+                    }
+                    
+                </script>
+            </div>
+    
     <div id="map" class="map-container">
     </div>
 
@@ -183,6 +256,23 @@
 
             <div class="input-box" id="browse_routes_input_box">
                 <h2>Browse Routes</h2>
+            </div>
+            
+            <div class="input-box" id="place_info_view_box">
+                <h2 id="place_title">
+                    <!-- to be filled by js -->
+                </h2>
+                <p id="place_description_reviews">temp
+                    <!-- to be filled by js -->
+                </p>
+                <button id="add_review_btn" onclick="openPopup()">Add a Review for this place<!-- on click move to a review adding page SAMAR --></button>
+                <h2 id="reviews_for_place_title">Reviews</h2>
+                <hr>
+                <div id="reviews_for_place">
+                    <!-- to be filled by js -->
+                </div>
+                
+
             </div>
 
 
