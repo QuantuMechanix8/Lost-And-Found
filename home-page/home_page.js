@@ -512,6 +512,11 @@ async function PlaceInfoShow(place) {
                 <h3>${reviews[i].Username}</h3>
                 <p>${ratingToStars(reviews[i].Rating)}</p>
                 <p>${reviews[i].ReviewDesc}</p>
+                <div class="stars-outer" style="display: inline-block;
+                                                position: relative;
+                                                font-family: FontAwesome;">
+                    <div class="stars-inner" style = ""></div>
+                </div>
                 <hr>
                 `;
             };
@@ -533,6 +538,17 @@ function ratingToStars(rating) {
     fullStar = '<i class="fa-solid fa-star" style="color: gold"></i>';
     halfStar = '<i class="fa-solid fa-star-half-stroke" style="color: gold"></i>';
     return `${fullStar.repeat(fullStars) + halfStar.repeat(halfStars)}`;
+}
+
+function smoothRatingToStars(rating) {
+    fullStar = '<i class="fa-solid fa-star" style="color: gold"></i>';
+    emptyStar = '<i class="fa-regular fa-star"></i>';
+    divs = `<div class="stars-outer" style="display: inline-block;
+                                            position: relative;
+                                            font-family: FontAwesome;"
+                <div class="stars-inner"></div>
+            </div>`;
+
 }
 
 function HideAllInputDivs() {

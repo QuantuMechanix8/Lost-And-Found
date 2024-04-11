@@ -1,4 +1,4 @@
-:root{
+:root {
     --containerwidth: 18.229167vw;
     --marker-colour: #c91111;
     --fa-eye-colour: #000099;
@@ -12,16 +12,19 @@ body {
     display: flex;
     height: 100vh;
 }
-.logo-container{
+
+.logo-container {
     position: fixed;
     bottom: -50px;
     left: -15px;
     z-index: 2;
 }
-.logo-container img{
+
+.logo-container img {
     width: 100px;
     height: auto;
 }
+
 .transparent-container {
     width: var(--containerwidth);
     background-color: rgba(0, 0, 0, 0.9);
@@ -30,14 +33,17 @@ body {
     padding: 0px;
     z-index: 1;
 }
-.response-container{
+
+.response-container {
     text-align: center;
     color: green;
 }
-.container3{
+
+.container3 {
     text-align: center;
     color: red;
 }
+
 .input-box {
     background-color: #fff;
     border-radius: 8px;
@@ -47,9 +53,11 @@ body {
     max-height: 800px;
     overflow-y: auto;
 }
-#add_marker_input_box{
+
+#add_marker_input_box {
     display: block;
 }
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -72,23 +80,29 @@ button {
 button:hover {
     background-color: #45a049;
 }
-#search-btn:hover{
+
+#search-btn:hover {
     background-color: #ccc;
 }
-.required{
-    color:red;
+
+.required {
+    color: red;
 }
-.formdiv{
+
+.formdiv {
     text-align: left;
 }
-.formlbl{
+
+.formlbl {
     font-family: Arial, sans-serif;
     font-size: 15px;
     font-weight: bold;
 }
-.form-select{
+
+.form-select {
     width: 50%;
 }
+
 textarea {
     width: 100%;
     height: 150px;
@@ -99,9 +113,11 @@ textarea {
     box-sizing: border-box;
     resize: none;
 }
-#route_description_textarea{
+
+#route_description_textarea {
     height: 100px;
 }
+
 #map {
     position: absolute;
     top: 0;
@@ -110,6 +126,7 @@ textarea {
     height: 100vh;
     z-index: 0;
 }
+
 .form-container {
     top: 0;
     left: 0;
@@ -117,18 +134,22 @@ textarea {
     margin-left: 10px;
     z-index: 1;
 }
-.search-container{
+
+.search-container {
     position: relative;
     padding-right: 40px;
 }
-#searchbar-container label{
+
+#searchbar-container label {
     color: white;
 }
-#searchbar-container input{
+
+#searchbar-container input {
     width: calc(0.83 * var(--containerwidth));
     margin-right: 4px;
     border-radius: 15px;
 }
+
 #search-btn {
     position: absolute;
     top: 0;
@@ -148,23 +169,25 @@ textarea {
     color: #000000;
 }
 
-#navbar{
+#navbar {
     display: flex;
     padding: 10px;
     flex-direction: row;
-    width:200%;
+    width: 200%;
 }
+
 #buttons-container {
     margin-left: 10px;
     display: flex;
     margin-top: 0px;
 }
-#buttons-container button{
+
+#buttons-container button {
     margin-right: 10px;
     height: 40px;
     white-space: nowrap;
     border: 1px solid #000000;
-    
+
 }
 
 .slide-in {
@@ -176,10 +199,12 @@ textarea {
         transform: translateX(-100%);
         opacity: 0;
     }
-    70%{
+
+    70% {
         transform: translateX(8px);
         opacity: 0.7;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -194,6 +219,7 @@ textarea {
     0% {
         transform: translateX(-100%);
     }
+
     100% {
         transform: translateX(0);
     }
@@ -207,10 +233,12 @@ textarea {
     0% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.1);
         opacity: 1;
     }
+
     100% {
         transform: scale(1);
     }
@@ -220,7 +248,8 @@ textarea {
 /* stuff for markers */
 
 /* before highlighted - aka open window (NOT AS MARKER)  */
-.element { /*default css for html not very interesting*/
+.element {
+    /*default css for html not very interesting*/
     align-items: center;
     background-color: #FFFFFF;
     border-radius: 50%;
@@ -236,77 +265,90 @@ textarea {
     transition: all 0.3s ease-out;
     width: 30px;
 }
-.element::after { /*not sure but hopefully it's cool*/
-border-left: 9px solid transparent;
-border-right: 9px solid transparent;
-border-top: 9px solid #FFFFFF;
-content: "";
-height: 0;
-left: 50%;
-position: absolute;
-top: 95%;
-transform: translate(-50%, 0);
-transition: all 0.3s ease-out;
-width: 0;
-z-index: 1;
-}
-.element .icon { /*controls icon html*/
-align-items: center;
-display: flex;
-justify-content: center;
-color: #FFFFFF;
+
+.element::after {
+    /*not sure but hopefully it's cool*/
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-top: 9px solid #FFFFFF;
+    content: "";
+    height: 0;
+    left: 50%;
+    position: absolute;
+    top: 95%;
+    transform: translate(-50%, 0);
+    transition: all 0.3s ease-out;
+    width: 0;
+    z-index: 1;
 }
 
-.element .icon svg { /*controls icon html */
-height: 20px;
-width: auto;
+.element .icon {
+    /*controls icon html*/
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: #FFFFFF;
 }
 
-.element .details { /*controls text html*/
-display: none;
-flex-direction: column;
-flex: 1;
+.element .icon svg {
+    /*controls icon html */
+    height: 20px;
+    width: auto;
 }
+
+.element .details {
+    /*controls text html*/
+    display: none;
+    flex-direction: column;
+    flex: 1;
+}
+
 /* after highlighted - aka when in marker form*/
-.element.highlight { /* */
-background-color: #FFFFFF;
-border-radius: 8px;
-box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
-height: 80px;
-padding: 8px 15px;
-width: auto;
+.element.highlight {
+    /* */
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
+    height: 80px;
+    padding: 8px 15px;
+    width: auto;
 }
 
 .element.highlight::after {
-border-top: 9px solid #FFFFFF;
+    border-top: 9px solid #FFFFFF;
 }
 
-.element.highlight .details { /*maybe we don't want a flex display?*/
-display: flex;
+.element.highlight .details {
+    /*maybe we don't want a flex display?*/
+    display: flex;
 }
 
 .element.highlight .icon svg {
-width: 50px;
-height: 50px;
+    width: 50px;
+    height: 50px;
 }
+
 /*icon properties - can change markers based on tag here - this is the important bit*/
-.element.highlight:has(.marker_icon) .icon { /*set marker icon colours - we can do stuff for different tags here*/
-color: var(--marker-colour);
+.element.highlight:has(.marker_icon) .icon {
+    /*set marker icon colours - we can do stuff for different tags here*/
+    color: var(--marker-colour);
 }
 
 .element:not(.highlight):has(.marker_icon) {
-background-color: var(--marker-colour);
+    background-color: var(--marker-colour);
 }
 
 .element:not(.highlight):has(.marker_icon)::after {
-border-top: 0px solid ;
+    border-top: 0px solid;
 }
+
 .tag-select-container {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    
+
 }
+
 .tag-select {
     flex: 1;
     display: block;
@@ -320,24 +362,29 @@ border-top: 0px solid ;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     height: 40px;
 }
+
 .tag-select:focus {
     border-color: #80bdff;
     outline: 0;
     box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
 }
+
 .tag-select::-ms-expand {
     background-color: transparent;
     border: 0;
 }
+
 .tag-select option {
     padding: 0.5rem;
 }
+
 #route-tag-image,
-#tag-image{
+#tag-image {
     width: 10%;
     margin-left: 10px;
 }
-#routePlaces{
+
+#routePlaces {
     background-color: #f2f2f2;
     border-radius: 10px;
     border: 1px solid #000;
@@ -347,16 +394,60 @@ border-top: 0px solid ;
     margin-bottom: 5px;
     display: none;
 }
-#routePlacesList{
+
+#routePlacesList {
     margin-right: 20px;
 }
-#submit_route_button{
+
+#submit_route_button {
     display: none;
 }
-#routeResponseContainer2{
+
+#routeResponseContainer2 {
     color: red;
 }
-.loading-containers{
+
+.loading-containers {
     color: black;
     text-align: center;
+}
+
+#rating-outer {
+    /*needed to center the reviews (using flexbox)*/
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#rating {
+    font-size: 3em;
+    width: fit-content;
+    margin: 0, auto;
+    display: inline-block;
+    position: relative;
+    font-family: FontAwesome;
+}
+
+#rating::before {
+    content: "\f006 \f006 \f006 \f006 \f006";
+}
+
+
+#stars {
+    position: absolute;
+    top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 50%;
+}
+
+#stars::before {
+    content: "\f005 \f005 \f005 \f005 \f005";
+    color: #f8ce0b;
+}
+
+#rating-number {
+    width: 10%;
+    margin-left: 5%;
+    color: gray;
 }
