@@ -149,11 +149,11 @@
 
     <div id="map" class="map-container">
     </div>
-    <!-- TODO get this icon at BL corner working
-    <div class="logo-container" id="icon">
+
+    <div class="logo-container" id="icon" title="front page" onclick="window.location.href='../front-page/front_page.html'">
         <img src="../ui-assets/icon.svg" alt="icon">
     </div>
-    -->
+
     <div class="transparent-container" id="transparent_container">
 
         <nav id="navbar">

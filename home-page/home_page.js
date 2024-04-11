@@ -532,15 +532,19 @@ async function PlaceInfoShow(place) {
 }
 
 function ratingToStars(rating) {
+    originalRating = rating;
     rating = Math.round(rating * 2) / 2 // round to nearest 0.5
     fullStars = Math.floor(rating);
     halfStars = rating % 1 != 0;
+    emptyStars = Math.floor(5 - rating)
     fullStar = '<i class="fa-solid fa-star" style="color: gold"></i>';
     halfStar = '<i class="fa-solid fa-star-half-stroke" style="color: gold"></i>';
-    return `${fullStar.repeat(fullStars) + halfStar.repeat(halfStars)}`;
+    emptyStar = '<i class="fa-regular fa-star" style="color: gold"></i>'
+    return `${fullStar.repeat(fullStars) + halfStar.repeat(halfStars) + emptyStar.repeat(emptyStars) + " " + originalRating}`;
 }
 
 function smoothRatingToStars(rating) {
+    // not yet working - implement smoother star rating visual in reviews bar
     fullStar = '<i class="fa-solid fa-star" style="color: gold"></i>';
     emptyStar = '<i class="fa-regular fa-star"></i>';
     divs = `<div class="stars-outer" style="display: inline-block;
