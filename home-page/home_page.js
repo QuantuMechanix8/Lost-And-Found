@@ -368,9 +368,6 @@ function toggleHighlight(markerView, property) {
         markerView.zIndex = 1;
     }
 }
-
-
-
 //Changes the map location each time they manually enter a valid latitude and longitude
 function LocationInputChanged() {
     var coordinates = document.getElementById("location").value;
@@ -429,7 +426,6 @@ function AddRouteClicked() {
     var button = document.getElementById("AddRouteButton");
     button.classList.add("expand-and-contract");
     setTimeout(function () { button.classList.remove("expand-and-contract"); }, 500);
-
 }
 function BrowseMarkersClicked() {
     HideAllInputDivs();
@@ -466,30 +462,41 @@ function HideAllInputDivs() {
 async function submit_search_place() { //searches database for the place - we do a lil fuzzy search??? also maybe move map centre to the marker you find.
     /* ADD SOME ERROR CHECKING */
 
+    document.getElementById("searchPlacesList").innerHTML = "";
     document.getElementById("search-loading-container").style.display = "block";
+    document.getElementById("searchResponseContainer").innerHTML = "";
     setTimeout(function () {
         document.getElementById("search-loading-container").style.display = "none";
 
     }, 5000);
 
-    var location;
-    var name = document.getElementById("search_places").value;
+    var locations;
+    var search = document.getElementById("search_places").value;
+
+    if(search.length<2){
+        document.getElementById("searchResponseContainer").textContent = "Enter at least 2 characters to search.";
+        document.getElementById("search-loading-container").style.display = "none";
+        SetDelayedFunction(function () {
+            document.getElementById("searchResponseContainer").innerHTML = "";
+        }, 5000);
+    }
+    else{
     await jQuery.ajax({
         type: "POST",
         url: 'getPlaces.php',
         dataType: 'json',
-        data: { functionname: 'searchPlace', arguments: [name] },
+        data: { functionname: 'searchPlace', arguments: [search] },
 
         success: function (obj, textstatus) {
             if (!('error' in obj)) {
-                location = obj.result;
+                locations = obj.result;
             }
             else {
                 console.log(obj.error);
             }
         }
     }).done(function (data) {
-        var location = data;
+        var locations = data;
     })
         .fail(function (xhr, status, errorThrown) {
             alert("Sorry, there was a problem!"); //annoying but useful
@@ -497,10 +504,86 @@ async function submit_search_place() { //searches database for the place - we do
             console.log("Status: " + status);
             console.dir(xhr);
         });
-    //map.setZoom(4);
-    map.panTo({ lat: parseFloat(location[0].latitude), lng: parseFloat(location[0].longitude) });
-    //map.setZoom(12);
     document.getElementById("search-loading-container").style.display = "none";
+    addSearchPlacesToList(locations);
+    }
+}
+
+var searchPlaces = [];
+
+function addSearchPlacesToList(locations) {
+    if (document.getElementById("search-loading-container").style.display === "block") {
+        alert("Please wait for your previous action to process.");
+        return;
+    }
+    ClearAllTimeouts();
+    document.getElementById("search-loading-container").style.display = "block";
+
+    if (locations[0] == "Query Failed") {
+        document.getElementById("searchResponseContainer").textContent = "There are no corresponding markers with a similar name. Try again.";
+        document.getElementById("search-loading-container").style.display = "none";
+    } 
+    else {
+        document.getElementById("search-loading-container").style.display = "none";
+        searchPlaces = [];
+        for(let i = 0; i<locations.length; i++){
+            var place_name = locations[i].PlaceName;
+            SetDelayedFunction(function () {
+                document.getElementById("searchResponseContainer").innerHTML = "";
+            });
+            searchPlaces.push(locations[i]);
+        }  
+        updateSearchPlacesList();
+        ShowSearchContent();
+        document.getElementById("searchPlaces").scrollTop = document.getElementById("searchPlaces").scrollHeight;
+    }
+}
+
+function updateSearchPlacesList(){
+    const search_places_list = document.getElementById('searchPlacesList');
+
+    for(let i = 0; i < searchPlaces.length; i++){
+
+        var placeName = searchPlaces[i].PlaceName
+        var list_item = document.createElement('li');
+
+        var place_container = document.createElement("div");
+        place_container.style.display = 'flex';
+        place_container.style.borderRadius = '10px';
+        place_container.style.justifyContent = "space-between";
+        place_container.style.alignItems = 'center';
+        place_container.style.height = "40px";
+        place_container.style.marginTop = "10px";
+
+        var select_button = document.createElement('button');
+        select_button.textContent = placeName;
+        select_button.style.width = 'auto';
+        select_button.style.height = "30px"; // Increase the height to accommodate the text
+        select_button.style.display = "flex"; // Set display to flex
+        select_button.style.alignItems = "center"; // Align items vertically center
+        select_button.style.marginTop = "5px";
+        select_button.style.marginRight = "5px";
+        select_button.style.borderRadius = "5px";
+        select_button.style.padding = "0 10px";
+        select_button.style.backgroundColor = "red";
+        select_button.style.borderStyle = "solid";
+        select_button.style.borderWidth = "0.1px";
+        select_button.style.borderColor = "#000";
+        //make options look better
+
+        place_container.appendChild(select_button);
+        list_item.appendChild(place_container);
+
+        select_button.addEventListener('click', () => {
+          SearchPlaceSelect(searchPlaces[i].latitude, searchPlaces[i].longitude);
+        });        
+        search_places_list.appendChild(list_item);
+    };
+}
+
+function SearchPlaceSelect(latitude, longitude){
+    map.panTo({ lat: parseFloat(latitude), lng: parseFloat(longitude) });
+    map.setZoom(12);
 }
 
 function TagChanged() {
@@ -532,6 +615,7 @@ function TagChanged() {
 
 var route = new Route("Route", logged_in_user_id, 1, "0");
 var routePlaces = [];
+
 function removePlaceFromRoute(index) {
     routePlaces.splice(index, 1);
     route.RemovePlace(index);
@@ -557,7 +641,6 @@ function updateRoutePlacesList() {
         place_container.style.justifyContent = "space-between";
         place_container.style.alignItems = 'center';
         place_container.style.height = "40px";
-
 
         var place_label = document.createElement("label");
         place_label.textContent = place.place_name;
@@ -590,13 +673,9 @@ function updateRoutePlacesList() {
         place_container.appendChild(remove_button);
         list_item.appendChild(place_container);
 
-
-
-
         remove_button.addEventListener('click', () => {
             removePlaceFromRoute(index);
         });
-
 
         route_place_list.appendChild(list_item);
     });
@@ -650,7 +729,6 @@ function addPlaceToRoute() {
         }, 5000);
     }
 }
-
 //Gets the id of a place, given the name, then calls callback if it was successfull.
 function GetPlaceId(place_name, callback) {
     const xhr = new XMLHttpRequest();
@@ -708,4 +786,11 @@ function ShowRouteContent() {
     document.getElementById("route_description_label").style.display = "block";
     document.getElementById("route-tag-select-container").style.display = "flex";
     document.getElementById("route_tag_label").style.display = "block";
+}
+
+function ShowSearchContent(){
+    document.getElementById("searchPlaces").style.display = "none";
+}
+function HideSearchContent(){
+    document.getElementById("searchPlaces").style.display = "block";
 }
