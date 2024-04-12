@@ -137,7 +137,7 @@ function getReviews($ID)
 
 function submitReview($reviewDesc, $reviewPlaceID, $reviewRating)
 {
-    $reviewUserID = $_COOKIE['UserID'];
+    $reviewUserID = $_COOKIE['userID'];
     $reviewDateCreated = date('Y/m/d');
     //$reviewUserID = 1;
     //$reviewDateCreated = '2024-04-10';

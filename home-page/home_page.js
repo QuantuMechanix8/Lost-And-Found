@@ -479,8 +479,6 @@ async function PlaceInfoShow(place) {
         HideAllInputDivs();
         console.log(place);
         var reviews = await getReviewData(place.PlaceID);
-
-
         console.log(reviews)
         var header = document.getElementById("place_title");
         var description = document.getElementById("place_description_reviews");

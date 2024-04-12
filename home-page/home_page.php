@@ -142,6 +142,7 @@
                     console.log("Error: " + errorThrown);
                     console.log("Status: " + status);
                     console.dir(xhr);
+                    closePopup();
                 });
         }
     </script>
