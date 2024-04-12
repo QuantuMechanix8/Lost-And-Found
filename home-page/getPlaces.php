@@ -137,10 +137,10 @@ function getReviews($ID)
 
 function submitReview($reviewDesc, $reviewPlaceID, $reviewRating)
 {
-    //$reviewUserID = $_COOKIE['UserID'];
-    //$reviewDateCreated = date('Y/m/d');
-    $reviewUserID = 1;
-    $reviewDateCreated = '2024-04-10';
+    $reviewUserID = $_COOKIE['UserID'];
+    $reviewDateCreated = date('Y/m/d');
+    //$reviewUserID = 1;
+    //$reviewDateCreated = '2024-04-10';
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "j22352sa";
     $database_pass = "cooldatabasepassword";
