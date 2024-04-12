@@ -665,7 +665,7 @@ function updateSearchPlacesList(){
         select_button.style.marginRight = "5px";
         select_button.style.borderRadius = "5px";
         select_button.style.padding = "0 10px";
-        select_button.style.backgroundColor = "red";
+        select_button.style.backgroundColor = "green";
         select_button.style.borderStyle = "solid";
         select_button.style.borderWidth = "0.1px";
         select_button.style.borderColor = "#000";

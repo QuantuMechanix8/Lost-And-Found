@@ -87,7 +87,7 @@ function getPlaces()
 }
 
 function searchPlace($name) {
-    $sqlSearchPlace = "SELECT PlaceName, ST_X(Location) as longitude, ST_Y(Location) as latitude FROM Place WHERE PlaceName LIKE '%$name[0]%';"; // LIKE returns anything where name is substring
+    $sqlSearchPlace = "SELECT PlaceName, ST_X(Location) as longitude, ST_Y(Location) as latitude FROM Place WHERE PlaceName LIKE '%$name%';"; // LIKE returns anything where name is substring
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "j22352sa";
     $database_pass = "cooldatabasepassword";
