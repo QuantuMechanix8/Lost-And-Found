@@ -284,7 +284,14 @@
                 <div class="formdiv" method="post">
                     <label for="search_places" class="formlbl">Search</label>
                     <input type="text" id="search_places" placeholder="Search for a place" name="search_places">
-                    <button type="submit" onclick="submit_search_place()">Search</button> <!-- need to make submit_search_place() --->
+                    <button type="submit" onclick="submit_search_place()">Search</button>
+                    <div id="SearchPlaces">
+                        <ul id="searchPlacesList" style="list-style: none;">
+                            <!-- Search items are dynamically added here -->
+                        </ul>
+                    </div>
+
+                    <div class="response-container" id="searchResponseContainer"></div>
                     <div class="loading-containers" id="search-loading-container" style="display: none;">loading...</div>
                 </div>
             </div>

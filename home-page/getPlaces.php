@@ -86,9 +86,8 @@ function getPlaces()
     return $return;
 }
 
-function searchPlace($name)
-{
-    $sqlSearchPlace = "SELECT ST_X(Location) as longitude, ST_Y(Location) as latitude FROM Place WHERE PlaceName LIKE '%$name%';"; // LIKE returns anything where name is substring
+function searchPlace($name) {
+    $sqlSearchPlace = "SELECT PlaceName, ST_X(Location) as longitude, ST_Y(Location) as latitude FROM Place WHERE PlaceName LIKE '%$name[0]%';"; // LIKE returns anything where name is substring
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "j22352sa";
     $database_pass = "cooldatabasepassword";
@@ -98,14 +97,15 @@ function searchPlace($name)
         echo 'Connection to Database Error';
     }
     $resultSearch = mysqli_query($connSearch, $sqlSearchPlace);
-    $returnSearch = array();
+    $returnSearch = [];
     if (mysqli_num_rows($resultSearch) > 0) {
         foreach ($resultSearch as $row) {
             $returnSearch[] = $row;
             //echo $row['LocationLatLng']; //checking LocationLatLng actually returned; 
         }
     } else {
-        $returnSearch = 'Query Failed'; //this is not a good error message but
+        $returnSearch[] = 'Query Failed'; //this is not a good error message but
+
     }
     $connSearch->close();
     return $returnSearch;
