@@ -302,7 +302,7 @@ async function initMap(first_init = true, placeIDs = null) {
                     document.getElementById('place_name').value = placeName;
                     document.getElementById('place_description').value = formattedAddress;
                 }
-            } 
+            }
             else {
                 console.error('Geocoder failed due to: ' + status);
             }
@@ -566,39 +566,39 @@ async function submit_search_place() { //searches database for the place - we do
     var locations;
     var search = document.getElementById("search_places").value;
 
-    if(search.length<2){
+    if (search.length < 2) {
         document.getElementById("searchResponseContainer").textContent = "Enter at least 2 characters to search.";
         document.getElementById("search-loading-container").style.display = "none";
         SetDelayedFunction(function () {
             document.getElementById("searchResponseContainer").innerHTML = "";
         }, 5000);
     }
-    else{
-    await jQuery.ajax({
-        type: "POST",
-        url: 'getPlaces.php',
-        dataType: 'json',
-        data: { functionname: 'searchPlace', arguments: [search] },
+    else {
+        await jQuery.ajax({
+            type: "POST",
+            url: 'getPlaces.php',
+            dataType: 'json',
+            data: { functionname: 'searchPlace', arguments: [search] },
 
-        success: function (obj, textstatus) {
-            if (!('error' in obj)) {
-                locations = obj.result;
+            success: function (obj, textstatus) {
+                if (!('error' in obj)) {
+                    locations = obj.result;
+                }
+                else {
+                    console.log(obj.error);
+                }
             }
-            else {
-                console.log(obj.error);
-            }
-        }
-    }).done(function (data) {
-        var locations = data;
-    })
-        .fail(function (xhr, status, errorThrown) {
-            alert("Sorry, there was a problem!"); //annoying but useful
-            console.log("Error: " + errorThrown);
-            console.log("Status: " + status);
-            console.dir(xhr);
-        });
-    document.getElementById("search-loading-container").style.display = "none";
-    addSearchPlacesToList(locations);
+        }).done(function (data) {
+            var locations = data;
+        })
+            .fail(function (xhr, status, errorThrown) {
+                alert("Sorry, there was a problem!"); //annoying but useful
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+                console.dir(xhr);
+            });
+        document.getElementById("search-loading-container").style.display = "none";
+        addSearchPlacesToList(locations);
     }
 }
 
@@ -615,27 +615,27 @@ function addSearchPlacesToList(locations) {
     if (locations[0] == "Query Failed") {
         document.getElementById("searchResponseContainer").textContent = "There are no corresponding markers with a similar name. Try again.";
         document.getElementById("search-loading-container").style.display = "none";
-    } 
+    }
     else {
         document.getElementById("search-loading-container").style.display = "none";
         searchPlaces = [];
-        for(let i = 0; i<locations.length; i++){
+        for (let i = 0; i < locations.length; i++) {
             var place_name = locations[i].PlaceName;
             SetDelayedFunction(function () {
                 document.getElementById("searchResponseContainer").innerHTML = "";
             });
             searchPlaces.push(locations[i]);
-        }  
+        }
         updateSearchPlacesList();
         ShowSearchContent();
         document.getElementById("searchPlaces").scrollTop = document.getElementById("searchPlaces").scrollHeight;
     }
 }
 
-function updateSearchPlacesList(){
+function updateSearchPlacesList() {
     const search_places_list = document.getElementById('searchPlacesList');
 
-    for(let i = 0; i < searchPlaces.length; i++){
+    for (let i = 0; i < searchPlaces.length; i++) {
 
         var placeName = searchPlaces[i].PlaceName
         var list_item = document.createElement('li');
@@ -668,13 +668,13 @@ function updateSearchPlacesList(){
         list_item.appendChild(place_container);
 
         select_button.addEventListener('click', () => {
-          SearchPlaceSelect(searchPlaces[i].latitude, searchPlaces[i].longitude);
-        });        
+            SearchPlaceSelect(searchPlaces[i].latitude, searchPlaces[i].longitude);
+        });
         search_places_list.appendChild(list_item);
     };
 }
 
-function SearchPlaceSelect(latitude, longitude){
+function SearchPlaceSelect(latitude, longitude) {
     map.panTo({ lat: parseFloat(latitude), lng: parseFloat(longitude) });
     map.setZoom(12);
 }
@@ -881,10 +881,10 @@ function ShowRouteContent() {
     document.getElementById("route_tag_label").style.display = "block";
 }
 
-function ShowSearchContent(){
+function ShowSearchContent() {
     document.getElementById("searchPlaces").style.display = "none";
 }
-function HideSearchContent(){
+function HideSearchContent() {
     document.getElementById("searchPlaces").style.display = "block";
 }
 document.addEventListener('DOMContentLoaded', function () {
@@ -892,10 +892,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('BrowseRoutesButton').addEventListener('click', searchRoutes);
 
     async function searchRoutes() {
-        const searchCriteria = document.getElementById('searchbar').value.trim();
+        var searchCriteria = document.getElementById('searchbar').value.trim();
         if (!searchCriteria) {
             //alert('Please enter some search criteria to find routes (in search bar).');
-            searchCriteria = "*"; // search all routes if no criteria entered
+            searchCriteria = "%"; // search all routes if no criteria entered
         }
 
         try {
