@@ -35,15 +35,123 @@
     ?>
 
 
+    <style>
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 350px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+        }
+    </style>
+
 
 </head>
 
 <body>
+
+    <div id="popup" class="popup" style="display: none;">
+        <h2>Add Review</h2>
+        <form>
+            <!--div for rating (stars) selector-->
+            <div id="rating-outer">
+                <div id="rating">
+                    <div id="stars">
+                    </div>
+                </div>
+                <p id="rating-number">2.5</p>
+            </div>
+
+            <textarea rows="10" cols="50" placeholder="Write your review here" id="ReviewDesc"></textarea>
+            <button type="button" onclick="add_review()">Submit</button>
+            <button type="button" onclick="closePopup()">Cancel</button>
+        </form>
+        <div id="hidden" style="display: none;"></div>
+    </div>
+
+    <script>
+        ratingSelectorEnabled = false;
+        const starBox = document.querySelector("#rating");
+        const starRating = document.querySelector("#stars");
+        const ratingNumber = document.querySelector("#rating-number")
+        starBox.addEventListener("mousedown", handleEventListener);
+
+        function handleEventListener() {
+            // makes stars respond to mousemovements (changing the user's rating)
+            if (!ratingSelectorEnabled) {
+                starBox.addEventListener("mousemove", updateStars);
+                ratingSelectorEnabled = true;
+            } else {
+                starBox.removeEventListener("mousemove", updateStars);
+                ratingSelectorEnabled = false;
+            }
+        }
+
+        function updateStars() {
+            // make stars yellow to match mouse position
+            const containerWidth = starBox.clientWidth;
+            const relativeX = event.offsetX;
+            var proportion = Math.round((relativeX / containerWidth) * 50) / 50 // round to nearest .1 (out of 5)
+            starRating.style.width = `${proportion * 100}%`;
+            var rating = Math.round(proportion * 50) / 10 // needed to stop floating point weirdness (keep as 1dp)
+            ratingNumber.innerHTML = rating;
+            //console.log(`${rating} rating`);
+        }
+
+        function openPopup(PlaceID) {
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("hidden").innerHTML = PlaceID;
+
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+        async function add_review() {
+            var reviewRating = Number(ratingNumber.innerHTML);
+            var reviewPlaceID = document.getElementById("hidden").innerHTML;
+            var reviewDesc = document.getElementById("ReviewDesc").value;
+            console.log('here');
+            await jQuery.ajax({
+                    type: "POST",
+                    url: 'getPlaces.php',
+                    dataType: 'json',
+                    data: {
+                        functionname: 'submitReview',
+                        arguments: [reviewDesc, reviewPlaceID, reviewRating]
+                    },
+
+                    success: function(obj, textstatus) {
+                        console.log(obj.error);
+                        if (!('error' in obj)) {
+                            location = obj.result;
+                        } else {
+                            console.log(obj.error);
+                        }
+                    }
+                }).done(function(data) {
+                    var location = data;
+                })
+                .fail(function(xhr, status, errorThrown) {
+                    //alert("Sorry, there was a problem!"); //annoying but useful
+                    console.log("Error: " + errorThrown);
+                    console.log("Status: " + status);
+                    console.dir(xhr);
+                });
+        }
+    </script>
+    </div>
+
     <div id="map" class="map-container">
     </div>
 
-    <div class="logo-container" id="icon">
-        <img src="images/icon.svg" alt="icon">
+    <div class="logo-container" id="icon" title="front page" onclick="window.location.href='../front-page/front_page.html'">
+        <img src="../ui-assets/icon.svg" alt="icon">
     </div>
 
     <div class="transparent-container" id="transparent_container">
@@ -190,6 +298,24 @@
 
             <div class="input-box" id="browse_routes_input_box">
                 <h2>Browse Routes</h2>
+                <div id="routeSearchResults"></div>
+            </div>
+
+            <div class="input-box" id="place_info_view_box">
+                <h2 id="place_title">
+                    <!-- to be filled by js -->
+                </h2>
+                <p id="place_description_reviews">temp
+                    <!-- to be filled by js -->
+                </p>
+                <button id="add_review_btn" onclick="openPopup()">Add a Review for this place<!-- on click move to a review adding page SAMAR --></button>
+                <h2 id="reviews_for_place_title">Reviews</h2>
+                <hr>
+                <div id="reviews_for_place">
+                    <!-- to be filled by js -->
+                </div>
+
+
             </div>
 
 

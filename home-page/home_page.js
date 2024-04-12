@@ -136,13 +136,15 @@ function SubmitPlace() {
     xhr.send("place_name=" + PLACE_NAME + "&location=" + LOCATION + "&place_description=" + PLACE_DESCRIPTION + "&place_tag=" + PLACE_TAG + "&logged_user_id=" + logged_in_user_id);
 }
 //this function calls php code to return all place data from the database - more can be added as needed
-async function getPlaceData() {
+async function getPlaceData(placeIDs = null) {
+    // if no placeIDs are passed in, get all places (placeID array used when loading routes)
+
     var placeData;
     await jQuery.ajax({
         type: "POST",
         url: 'getPlaces.php',
         dataType: 'json',
-        data: { functionname: 'getPlaces' },
+        data: { functionname: 'getPlaces', arguments: placeIDs },
 
         success: function (obj, textstatus) {
             if (!('error' in obj)) {
@@ -163,46 +165,67 @@ async function getPlaceData() {
         });
 
     return await placeData;
+}
 
+async function getReviewData(ID) {
+    var reviewData;
+    await jQuery.ajax({
+        type: "POST",
+        url: 'getPlaces.php',
+        dataType: 'json',
+        data: { functionname: 'getReviews', arguments: [ID] },
 
+        success: function (obj, textstatus) {
+            if (!('error' in obj)) {
+                reviewData = obj.result;
+            }
+            else {
+                console.log(obj.error);
+            }
+        }
+    }).done(function (data) {
+        var reviewData = data;
+    })
+        .fail(function (xhr, status, errorThrown) {
+            alert("Sorry, there was a problem!"); //annoying but useful
+            console.log("Error: " + errorThrown);
+            console.log("Status: " + status);
+            console.dir(xhr);
+        });
 
-
-
+    return await reviewData;
 }
 //We only want one map, so declare it here
 var map;
 var markers;
 //Initialises Google Maps API. Async keyword means it runs without freezing the entire program
-async function initMap(first_init = true) {
+async function initMap(first_init = true, placeIDs = null) {
+    //if placeIDs is null, get all places
+    var placeData = await getPlaceData(placeIDs);
+    const firstPlace = placeData[0];
+    const firstPlaceCoords = { lat: parseFloat(firstPlace.latitude), lng: parseFloat(firstPlace.longitude) };
 
-
-    //call getPlaceData function
-    var placeData = await getPlaceData();
-
-    //console.log(placeData);
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
         "marker",
     );
 
-
     //Only want to initialise the map when the page is opened for the first time
     if (first_init) {
         map = new Map(document.getElementById('map'), {
-            center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
-            zoom: 10,
+            center: firstPlaceCoords, // center map on co-ordinates of first place
+            zoom: 8,
             draggableCursor: 'auto',
             draggingCursor: 'move',
             mapTypeControl: false,
             mapId: 'DEMO_MAP_ID',
         });
     }
-
     //define an infowindow so all markers can have one on click
     /*const infoWindow = new google.maps.InfoWindow({
         content: "",
         disableAutoPan: true,
-      });*/
+    });*/
 
     //define markers based on placeData array, add a listener to all of them
     markers = placeData.map((element, i) => { //go through every element of placedata, make a marker with attached infowindow out of it
@@ -219,16 +242,16 @@ async function initMap(first_init = true) {
             //document.getElementById('browse_place_name').value = element.PlaceName; //this lines can be included when the pages exist
             //document.getElementById('browse_place_description').value = element.PlaceDesc; //this lines can be included when the pages exist
             //document.getElementById('browse_location').value = element.latitude + ', ' + element.longitude; //this lines can be included when the pages exist
-            
+
             //unselect all other selected markers
             markers.forEach(otherMarker => {
-            if (otherMarker.content.classList.contains("highlight") && otherMarker != marker) {
-                toggleHighlight(otherMarker, null);
-            }
+                if (otherMarker.content.classList.contains("highlight") && otherMarker != marker) {
+                    toggleHighlight(otherMarker, null);
+                }
             });
 
             toggleHighlight(marker, element);
-
+            PlaceInfoShow(element);
 
             //if the add routes window is showing, do something.
 
@@ -354,7 +377,6 @@ function buildContent(element) {
         <p>${element.PlaceDesc}</p>
         </div>
     </div>
-    
     `;
     return content;
 }
@@ -452,12 +474,89 @@ function BrowseRoutesClicked() {
         button.classList.remove("expand-and-contract");
     }, 500);
 }
+
+async function PlaceInfoShow(place) {
+    console.log("Function called successfully")
+    var add_routes = document.getElementById("add_route_input_box");
+    var add_place = document.getElementById("add_marker_input_box");
+    if (add_routes.style.display == "none" && add_place.style.display == "none") {
+        console.log("if statement reached")
+        HideAllInputDivs();
+        console.log(place);
+        var reviews = await getReviewData(place.PlaceID);
+
+
+        console.log(reviews)
+        var header = document.getElementById("place_title");
+        var description = document.getElementById("place_description_reviews");
+        var review_div = document.getElementById("reviews_for_place");
+        var button = document.getElementById("add_review_btn");
+        button.setAttribute("onclick", `openPopup(${place.PlaceID})`);
+        header.innerHTML = place.PlaceName;
+        description.innerHTML = place.PlaceDesc;
+        var reviews_html = '';
+        if (reviews != "Query Failed") {
+            for (i = 0; i < reviews.length; i++) {
+                console.log("creating reviews")
+
+                reviews_html += `
+                <h3>${reviews[i].Username}</h3>
+                <p>${ratingToStars(reviews[i].Rating)}</p>
+                <p>${reviews[i].ReviewDesc}</p>
+                <div class="stars-outer" style="display: inline-block;
+                                                position: relative;
+                                                font-family: FontAwesome;">
+                    <div class="stars-inner" style = ""></div>
+                </div>
+                <hr>
+                `;
+            };
+        }
+        else {
+            reviews_html = "<p>No reviews yet</p>"
+        }
+        review_div.innerHTML = reviews_html;
+        var div = document.getElementById("place_info_view_box");
+        div.style.display = "block";
+        div.classList.add("slide-in");
+    }
+}
+
+function ratingToStars(rating) {
+    originalRating = rating;
+    rating = Math.round(rating * 2) / 2 // round to nearest 0.5
+    fullStars = Math.floor(rating);
+    halfStars = rating % 1 != 0;
+    emptyStars = Math.floor(5 - rating)
+    fullStar = '<i class="fa-solid fa-star" style="color: gold"></i>';
+    halfStar = '<i class="fa-solid fa-star-half-stroke" style="color: gold"></i>';
+    emptyStar = '<i class="fa-regular fa-star" style="color: gold"></i>'
+    return `${fullStar.repeat(fullStars) + halfStar.repeat(halfStars) + emptyStar.repeat(emptyStars) + " " + originalRating}`;
+}
+
+function smoothRatingToStars(rating) {
+    // not yet working - implement smoother star rating visual in reviews bar
+    fullStar = '<i class="fa-solid fa-star" style="color: gold"></i>';
+    emptyStar = '<i class="fa-regular fa-star"></i>';
+    divs = `<div class="stars-outer" style="display: inline-block;
+                                            position: relative;
+                                            font-family: FontAwesome;"
+                <div class="stars-inner"></div>
+            </div>`;
+
+}
+
 function HideAllInputDivs() {
     //needs to be updated to hide all the other divs that are to be created
     document.getElementById("add_marker_input_box").style.display = "none";
     document.getElementById("add_route_input_box").style.display = "none";
     document.getElementById("browse_routes_input_box").style.display = "none";
     document.getElementById("browse_markers_input_box").style.display = "none";
+    document.getElementById("place_info_view_box").style.display = "none";
+}
+
+function buildReviewContent(review) {
+
 }
 
 async function submit_search_place() { //searches database for the place - we do a lil fuzzy search??? also maybe move map centre to the marker you find.
@@ -794,4 +893,76 @@ function ShowSearchContent(){
 }
 function HideSearchContent(){
     document.getElementById("searchPlaces").style.display = "block";
+}
+document.addEventListener('DOMContentLoaded', function () {
+    // Attach event listener to the search button
+    document.getElementById('BrowseRoutesButton').addEventListener('click', searchRoutes);
+
+    async function searchRoutes() {
+        const searchCriteria = document.getElementById('searchbar').value.trim();
+        if (!searchCriteria) {
+            alert('Please enter some search criteria to find routes (in search bar).');
+            return;
+        }
+
+        try {
+            const response = await fetch('getRoute.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `searchCriteria=${encodeURIComponent(searchCriteria)}`
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok.');
+            
+            const routes = await response.json();
+            displayRoutes(routes);
+        } catch (error) {
+            console.error('Search failed:', error);
+            document.getElementById('routeSearchResults').innerHTML = 'Failed to load routes.';
+        }
+    }
+
+    function displayRoutes(routes) {
+        // show the routes in the search results container
+
+        const resultsContainer = document.getElementById('routeSearchResults');
+        resultsContainer.innerHTML = ''; // Clear previous results
+
+        if (routes.length === 0) {
+            resultsContainer.innerHTML = '<p>No routes found. Try another search.</p>';
+            return;
+        }
+
+        // reset map button (to return to map with all markers)
+        const resetMap = document.createElement('div');
+        resetMap.innerHTML = `<button style="" onclick="initMap(true)">Reset Map</button>
+        <hr style="margin-top:5%; margin-bottom:20% border: 3px solid">`;
+        resultsContainer.appendChild(resetMap);
+
+        // add entry in sidebar for each route
+        routes.forEach(route => {
+            const routeElement = document.createElement('div');
+            routeElement.innerHTML = `
+            <p>Route ID: ${route.RouteID}</p>
+            <h5 style="border:solid; border-width: 1px; padding: 2%">${route.RouteDesc}</h5>
+            <button onclick="showRoute(${route.RouteID})">See route</button>
+        `;
+            resultsContainer.appendChild(routeElement);
+        });
+
+    }
+
+});
+
+async function showRoute(routeID) {
+    // get points in route and display them on the map
+    const response = await fetch('get_place_in_route.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `routeID=${routeID}`
+    });
+    const placeIDs = await response.json();
+
+    initMap(true, placeIDs); // reinitialise the map but with only the places in the route
+
 }

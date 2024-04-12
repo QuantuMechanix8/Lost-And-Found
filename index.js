@@ -1,5 +1,5 @@
 function redirect() {
-  window.location.href = './home-page/home_page.php';
+  window.location.href = './front-page/front_page.html';
 }
 
 /*
