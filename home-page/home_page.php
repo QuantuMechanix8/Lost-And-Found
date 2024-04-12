@@ -143,6 +143,7 @@
                     console.log("Status: " + status);
                     console.dir(xhr);
                     closePopup();
+                    location.reload();
                 });
         }
     </script>
