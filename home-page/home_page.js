@@ -136,13 +136,15 @@ function SubmitPlace() {
     xhr.send("place_name=" + PLACE_NAME + "&location=" + LOCATION + "&place_description=" + PLACE_DESCRIPTION + "&place_tag=" + PLACE_TAG + "&logged_user_id=" + logged_in_user_id);
 }
 //this function calls php code to return all place data from the database - more can be added as needed
-async function getPlaceData() {
+async function getPlaceData(placeIDs = null) {
+    // if no placeIDs are passed in, get all places (placeID array used when loading routes)
+
     var placeData;
     await jQuery.ajax({
         type: "POST",
         url: 'getPlaces.php',
         dataType: 'json',
-        data: { functionname: 'getPlaces' },
+        data: { functionname: 'getPlaces', arguments: placeIDs },
 
         success: function (obj, textstatus) {
             if (!('error' in obj)) {
@@ -163,11 +165,6 @@ async function getPlaceData() {
         });
 
     return await placeData;
-
-
-
-
-
 }
 
 async function getReviewData(ID) {
@@ -202,36 +199,33 @@ async function getReviewData(ID) {
 var map;
 var markers;
 //Initialises Google Maps API. Async keyword means it runs without freezing the entire program
-async function initMap(first_init = true) {
+async function initMap(first_init = true, placeIDs = null) {
+    //if placeIDs is null, get all places
+    var placeData = await getPlaceData(placeIDs);
+    const firstPlace = placeData[0];
+    const firstPlaceCoords = { lat: parseFloat(firstPlace.latitude), lng: parseFloat(firstPlace.longitude) };
 
-
-    //call getPlaceData function
-    var placeData = await getPlaceData();
-
-    //console.log(placeData);
     const { Map, InfoWindow } = await google.maps.importLibrary("maps");
     const { AdvancedMarkerElement, PinElement } = await google.maps.importLibrary(
         "marker",
     );
 
-
     //Only want to initialise the map when the page is opened for the first time
     if (first_init) {
         map = new Map(document.getElementById('map'), {
-            center: { lat: 53.45621235073006, lng: -2.2282816409214923 },
-            zoom: 10,
+            center: firstPlaceCoords, // center map on co-ordinates of first place
+            zoom: 8,
             draggableCursor: 'auto',
             draggingCursor: 'move',
             mapTypeControl: false,
             mapId: 'DEMO_MAP_ID',
         });
     }
-
     //define an infowindow so all markers can have one on click
     /*const infoWindow = new google.maps.InfoWindow({
         content: "",
         disableAutoPan: true,
-      });*/
+    });*/
 
     //define markers based on placeData array, add a listener to all of them
     markers = placeData.map((element, i) => { //go through every element of placedata, make a marker with attached infowindow out of it
@@ -817,24 +811,24 @@ function ShowRouteContent() {
 
 document.addEventListener('DOMContentLoaded', function () {
     // Attach event listener to the search button
-    document.getElementById('searchRoutesButton').addEventListener('click', searchRoutes);
+    document.getElementById('BrowseRoutesButton').addEventListener('click', searchRoutes);
 
     async function searchRoutes() {
-        const searchCriteria = document.getElementById('routeSearchInput').value.trim();
+        const searchCriteria = document.getElementById('searchbar').value.trim();
         if (!searchCriteria) {
-            alert('Please enter some search criteria.');
+            alert('Please enter some search criteria to find routes (in search bar).');
             return;
         }
 
         try {
-            const response = await fetch('getRoutes.php', {
+            const response = await fetch('getRoute.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: `searchCriteria=${encodeURIComponent(searchCriteria)}`
             });
 
             if (!response.ok) throw new Error('Network response was not ok.');
-
+            
             const routes = await response.json();
             displayRoutes(routes);
         } catch (error) {
@@ -844,6 +838,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function displayRoutes(routes) {
+        // show the routes in the search results container
+
         const resultsContainer = document.getElementById('routeSearchResults');
         resultsContainer.innerHTML = ''; // Clear previous results
 
@@ -852,14 +848,36 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
+        // reset map button (to return to map with all markers)
+        const resetMap = document.createElement('div');
+        resetMap.innerHTML = `<button style="" onclick="initMap(true)">Reset Map</button>
+        <hr style="margin-top:5%; margin-bottom:20% border: 3px solid">`;
+        resultsContainer.appendChild(resetMap);
+
+        // add entry in sidebar for each route
         routes.forEach(route => {
             const routeElement = document.createElement('div');
             routeElement.innerHTML = `
-            <h4>${route.route_description}</h4>
-            <p>Route ID: ${route.route_id}</p>
-            <!-- Add more route details as needed -->
+            <p>Route ID: ${route.RouteID}</p>
+            <h5 style="border:solid; border-width: 1px; padding: 2%">${route.RouteDesc}</h5>
+            <button onclick="showRoute(${route.RouteID})">See route</button>
         `;
             resultsContainer.appendChild(routeElement);
         });
+
     }
+
 });
+
+async function showRoute(routeID) {
+    // get points in route and display them on the map
+    const response = await fetch('get_place_in_route.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `routeID=${routeID}`
+    });
+    const placeIDs = await response.json();
+
+    initMap(true, placeIDs); // reinitialise the map but with only the places in the route
+
+}

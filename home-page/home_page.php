@@ -291,6 +291,7 @@
 
             <div class="input-box" id="browse_routes_input_box">
                 <h2>Browse Routes</h2>
+                <div id="routeSearchResults"></div>
             </div>
 
             <div class="input-box" id="place_info_view_box">

@@ -1,8 +1,8 @@
 <?php
 
 $database_host = "dbhost.cs.man.ac.uk";
-$database_user = "x24185cl"; 
-$database_pass = "dD1!dD1!"; 
+$database_user = "n23551sf";
+$database_pass = "gEKn4ane6N62wovo";
 $database_name = "2023_comp10120_cm7";
 
 $conn = new mysqli($database_host, $database_user, $database_pass, $database_name);
@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$searchCriteria = $_POST['searchCriteria']; 
+$searchCriteria = $_POST['searchCriteria'];
 $sql = "SELECT * FROM Route WHERE RouteDesc LIKE ? OR UserID = ? OR TagID = ?";
 
 $stmt = $conn->prepare($sql);
@@ -31,4 +31,3 @@ if ($stmt->execute()) {
 }
 
 $conn->close();
-?>

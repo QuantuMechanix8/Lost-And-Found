@@ -52,6 +52,8 @@ echo json_encode($aResult);
 
 function getPlaces()
 {
+    $placeIDS = $_POST['arguments'];
+
     $database_host = "dbhost.cs.man.ac.uk";
     $database_user = "j22352sa";
     $database_pass = "cooldatabasepassword";
@@ -60,8 +62,13 @@ function getPlaces()
     if ($conn->connect_error) {
         echo 'Connection to Database Error';
     }
-
-    $sqlGetPlaces = "SELECT PlaceName, ST_X(Location) as longitude, ST_Y(Location) as latitude, PlaceDesc, TagID, PlaceID FROM Place"; //best not to change this too much - especially any column aliases
+    // if not placeIDs array, then get all places
+    if ($placeIDS) {
+        $sqlGetPlaces = "SELECT PlaceName, ST_X(Location) as longitude, ST_Y(Location) as latitude, PlaceDesc, TagID, PlaceID FROM Place WHERE PlaceID IN (" . implode(',', $placeIDS) . ")";
+        error_log(print_r($sqlGetPlaces, TRUE));
+    } else {
+        $sqlGetPlaces = "SELECT PlaceName, ST_X(Location) as longitude, ST_Y(Location) as latitude, PlaceDesc, TagID, PlaceID FROM Place"; //best not to change this too much - especially any column aliases
+    }
 
     $result = mysqli_query($conn, $sqlGetPlaces); //returns mysqli_result object not array ! (im a fool)
     $return = array();
@@ -73,6 +80,8 @@ function getPlaces()
     } else {
         $return = 'Query Failed'; //this is not a good error message but
     }
+
+    error_log(print_r($return, TRUE));
     $conn->close();
     return $return;
 }
