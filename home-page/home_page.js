@@ -261,15 +261,10 @@ async function initMap(first_init = true, placeIDs = null) {
         });
 
         return marker;
-
-
-
-
     });
 
-    const clusterer = new markerClusterer.MarkerClusterer({ map, markers });
-
-
+    const algorithm = new markerClusterer.SuperClusterAlgorithm({ radius: 20 }); // smaller radius reduces clustering (markers need to be closer to cluster)
+    const clusterer = new markerClusterer.MarkerClusterer({ map, markers, algorithm });
 
     var clickMarker = new google.maps.Marker; //maybe advancedMarkerElement?
 
@@ -901,8 +896,8 @@ document.addEventListener('DOMContentLoaded', function () {
     async function searchRoutes() {
         const searchCriteria = document.getElementById('searchbar').value.trim();
         if (!searchCriteria) {
-            alert('Please enter some search criteria to find routes (in search bar).');
-            return;
+            //alert('Please enter some search criteria to find routes (in search bar).');
+            searchCriteria = "*"; // search all routes if no criteria entered
         }
 
         try {
@@ -913,7 +908,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (!response.ok) throw new Error('Network response was not ok.');
-            
+
             const routes = await response.json();
             displayRoutes(routes);
         } catch (error) {

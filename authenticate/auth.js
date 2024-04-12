@@ -35,7 +35,7 @@ async function login() {
 
     // If the login is valid, redirect to the home page
     if (validLogin) {
-        alert("Login successful");
+        alert(`Login successful\n${username}, welcome to lost & found!`);
         window.location.href = "../home-page/home_page.php"; // redirect to front page until main page is merged to same branch
         console.log("updated");
     } else {
