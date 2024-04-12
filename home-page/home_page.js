@@ -284,7 +284,8 @@ async function initMap(first_init = true) {
                     document.getElementById('place_name').value = placeName;
                     document.getElementById('place_description').value = formattedAddress;
                 }
-            } else {
+            } 
+            else {
                 console.error('Geocoder failed due to: ' + status);
             }
         });
