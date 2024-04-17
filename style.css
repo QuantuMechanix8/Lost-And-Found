@@ -1,0 +1,46 @@
+
+body {
+    background: black;
+    color:white;
+}
+
+.header {
+    font-size: 64px;
+    font-weight: bold;
+    padding: 30px;
+}
+
+.menu-button {
+    position: fixed;
+    top: 45px;
+    right: 45px;
+    z-index: 999;
+    font-size: 32px;
+}
+
+.tagline {
+
+    position:fixed;
+
+    top: 500px;
+    right:45px;
+}
+
+.menu {
+    display: none;
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    background: black;
+    padding: 10px;
+    z-index: 999;
+}
+
+.menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+

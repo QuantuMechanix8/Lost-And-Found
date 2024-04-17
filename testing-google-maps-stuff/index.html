@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Testing Google Maps API</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <link rel="stylesheet" type="text/css" href="./teststyle.css" />
+    <script type="module" src="./index.js"></script>
+  </head>
+  <body>
+    <div id="text">
+        <h1>Test of clicking to get lat and long.</h1>
+    </div>
+    <div id="latLng">
+      None Selected
+    </div>
+    <div id="map"></div>
+
+    <!-- prettier-ignore --> <!--think this just makes it look a little nicer? not 100% on this tho-->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2_dcq95UjPRjKfL-c86Icd53_IilFw5c&callback=initMap&v=weekly"
+    defer
+  ></script>
+
+
+  </body>
+</html>

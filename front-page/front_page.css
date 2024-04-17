@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css?family=BioRhyme");
+/* */
+
+#earth {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Set the position to the top left corner */
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+/* Add styles for the header, logo, icon, and menu button */
+.header {
+  position: relative;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  /*padding: 2px;*/
+  background-color: transparent;
+  /* Set the background color of the header */
+  /*box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);*/
+  /* Add a whitish shadow line */
+  height: 10vh;
+  /* Set the height of the header */
+}
+
+.logo {
+  /* make the logo fill */
+  filter: drop-shadow(0 0 10rem #ffffff);
+  object-fit: contain;
+  height: 100%;
+  width: fit-content;
+  opacity: 0.8;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+.logo:hover {
+  opacity: 1;
+}
+
+
+.icon {
+  /* make the icon fill */
+  object-fit: contain;
+  height: 100%;
+  width: fit-content;
+  opacity: 0.5;
+  margin: 0;
+  padding: 0;
+}
+
+.icon:hover {
+  opacity: 1;
+}
+
+#container {
+  position: relative;
+  mix-blend-mode: exclusion;
+}
+
+#description {
+  display: flex;
+  position: absolute;
+  top: 21vh;
+  /* center the description text (ensures text is readable as sun shines between text lines)*/
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 0.5%;
+  /*match menu icon width (header height)*/
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: #c4c4ff;
+}
+
+#description>* {
+  font-family: "BioRhyme", serif;
+  font-size: 1.6vh;
+  /* text fits within earth */
+  text-align: center;
+  line-height: 4vh;
+  user-select: none;
+}
+
+
+#menu-button {
+  height: 80%;
+  padding-right: 1%;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #535353;
+}
+
+#menu-button:hover {
+  opacity: 1;
+}
+
+#menu {
+  display: none;
+  /* Hide the menu by default */
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10vh;
+  padding-right: 0.5%;
+  /*match menu icon width (header height)*/
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#menu a {
+  display: block;
+  text-decoration: none;
+  border-radius: 10%;
+  height: 8vh;
+  line-height: 4vh;
+  /* centres text since its two lines*/
+  width: 100%;
+  text-align: center;
+  font-size: 200%;
+
+  color: #ffffff;
+  background-color: #272727;
+  opacity: 0.6;
+  margin-bottom: 0.8vh;
+}
+
+#image-credits {
+  position: absolute;
+  font-family: "Anta", sans-serif;
+  font-size: 1.5vh;
+  color: rgb(255, 255, 255);
+  left: 0;
+  bottom: 0;
+  opacity: 0.2;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+.content {
+  position: relative;
+  /* Ensure relative positioning for absolute elements inside */
+}
+
+/* About me section styles */
+.about-section {
+  padding: 20px;
+  margin-top: 20px;
+  /* Add some margin after the quote */
+  background-color: #f5f5f5;
+  /* Light gray background */
+  border-radius: 8px;
+}
+
+.about-section h2 {
+  color: #333;
+}

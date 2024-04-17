@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" type="text/css" href="auth.css">
+    <link rel="icon" href="../ui-assets/favicon-96x96.png" type="image/x-icon">
+    <script src="auth.js"></script>
+</head>
+
+<body>
+    <div id="logo-background">
+        <img src="../ui-assets/logo_light.svg" title="Access Map" alt="Logo" id="logo" onclick="returnToFrontPage()">
+    </div>
+
+    <div class="container">
+        <div class="login-box">
+            <h2 id="login-title">Login:</h2>
+            <form method="POST">
+                <input type="text" placeholder="Username" id="username" onkeyup="enterKey(event)">
+                <input type="password" placeholder="Password" id="password" onkeyup="enterKey(event)">
+                <button type="button" autofocus="autofocus" onclick="login()">Confirm</button>
+            </form>
+            Dont have an account? <a href="./../signup/signup.html">Sign up Here</a>.
+        </div>
+    </div>
+</body>
+
+</html>
